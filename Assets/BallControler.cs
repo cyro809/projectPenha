@@ -6,10 +6,12 @@ public class BallControler : MonoBehaviour {
 	public float maxSpeed = 5f;
 	public float dashSpeed = 300f;
 	Rigidbody rB;
+	public GameObject head;
 
 	// Use this for initialization
 	void Start () {
 		rB = GetComponent<Rigidbody> ();
+		head = GameObject.Find ("Head");
 	}
 	
 	// Update is called once per frame
@@ -20,11 +22,11 @@ public class BallControler : MonoBehaviour {
 
 		rB.AddForce (movement * maxSpeed);
 
-
+		head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
 		if (Input.GetMouseButtonDown (0)) {
 			Vector3 sp = Camera.main.WorldToScreenPoint (transform.position);
 			Vector3 dir = (Input.mousePosition - sp).normalized;
-			dir.y = 0.0f;
+			//dir.y = 0.0f;
 			rB.AddForce (dir * dashSpeed);
 		}
 	}
