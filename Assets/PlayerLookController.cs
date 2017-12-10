@@ -26,7 +26,7 @@ public class PlayerLookController : MonoBehaviour {
 			transform.LookAt (pointToLook);
 		}
 
-		transform.rotation = Quaternion.Euler (0, transform.eulerAngles.y, transform.eulerAngles.z);
+		transform.rotation = Quaternion.Euler (0, transform.eulerAngles.y, 0);
 
 		if (Input.GetMouseButtonDown (0)) {
 			gun.isFiring = true;
