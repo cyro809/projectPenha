@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	public GameObject body;
+
 	void Start () {
 		body = GameObject.Find ("Body");
 	}

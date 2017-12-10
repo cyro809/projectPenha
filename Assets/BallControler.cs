@@ -23,11 +23,5 @@ public class BallControler : MonoBehaviour {
 		rB.AddForce (movement * maxSpeed);
 
 		head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
-		if (Input.GetMouseButtonDown (0)) {
-			Vector3 sp = Camera.main.WorldToScreenPoint (transform.position);
-			Vector3 dir = (Input.mousePosition - sp).normalized;
-			//dir.y = 0.0f;
-			rB.AddForce (dir * dashSpeed);
-		}
 	}
 }

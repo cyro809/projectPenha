@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerLookController : MonoBehaviour {
 
 	private Camera mainCamera;
+
+	public GunController gun;
+
 	// Use this for initialization
 	void Start () {
 		mainCamera = FindObjectOfType<Camera> ();
@@ -23,5 +26,14 @@ public class PlayerLookController : MonoBehaviour {
 			transform.LookAt (pointToLook);
 		}
 
+		transform.rotation = Quaternion.Euler (0, transform.eulerAngles.y, transform.eulerAngles.z);
+
+		if (Input.GetMouseButtonDown (0)) {
+			gun.isFiring = true;
+		}
+
+		if (Input.GetMouseButtonUp (0)) {
+			gun.isFiring = false;
+		}
 	}
 }
