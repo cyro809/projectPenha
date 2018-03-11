@@ -30,6 +30,8 @@ public class PlayerLookController : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown (0)) {
 			gun.isFiring = true;
+		} else {
+			gun.isFiring = false;
 		}
 
 		if (Input.GetMouseButtonUp (0)) {

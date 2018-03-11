@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
+	public Transform Player;
+	int MoveSpeed = 5;
 
 	Rigidbody rB;
 	// Use this for initialization
@@ -12,7 +14,8 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		transform.LookAt (Player);
+		rB.AddForce (transform.forward * MoveSpeed);
 	}
 
 	void OnCollisionEnter (Collision col) {
