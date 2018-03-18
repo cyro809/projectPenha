@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 	public Transform Player;
-	int MoveSpeed = 5;
+	int MoveSpeed = 7;
 
 	Rigidbody rB;
 	// Use this for initialization
@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.name == "Bullet" || col.gameObject.name == "Bullet(Clone)") {
-			float magnitude = 100;
+			float magnitude = 300;
 			Vector3 force = transform.position - col.transform.position;
 			force.Normalize ();
 			rB.AddForce (force * magnitude);

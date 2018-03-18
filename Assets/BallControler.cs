@@ -24,4 +24,13 @@ public class BallControler : MonoBehaviour {
 
 		head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
 	}
+
+	void OnCollisionEnter (Collision col) {
+		if (col.gameObject.name.StartsWith ("Enemy")) {
+			float magnitude = 400;
+			Vector3 force = transform.position - col.transform.position;
+			force.Normalize ();
+			rB.AddForce (force * magnitude);
+		}
+	}
 }
