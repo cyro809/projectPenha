@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallControler : MonoBehaviour {
+public class BallControler : MovingObject {
 	public float maxSpeed = 5f;
 	public float dashSpeed = 300f;
 	Rigidbody rB;
@@ -13,9 +13,9 @@ public class BallControler : MonoBehaviour {
 		rB = GetComponent<Rigidbody> ();
 		head = GameObject.Find ("Head");
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+
+	protected override void OnMove () {
 		float sideMove = Input.GetAxis ("AD-Horizontal");
 		float straightMove = Input.GetAxis ("WS-Vertical");
 		Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);

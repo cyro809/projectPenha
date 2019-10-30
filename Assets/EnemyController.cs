@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour {
 	public Transform Player;
 	int MoveSpeed = 7;
 	bool onGround;
+	protected float pushBackForce = 300;
 
 	Rigidbody rB;
 	// Use this for initialization
