@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour {
 	public Transform Player;
 	int MoveSpeed = 7;
 	bool onGround;
-	protected float pushBackForce = 300;
+	protected float pushBackForce = 400;
 
 	Rigidbody rB;
 	// Use this for initialization
@@ -24,6 +24,10 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter (Collision col) {
+		if (col.gameObject.name == "Body") {
+			BallControler hitPlayer = col.gameObject.GetComponent<BallControler>();
+			hitPlayer.getHit (pushBackForce, rB.transform.position);
+		}
 		if (col.gameObject.name == "Bullet" || col.gameObject.name == "Bullet(Clone)") {
 			float magnitude = 300;
 			Vector3 force = transform.position - col.transform.position;

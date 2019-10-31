@@ -26,11 +26,12 @@ public class BallControler : MovingObject {
 	}
 
 	void OnCollisionEnter (Collision col) {
-		if (col.gameObject.name.StartsWith ("Enemy")) {
-			float magnitude = 400;
-			Vector3 force = transform.position - col.transform.position;
-			force.Normalize ();
-			rB.AddForce (force * magnitude);
-		}
+		
+	}
+
+	public void getHit (float magnitude, Vector3 colliderPosition) {
+		Vector3 force = transform.position - colliderPosition;
+		force.Normalize ();
+		rB.AddForce (force * magnitude);
 	}
 }
