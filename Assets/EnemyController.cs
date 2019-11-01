@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour {
+public class EnemyController : MovingObject {
 	public Transform Player;
 	int MoveSpeed = 7;
 	bool onGround;
-	protected float pushBackForce = 400;
-
-	Rigidbody rB;
+	private float pushBackForce = 400;
 	// Use this for initialization
-	void Start () {
-		rB = GetComponent<Rigidbody> ();
+	public override void Start () {
 		onGround = false;
+		base.Start ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	protected override void OnMove() {
 		if (onGround) {
 			transform.LookAt (Player);
 			rB.AddForce (transform.forward * MoveSpeed);
@@ -27,12 +24,6 @@ public class EnemyController : MonoBehaviour {
 		if (col.gameObject.name == "Body") {
 			BallControler hitPlayer = col.gameObject.GetComponent<BallControler>();
 			hitPlayer.getHit (pushBackForce, rB.transform.position);
-		}
-		if (col.gameObject.name == "Bullet" || col.gameObject.name == "Bullet(Clone)") {
-			float magnitude = 300;
-			Vector3 force = transform.position - col.transform.position;
-			force.Normalize ();
-			rB.AddForce (force * magnitude);
 		}
 
 		if (col.gameObject.name == "Plane") {
