@@ -25,7 +25,7 @@ public class GunController : MonoBehaviour {
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
 				BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
-				newBullet.speed = bulletSpeed;
+				newBullet.beFired (bulletSpeed);
 			}
 		} else {
 			shotCounter = 0;

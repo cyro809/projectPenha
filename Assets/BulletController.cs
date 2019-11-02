@@ -7,19 +7,15 @@ public class BulletController : MonoBehaviour {
 	public float speed;
 	public GameObject enemy;
 	private float pushBackForce = 1000;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		transform.Translate (Vector3.forward * speed * Time.deltaTime);	
-	}
+	Rigidbody rb;
 
 	void OnBecameInvisible() {
 		Destroy (gameObject);
+	}
+
+	public void beFired(float speed) {
+		rb = GetComponent<Rigidbody> ();
+		rb.AddForce (transform.forward * speed);
 	}
 
 	void OnCollisionEnter (Collision col) {
