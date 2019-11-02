@@ -21,7 +21,7 @@ public class Enemy : MovingObject {
 	}
 
 	void OnCollisionEnter (Collision col) {
-		if (col.gameObject.name == "Body") {
+		if (col.gameObject.CompareTag("Player")) {
 			Body hitPlayer = col.gameObject.GetComponent<Body>();
 			hitPlayer.getHit (pushBackForce, rB.transform.position);
 		}
