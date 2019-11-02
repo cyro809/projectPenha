@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MovingObject {
+public class Enemy : MovingObject {
 	public Transform Player;
 	int MoveSpeed = 7;
 	bool onGround;
@@ -22,7 +22,7 @@ public class EnemyController : MovingObject {
 
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.name == "Body") {
-			BallControler hitPlayer = col.gameObject.GetComponent<BallControler>();
+			Body hitPlayer = col.gameObject.GetComponent<Body>();
 			hitPlayer.getHit (pushBackForce, rB.transform.position);
 		}
 

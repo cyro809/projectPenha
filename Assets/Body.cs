@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallControler : MovingObject {
+public class Body : MovingObject {
 	public float maxSpeed = 5f;
 	public float dashSpeed = 300f;
 	public GameObject head;

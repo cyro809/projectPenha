@@ -24,7 +24,7 @@ public class BulletController : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.name == "Enemy" || col.gameObject.name == "Enemy (1)") {
-			EnemyController hitEnemy = col.gameObject.GetComponent<EnemyController>();
+			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
 			hitEnemy.getHit (pushBackForce, transform.position);
 			Destroy (gameObject);
 		}

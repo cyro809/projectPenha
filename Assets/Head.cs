@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLookController : MonoBehaviour {
+public class Head : MonoBehaviour {
 
 	private Camera mainCamera;
 
