@@ -18,6 +18,7 @@ public class Enemy : MovingObject {
 			transform.LookAt (Player);
 			rB.AddForce (transform.forward * MoveSpeed);
 		}
+
 	}
 
 	void OnCollisionEnter (Collision col) {
@@ -26,10 +27,8 @@ public class Enemy : MovingObject {
 			hitPlayer.getHit (pushBackForce, rB.transform.position);
 		}
 
-		if (col.gameObject.name == "Plane") {
+		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
-		} else {
-			onGround = false;
 		}
 	}
 }
