@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MovingObject {
-	public Transform Player;
+	public GameObject Player;
 	int MoveSpeed = 7;
 	bool onGround;
 	private float pushBackForce = 400;
@@ -15,7 +15,7 @@ public class Enemy : MovingObject {
 
 	protected override void OnMove() {
 		if (onGround) {
-			transform.LookAt (Player);
+			transform.LookAt (Player.transform.position);
 			rB.AddForce (transform.forward * MoveSpeed);
 		}
 
@@ -30,5 +30,9 @@ public class Enemy : MovingObject {
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
 		}
+	}
+
+	public void ActivateMove() {
+		OnMove ();
 	}
 }
