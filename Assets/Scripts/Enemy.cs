@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy : MovingObject {
 	GameObject player;
 	GameObject plane;
+	GameObject scoreGameObject;
+	Score score;
 	int MoveSpeed = 7;
 	bool onGround;
 	private float pushBackForce = 400;
@@ -12,6 +14,8 @@ public class Enemy : MovingObject {
 	public override void Start () {
 		player = GameObject.FindWithTag ("Player");
 		plane = GameObject.FindWithTag ("Ground");
+		scoreGameObject = GameObject.FindWithTag ("Score");
+		score = scoreGameObject.GetComponent<Score> ();
 		onGround = false;
 		base.Start ();
 	}
@@ -26,8 +30,12 @@ public class Enemy : MovingObject {
 	}
 
 	void checkIfOutOfArena() {
-		if (transform.position.y < plane.transform.position.y - 5)
+		if (transform.position.y < plane.transform.position.y - 5) {
+			
+			score.addPoint ();
 			Destroy (gameObject);
+		}
+			
 	}
 
 	void OnCollisionEnter (Collision col) {
