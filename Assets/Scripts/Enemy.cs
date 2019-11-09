@@ -7,9 +7,9 @@ public class Enemy : MovingObject {
 	GameObject plane;
 	GameObject scoreGameObject;
 	Score score;
-	int MoveSpeed = 7;
+	int MoveSpeed = 10;
 	bool onGround;
-	private float pushBackForce = 400;
+	private float pushBackForce = 600;
 	// Use this for initialization
 	public override void Start () {
 		player = GameObject.FindWithTag ("Player");
