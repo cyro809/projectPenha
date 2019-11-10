@@ -8,10 +8,12 @@ public class Spawner : MonoBehaviour {
 	public float spawnTime = 6f;            // How long between each spawn.
 	private Vector3 spawnPosition;
 	public GameObject plane;
+	GameObject player;
 
 	// Use this for initialization
 	void Start () 
 	{
+		player = GameObject.FindWithTag ("Player");
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 		InvokeRepeating ("Spawn", spawnTime, spawnTime);
 
@@ -19,6 +21,9 @@ public class Spawner : MonoBehaviour {
 
 	void Spawn ()
 	{
+		if (player == null) {
+			CancelInvoke ();
+		}
 		float scale = 0.5f;
 		float moveAreaX = plane.GetComponent<Renderer>().bounds.size.x / 2;
 		float moveAreaZ = plane.GetComponent<Renderer>().bounds.size.z / 2;

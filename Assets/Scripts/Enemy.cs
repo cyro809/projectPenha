@@ -21,9 +21,11 @@ public class Enemy : MovingObject {
 	}
 
 	protected override void OnMove() {
-		if (onGround) {
+		if (onGround && player != null) {
 			transform.LookAt (player.transform.position);
 			rB.AddForce (transform.forward * MoveSpeed);
+		} else if (player == null) {
+			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 		checkIfOutOfArena ();
 

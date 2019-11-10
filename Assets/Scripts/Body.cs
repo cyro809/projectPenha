@@ -5,16 +5,21 @@ using UnityEngine;
 public class Body : MovingObject {
 	public float maxSpeed = 5f;
 	public float dashSpeed = 300f;
-	public GameObject head;
+	GameObject head;
+	GameObject plane;
+	GameObject gameOverText;
 
 	// Use this for initialization
 	public override void Start () {
 		head = GameObject.Find ("Head");
+		plane = GameObject.FindWithTag ("Ground");
+		gameOverText = GameObject.FindWithTag ("GameOverText"); 
 		base.Start ();
 	}
 
 
 	protected override void OnMove () {
+		checkIfOutOfArena ();
 		float sideMove = Input.GetAxis ("AD-Horizontal");
 		float straightMove = Input.GetAxis ("WS-Vertical");
 		Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
@@ -22,5 +27,16 @@ public class Body : MovingObject {
 		rB.AddForce (movement * maxSpeed);
 
 		head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
+	}
+
+	void checkIfOutOfArena() {
+		if (transform.position.y < plane.transform.position.y - 5) {
+			GameState gameState = gameOverText.GetComponent<GameState> ();
+			gameState.changeStateToGameOverState ();
+			Destroy (gameObject);
+			Destroy (head);
+
+		}
+
 	}
 }
