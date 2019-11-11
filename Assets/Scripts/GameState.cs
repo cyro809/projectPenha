@@ -21,6 +21,7 @@ public class GameState : MonoBehaviour {
 
 	public void changeStateToGameOverState() {
 		gameOver = true;
+
 		setGameOverText ();
 	}
 
@@ -30,6 +31,5 @@ public class GameState : MonoBehaviour {
 		}
 
 	}
-
 
 }

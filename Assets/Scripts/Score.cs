@@ -19,6 +19,10 @@ public class Score : MonoBehaviour {
 		
 	}
 
+	public void restartCounter() {
+		counter = 0;
+	}
+
 	public void addPoint() {
 		counter++;
 		SetCountText ();
