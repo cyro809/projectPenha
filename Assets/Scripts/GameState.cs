@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class GameState : MonoBehaviour {
 	bool gameOver;
 	GameObject gameOverText;
+	GameObject button;
 	Text text;
 	// Use this for initialization
 	void Start () {
 		gameOver = false;
 		gameOverText = GameObject.FindGameObjectWithTag ("GameOverText");
+		button = GameObject.FindGameObjectWithTag ("RestartButton");
+		button.SetActive (false);
 		text = gameOverText.GetComponent<Text> ();
 	}
 	
@@ -27,6 +30,7 @@ public class GameState : MonoBehaviour {
 
 	void setGameOverText() {
 		if (gameOver) {
+			button.SetActive (true);
 			text.text = "Game Over!";	
 		}
 
