@@ -16,11 +16,6 @@ public class GameState : MonoBehaviour {
 		button.SetActive (false);
 		text = gameOverText.GetComponent<Text> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	public void changeStateToGameOverState() {
 		gameOver = true;

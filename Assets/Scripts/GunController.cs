@@ -13,10 +13,6 @@ public class GunController : MonoBehaviour {
 	private float shotCounter;
 
 	public Transform firePoint;
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {

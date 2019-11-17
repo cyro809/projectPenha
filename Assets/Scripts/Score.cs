@@ -13,15 +13,6 @@ public class Score : MonoBehaviour {
 		countText = gameObject.GetComponent<Text> ();
 		SetCountText ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	public void restartCounter() {
-		counter = 0;
-	}
 
 	public void addPoint() {
 		counter++;

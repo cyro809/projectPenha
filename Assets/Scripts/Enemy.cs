@@ -7,9 +7,10 @@ public class Enemy : MovingObject {
 	GameObject plane;
 	GameObject scoreGameObject;
 	Score score;
-	int MoveSpeed = 10;
 	bool onGround;
-	private float pushBackForce = 600;
+	public int MoveSpeed;
+	public float pushBackForce;
+
 	// Use this for initialization
 	public override void Start () {
 		player = GameObject.FindWithTag ("Player");
@@ -28,16 +29,13 @@ public class Enemy : MovingObject {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 		checkIfOutOfArena ();
-
 	}
 
 	void checkIfOutOfArena() {
 		if (transform.position.y < plane.transform.position.y - 5) {
-			
 			score.addPoint ();
 			Destroy (gameObject);
 		}
-			
 	}
 
 	void OnCollisionEnter (Collision col) {
