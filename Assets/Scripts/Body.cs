@@ -8,6 +8,7 @@ public class Body : MovingObject {
 	GameObject head;
 	GameObject plane;
 	GameObject gameOverText;
+	SimpleTouchController joystick;
 
 	// Use this for initialization
 	public override void Start () {
@@ -15,13 +16,20 @@ public class Body : MovingObject {
 		plane = GameObject.FindWithTag ("Ground");
 		gameOverText = GameObject.FindWithTag ("GameOverText"); 
 		base.Start ();
+		joystick = FindObjectOfType<SimpleTouchController> ();
 	}
 
 
 	protected override void OnMove () {
 		checkIfOutOfArena ();
 		float sideMove = Input.GetAxis ("AD-Horizontal");
-		float straightMove = Input.GetAxis ("WS-Vertical");
+		float straightMove = Input.GetAxis ("WS-Vertical");	
+		if (SystemInfo.deviceType == DeviceType.Handheld) {
+			sideMove = joystick.GetTouchPosition.x;
+			straightMove = joystick.GetTouchPosition.y;
+		}
+
+
 		Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
 
 		rB.AddForce (movement * maxSpeed);

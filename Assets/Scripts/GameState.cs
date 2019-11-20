@@ -7,6 +7,7 @@ public class GameState : MonoBehaviour {
 	bool gameOver;
 	GameObject gameOverText;
 	GameObject button;
+	GameObject joystick;
 	Text text;
 	// Use this for initialization
 	void Start () {
@@ -15,6 +16,11 @@ public class GameState : MonoBehaviour {
 		button = GameObject.FindGameObjectWithTag ("RestartButton");
 		button.SetActive (false);
 		text = gameOverText.GetComponent<Text> ();
+		joystick = GameObject.FindGameObjectWithTag ("Joystick");
+
+		if (SystemInfo.deviceType != DeviceType.Handheld) {
+			joystick.SetActive (false);
+		}
 	}
 
 	public void changeStateToGameOverState() {
