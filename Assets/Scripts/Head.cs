@@ -20,7 +20,7 @@ public class Head : MonoBehaviour {
 	void FixedUpdate () {
 
 		if (SystemInfo.deviceType == DeviceType.Handheld) {
-			firePos = Input.GetTouch (1).position;
+			firePos = Input.GetTouch (TouchNumber()).position;
 		} else {
 			firePos = Input.mousePosition;
 		}
@@ -49,7 +49,7 @@ public class Head : MonoBehaviour {
 
 	bool DetectFireInput() {
 		if (SystemInfo.deviceType == DeviceType.Handheld) {
-			if (Input.GetTouch (1).phase == TouchPhase.Began) {
+			if (Input.GetTouch (TouchNumber()).phase == TouchPhase.Began) {
 				return true;
 			}
 			return false;
@@ -63,7 +63,7 @@ public class Head : MonoBehaviour {
 
 	bool DetectFireInputEnd() {
 		if (SystemInfo.deviceType == DeviceType.Handheld) {
-			if (Input.GetTouch (1).phase == TouchPhase.Ended) {
+			if (Input.GetTouch (TouchNumber()).phase == TouchPhase.Ended) {
 				return true;
 			}
 			return false;
@@ -73,5 +73,13 @@ public class Head : MonoBehaviour {
 			}
 			return false;
 		}
+	}
+
+	int TouchNumber() {
+		if (Input.touchCount == 1) {
+			return 0;
+		}
+
+		return 1;
 	}
 }
