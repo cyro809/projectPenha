@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Body : MovingObject {
 	public float maxSpeed = 5f;
-	public float dashSpeed = 300f;
+    public float dashSpeed = 300f;
+	public bool alive;
 	GameObject head;
 	GameObject plane;
 	GameObject gameOverText;
 	SimpleTouchController joystick;
+	
 
 	// Use this for initialization
 	public override void Start () {
@@ -17,6 +19,7 @@ public class Body : MovingObject {
 		gameOverText = GameObject.FindWithTag ("GameOverText"); 
 		base.Start ();
 		joystick = FindObjectOfType<SimpleTouchController> ();
+		alive = true;
 	}
 
 
@@ -39,10 +42,15 @@ public class Body : MovingObject {
 
 	void checkIfOutOfArena() {
 		if (transform.position.y < plane.transform.position.y - 5) {
+			alive = false;
+			GameObject parent = transform.parent.gameObject;
+			Rigidbody parentRigidBody = parent.GetComponent<Rigidbody>();
+			parentRigidBody.constraints = RigidbodyConstraints.FreezeAll;
+			rB.constraints = RigidbodyConstraints.FreezeAll;
 			GameState gameState = gameOverText.GetComponent<GameState> ();
 			gameState.changeStateToGameOverState ();
-			Destroy (gameObject);
-			Destroy (head);
+			gameObject.SetActive(false);
+			head.gameObject.SetActive(false);
 
 		}
 

@@ -13,7 +13,7 @@ public class Enemy : MovingObject {
 
 	// Use this for initialization
 	public override void Start () {
-		player = GameObject.FindWithTag ("Player");
+		player = GameObject.Find ("Body");
 		plane = GameObject.FindWithTag ("Ground");
 		scoreGameObject = GameObject.FindWithTag ("Score");
 		score = scoreGameObject.GetComponent<Score> ();
@@ -22,13 +22,17 @@ public class Enemy : MovingObject {
 	}
 
 	protected override void OnMove() {
-		if (onGround && player != null) {
-			transform.LookAt (player.transform.position);
-			rB.AddForce (transform.forward * MoveSpeed);
-		} else if (player == null) {
-			rB.constraints = RigidbodyConstraints.FreezeAll;
+		if(player != null && player.GetComponent<Body>() != null) {
+			Body playerBody = player.GetComponent<Body>();
+			if (onGround && player != null) {
+				transform.LookAt (player.transform.position);
+				rB.AddForce (transform.forward * MoveSpeed);
+			} else if (!playerBody.alive) {
+				rB.constraints = RigidbodyConstraints.FreezeAll;
+			}
+			checkIfOutOfArena ();
 		}
-		checkIfOutOfArena ();
+		
 	}
 
 	void checkIfOutOfArena() {
