@@ -26,12 +26,13 @@ public class Countdown : MonoBehaviour
         }
        
         // count down is finished...
-        StartGame();
+        countDownText.text = "GO!";
+        Invoke("StartGame", 1);
     }
  
     void StartGame()
     {
-        countDownText.text = "GO!";
+        
         finishCount = true;
         // do something...
     }
