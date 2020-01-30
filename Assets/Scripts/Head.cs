@@ -8,43 +8,46 @@ public class Head : MonoBehaviour {
 
 	public GunController gun;
 	Vector3 firePos;
+	GameState gameState;
 
 	// Use this for initialization
 	void Start () {
 		mainCamera = FindObjectOfType<Camera> ();
 		Input.multiTouchEnabled = true;
-
+		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
+		if(gameState.gameStart) {
+			if (SystemInfo.deviceType == DeviceType.Handheld) {
+				firePos = Input.GetTouch (TouchNumber()).position;
+			} else {
+				firePos = Input.mousePosition;
+			}
+			Ray cameraRay = mainCamera.ScreenPointToRay (firePos);
+			Plane groundPlane = new Plane (Vector3.up, Vector3.zero);
+			float rayLength;
 
-		if (SystemInfo.deviceType == DeviceType.Handheld) {
-			firePos = Input.GetTouch (TouchNumber()).position;
-		} else {
-			firePos = Input.mousePosition;
+			if (groundPlane.Raycast (cameraRay, out rayLength)) {
+				Vector3 pointToLook = cameraRay.GetPoint (rayLength);
+				Debug.DrawLine (cameraRay.origin, pointToLook, Color.blue);
+				transform.LookAt (pointToLook);
+			}
+
+			transform.rotation = Quaternion.Euler (0, transform.eulerAngles.y, 0);
+
+			if (DetectFireInput()) {
+				gun.isFiring = true;
+			} else {
+				gun.isFiring = false;
+			}
+
+			if (DetectFireInputEnd()) {
+				gun.isFiring = false;
+			}
 		}
-		Ray cameraRay = mainCamera.ScreenPointToRay (firePos);
-		Plane groundPlane = new Plane (Vector3.up, Vector3.zero);
-		float rayLength;
-
-		if (groundPlane.Raycast (cameraRay, out rayLength)) {
-			Vector3 pointToLook = cameraRay.GetPoint (rayLength);
-			Debug.DrawLine (cameraRay.origin, pointToLook, Color.blue);
-			transform.LookAt (pointToLook);
-		}
-
-		transform.rotation = Quaternion.Euler (0, transform.eulerAngles.y, 0);
-
-		if (DetectFireInput()) {
-			gun.isFiring = true;
-		} else {
-			gun.isFiring = false;
-		}
-
-		if (DetectFireInputEnd()) {
-			gun.isFiring = false;
-		}
+		
 	}
 
 	bool DetectFireInput() {

@@ -5,15 +5,19 @@ using UnityEngine.UI;
 
 public class GameState : MonoBehaviour {
 	bool gameOver;
+	public bool gameStart = false;
 	GameObject gameOverText;
-	GameObject button;
+	public GameObject button;
 	GameObject joystick;
 	Text text;
+	GameObject countDownText;
+	Countdown countdownObj;
 	// Use this for initialization
 	void Start () {
 		gameOver = false;
+		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
+		countdownObj = countDownText.GetComponent<Countdown>();
 		gameOverText = GameObject.FindGameObjectWithTag ("GameOverText");
-		button = GameObject.FindGameObjectWithTag ("RestartButton");
 		button.SetActive (false);
 		text = gameOverText.GetComponent<Text> ();
 		joystick = GameObject.FindGameObjectWithTag ("Joystick");
@@ -23,10 +27,20 @@ public class GameState : MonoBehaviour {
 		}
 	}
 
+	void FixedUpdate() {
+		if(countDownText != null && countdownObj != null && countdownObj.finishCount) {
+			changeStateToGameStartState();
+		}
+	}
+
 	public void changeStateToGameOverState() {
 		gameOver = true;
-
 		setGameOverText ();
+	}
+
+	void changeStateToGameStartState() {
+		gameStart = true;
+		countDownText.SetActive(false);
 	}
 
 	void setGameOverText() {
@@ -36,5 +50,7 @@ public class GameState : MonoBehaviour {
 		}
 
 	}
+
+
 
 }

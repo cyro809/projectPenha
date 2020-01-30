@@ -6,6 +6,7 @@ public class Enemy : MovingObject {
 	GameObject player;
 	GameObject plane;
 	GameObject scoreGameObject;
+	GameState gameState;
 	Score score;
 	bool onGround;
 	public int MoveSpeed;
@@ -17,12 +18,14 @@ public class Enemy : MovingObject {
 		plane = GameObject.FindWithTag ("Ground");
 		scoreGameObject = GameObject.FindWithTag ("Score");
 		score = scoreGameObject.GetComponent<Score> ();
+		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 		onGround = false;
 		base.Start ();
 	}
 
 	protected override void OnMove() {
-		if(player != null && player.GetComponent<Body>() != null) {
+		if(gameState.gameStart && player != null && player.GetComponent<Body>() != null) {
+			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
 			if (onGround && player != null) {
 				transform.LookAt (player.transform.position);
@@ -31,6 +34,8 @@ public class Enemy : MovingObject {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
 			}
 			checkIfOutOfArena ();
+		} else {
+			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 		
 	}
@@ -44,8 +49,11 @@ public class Enemy : MovingObject {
 
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.CompareTag("Player")) {
-			Body hitPlayer = col.gameObject.GetComponent<Body>();
-			hitPlayer.getHit (pushBackForce, rB.transform.position);
+			if (player.GetComponent<Body>() != null) {
+				Body hitPlayer = col.gameObject.GetComponent<Body>();
+				hitPlayer.getHit (pushBackForce, rB.transform.position);
+			}
+			
 		}
 
 		if (col.gameObject.CompareTag("Ground")) {

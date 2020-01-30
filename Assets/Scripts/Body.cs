@@ -10,6 +10,7 @@ public class Body : MovingObject {
 	GameObject plane;
 	GameObject gameOverText;
 	SimpleTouchController joystick;
+	GameState gameState;
 	
 
 	// Use this for initialization
@@ -17,6 +18,7 @@ public class Body : MovingObject {
 		head = GameObject.Find ("Head");
 		plane = GameObject.FindWithTag ("Ground");
 		gameOverText = GameObject.FindWithTag ("GameOverText"); 
+		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 		base.Start ();
 		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;
@@ -24,20 +26,20 @@ public class Body : MovingObject {
 
 
 	protected override void OnMove () {
-		checkIfOutOfArena ();
-		float sideMove = Input.GetAxis ("AD-Horizontal");
-		float straightMove = Input.GetAxis ("WS-Vertical");	
-		if (SystemInfo.deviceType == DeviceType.Handheld) {
-			sideMove = joystick.GetTouchPosition.x;
-			straightMove = joystick.GetTouchPosition.y;
+		if(gameState.gameStart) {
+			checkIfOutOfArena ();
+			float sideMove = Input.GetAxis ("AD-Horizontal");
+			float straightMove = Input.GetAxis ("WS-Vertical");	
+			if (SystemInfo.deviceType == DeviceType.Handheld) {
+				sideMove = joystick.GetTouchPosition.x;
+				straightMove = joystick.GetTouchPosition.y;
+			}
+
+			Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
+			rB.AddForce (movement * maxSpeed);
+			head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
 		}
-
-
-		Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
-
-		rB.AddForce (movement * maxSpeed);
-
-		head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
+		
 	}
 
 	void checkIfOutOfArena() {
@@ -47,7 +49,6 @@ public class Body : MovingObject {
 			Rigidbody parentRigidBody = parent.GetComponent<Rigidbody>();
 			parentRigidBody.constraints = RigidbodyConstraints.FreezeAll;
 			rB.constraints = RigidbodyConstraints.FreezeAll;
-			GameState gameState = gameOverText.GetComponent<GameState> ();
 			gameState.changeStateToGameOverState ();
 			gameObject.SetActive(false);
 			head.gameObject.SetActive(false);
