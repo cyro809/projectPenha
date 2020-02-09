@@ -27,7 +27,6 @@ public class Spawner : MonoBehaviour {
 					Body playerBody = player.GetComponent<Body>();
 					if (!playerBody.alive) {
 						CancelInvoke ();
-						print("Player destroyed!");
 						Destroy(gameObject);
 					}
 				}

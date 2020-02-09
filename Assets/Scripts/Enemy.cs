@@ -24,7 +24,8 @@ public class Enemy : MovingObject {
 	}
 
 	protected override void OnMove() {
-		if(gameState.gameStart && player != null && player.GetComponent<Body>() != null) {
+		GetPlayerReference();
+		if(IsGameStartedAndIsPlayerAlive()) {
 			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
 			if (onGround && player != null) {
@@ -38,6 +39,14 @@ public class Enemy : MovingObject {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 		
+	}
+
+	bool IsGameStartedAndIsPlayerAlive() {
+		return (gameState.gameStart && player != null && player.GetComponent<Body>() != null);
+	}
+
+	void GetPlayerReference() {
+		player = GameObject.Find ("Body");
 	}
 
 	void checkIfOutOfArena() {
