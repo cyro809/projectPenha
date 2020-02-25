@@ -12,6 +12,7 @@ public class GameState : MonoBehaviour {
 	Text text;
 	GameObject countDownText;
 	Countdown countdownObj;
+	GameObject backGroundThemeObj;
 	// Use this for initialization
 	void Start () {
 		gameOver = false;
@@ -21,6 +22,7 @@ public class GameState : MonoBehaviour {
 		button.SetActive (false);
 		text = gameOverText.GetComponent<Text> ();
 		joystick = GameObject.FindGameObjectWithTag ("Joystick");
+		backGroundThemeObj = GameObject.FindGameObjectWithTag("BackgroundTheme");
 
 		if (SystemInfo.deviceType != DeviceType.Handheld) {
 			joystick.SetActive (false);
@@ -36,11 +38,16 @@ public class GameState : MonoBehaviour {
 	public void changeStateToGameOverState() {
 		gameOver = true;
 		setGameOverText ();
+		playGameOverMusic();
 	}
 
 	void changeStateToGameStartState() {
 		gameStart = true;
 		countDownText.SetActive(false);
+	}
+
+	BackgroundTheme GetBackgroundTheme() {
+		return backGroundThemeObj.GetComponent<BackgroundTheme>();
 	}
 
 	void setGameOverText() {
@@ -51,6 +58,9 @@ public class GameState : MonoBehaviour {
 
 	}
 
-
+	void playGameOverMusic() {
+		BackgroundTheme theme = GetBackgroundTheme();
+		theme.ToggleToGameOverSound();
+	}
 
 }
