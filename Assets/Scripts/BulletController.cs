@@ -8,7 +8,11 @@ public class BulletController : MonoBehaviour {
 	public GameObject enemy;
 	private float pushBackForce = 1000;
 	Rigidbody rb;
+	AudioSource audioSource;
 
+	void Start() {
+		audioSource = GetComponent<AudioSource>();
+	}
 	void OnBecameInvisible() {
 		Destroy (gameObject);
 	}
@@ -20,6 +24,7 @@ public class BulletController : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.CompareTag("Enemy")) {
+			audioSource.Play();
 			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
 			hitEnemy.getHit (pushBackForce, transform.position);
 			Destroy (gameObject);

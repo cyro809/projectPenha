@@ -18,7 +18,6 @@ public class BackgroundTheme : MonoBehaviour
     }
 
     public void ToggleToGameOverSound() {
-        Debug.Log(gameOverClip);
         audioSource.clip = gameOverClip;
         audioSource.loop = false;
         audioSource.Play();
