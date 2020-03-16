@@ -11,6 +11,7 @@ public class Enemy : MovingObject {
 	bool onGround;
 	public int MoveSpeed;
 	public float pushBackForce;
+	AudioSource audioSource;
 
 	// Use this for initialization
 	public override void Start () {
@@ -19,6 +20,7 @@ public class Enemy : MovingObject {
 		scoreGameObject = GameObject.FindWithTag ("Score");
 		score = scoreGameObject.GetComponent<Score> ();
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
+		audioSource = GetComponent<AudioSource>();
 		onGround = false;
 		base.Start ();
 	}
@@ -67,6 +69,10 @@ public class Enemy : MovingObject {
 
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
+		}
+
+		if (col.gameObject.CompareTag("Bullet")) {
+			audioSource.Play();
 		}
 	}
 
