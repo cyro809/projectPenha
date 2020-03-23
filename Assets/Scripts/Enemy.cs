@@ -12,6 +12,7 @@ public class Enemy : MovingObject {
 	public int MoveSpeed;
 	public float pushBackForce;
 	AudioSource audioSource;
+	AudioClip bulletHit;
 
 	// Use this for initialization
 	public override void Start () {
@@ -21,6 +22,7 @@ public class Enemy : MovingObject {
 		score = scoreGameObject.GetComponent<Score> ();
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 		audioSource = GetComponent<AudioSource>();
+		bulletHit = Resources.Load<AudioClip>("SoundEffects/enemy-hit");
 		onGround = false;
 		base.Start ();
 	}
@@ -69,11 +71,21 @@ public class Enemy : MovingObject {
 
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
+			ChangeAudioClip();
 		}
 
 		if (col.gameObject.CompareTag("Bullet")) {
-			audioSource.Play();
+			PlayBulletHitSound();
 		}
+	}
+
+	void PlayBulletHitSound() {
+        audioSource.Play();
+	}
+
+	void ChangeAudioClip() {
+		audioSource.clip = bulletHit;
+        audioSource.loop = false;
 	}
 
 	public void ActivateMove() {
