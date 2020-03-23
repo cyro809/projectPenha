@@ -11,6 +11,7 @@ public class Body : MovingObject {
 	GameObject gameOverText;
 	SimpleTouchController joystick;
 	GameState gameState;
+	AudioSource audioSource;
 	
 
 	// Use this for initialization
@@ -19,6 +20,7 @@ public class Body : MovingObject {
 		plane = GameObject.FindWithTag ("Ground");
 		gameOverText = GameObject.FindWithTag ("GameOverText"); 
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
+		audioSource = GetComponent<AudioSource>();
 		base.Start ();
 		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;
@@ -55,5 +57,11 @@ public class Body : MovingObject {
 
 		}
 
+	}
+
+	void OnCollisionEnter(Collision col) {
+		if (col.gameObject.CompareTag("Enemy")) {
+			audioSource.Play();
+		}
 	}
 }
