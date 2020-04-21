@@ -11,7 +11,7 @@ public class MovingObject : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		OnMove ();
 	}
 

@@ -18,7 +18,7 @@ public class Head : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		if(gameState.gameStart) {
 			if (SystemInfo.deviceType == DeviceType.Handheld) {
 				firePos = Input.GetTouch (TouchNumber()).position;
