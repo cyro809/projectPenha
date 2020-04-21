@@ -12,6 +12,7 @@ public class BulletController : MonoBehaviour {
 
 	void Start() {
 		audioSource = GetComponent<AudioSource>();
+		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 	}
 	void OnBecameInvisible() {
 		Destroy (gameObject);

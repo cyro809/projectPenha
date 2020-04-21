@@ -18,10 +18,15 @@ public class Enemy : MovingObject {
 	public override void Start () {
 		player = GameObject.Find ("Body");
 		plane = GameObject.FindWithTag ("Ground");
+
 		scoreGameObject = GameObject.FindWithTag ("Score");
 		score = scoreGameObject.GetComponent<Score> ();
+
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
+
 		audioSource = GetComponent<AudioSource>();
+		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
+		
 		bulletHit = Resources.Load<AudioClip>("SoundEffects/enemy-hit");
 		onGround = false;
 		base.Start ();

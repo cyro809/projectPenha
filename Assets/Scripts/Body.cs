@@ -18,9 +18,13 @@ public class Body : MovingObject {
 	public override void Start () {
 		head = GameObject.Find ("Head");
 		plane = GameObject.FindWithTag ("Ground");
+		
 		gameOverText = GameObject.FindWithTag ("GameOverText"); 
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
+
 		audioSource = GetComponent<AudioSource>();
+		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
+
 		base.Start ();
 		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;

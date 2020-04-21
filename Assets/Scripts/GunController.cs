@@ -18,6 +18,7 @@ public class GunController : MonoBehaviour {
 
 	void Start() {
 		audioSource = GetComponent<AudioSource>();
+		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 	}
 	// Update is called once per frame
 	void Update () {
