@@ -13,6 +13,9 @@ public class BackgroundTheme : MonoBehaviour
         gameOverClip = Resources.Load<AudioClip>("Music/game-over-sound");
         audioSource.volume = PlayerPrefs.GetFloat("musicVolume");
     }
+    void Update() {
+        audioSource.volume = PlayerPrefs.GetFloat("musicVolume");    
+    }
 
     public void stopAudioSouce() {
         audioSource.Stop();
