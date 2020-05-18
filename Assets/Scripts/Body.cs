@@ -33,7 +33,7 @@ public class Body : MovingObject {
 
 	protected override void OnMove () {
 		if(gameState.gameStart) {
-			checkIfOutOfArena ();
+			
 			float sideMove = Input.GetAxis ("AD-Horizontal");
 			float straightMove = Input.GetAxis ("WS-Vertical");	
 			if (SystemInfo.deviceType == DeviceType.Handheld) {
@@ -48,8 +48,8 @@ public class Body : MovingObject {
 		
 	}
 
-	void checkIfOutOfArena() {
-		if (transform.position.y < plane.transform.position.y - 5) {
+	void KillPlayer() {
+		if (transform.localPosition.y < plane.transform.localPosition.y - 5) {
 			alive = false;
 			GameObject parent = transform.parent.gameObject;
 			Rigidbody parentRigidBody = parent.GetComponent<Rigidbody>();
@@ -66,6 +66,8 @@ public class Body : MovingObject {
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.CompareTag("Enemy")) {
 			audioSource.Play();
+		} else if(col.gameObject.CompareTag("LimitPlane")) {
+			KillPlayer();
 		}
 	}
 }
