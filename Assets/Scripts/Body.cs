@@ -66,7 +66,8 @@ public class Body : MovingObject {
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.CompareTag("Enemy")) {
 			audioSource.Play();
-		} else if(col.gameObject.CompareTag("LimitPlane")) {
+		} 
+		if(col.gameObject.CompareTag("LimitPlane")) {
 			KillPlayer();
 		}
 	}
