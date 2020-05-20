@@ -51,10 +51,7 @@ public class Body : MovingObject {
 	void KillPlayer() {
 		if (transform.localPosition.y < plane.transform.localPosition.y - 5) {
 			alive = false;
-			GameObject parent = transform.parent.gameObject;
-			Rigidbody parentRigidBody = parent.GetComponent<Rigidbody>();
-			parentRigidBody.constraints = RigidbodyConstraints.FreezeAll;
-			rB.constraints = RigidbodyConstraints.FreezeAll;
+			FreezePlayer();
 			gameState.changeStateToGameOverState ();
 			gameObject.SetActive(false);
 			head.gameObject.SetActive(false);
@@ -63,12 +60,26 @@ public class Body : MovingObject {
 
 	}
 
+	void FreezePlayer() {
+		GameObject parent = transform.parent.gameObject;
+		Rigidbody parentRigidBody = parent.GetComponent<Rigidbody>();
+		parentRigidBody.constraints = RigidbodyConstraints.FreezeAll;
+		rB.constraints = RigidbodyConstraints.FreezeAll;
+	}
+
+	void ChangeToWinState() {
+		gameState.changeStateToWinState ();
+	}
+
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.CompareTag("Enemy")) {
 			audioSource.Play();
 		} 
-		if(col.gameObject.CompareTag("LimitPlane")) {
+		if (col.gameObject.CompareTag("LimitPlane")) {
 			KillPlayer();
+		}
+		if (col.gameObject.CompareTag("Goal")) {
+			ChangeToWinState();
 		}
 	}
 }

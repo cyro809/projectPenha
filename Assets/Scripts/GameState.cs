@@ -41,6 +41,11 @@ public class GameState : MonoBehaviour {
 		playGameOverMusic();
 	}
 
+	public void changeStateToWinState() {
+		gameOver = true;
+		setWinText ();
+	}
+
 	void changeStateToGameStartState() {
 		gameStart = true;
 		countDownText.SetActive(false);
@@ -54,6 +59,13 @@ public class GameState : MonoBehaviour {
 		if (gameOver) {
 			button.SetActive (true);
 			text.text = "Game Over!";	
+		}
+	}
+
+	void setWinText() {
+		if (gameOver) {
+			button.SetActive (true);
+			text.text = "Great!";	
 		}
 
 	}
