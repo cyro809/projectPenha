@@ -8,8 +8,8 @@ public class SceneHandler : MonoBehaviour
 {
 	public Slider musicSlider;
 	public Slider soundEffectsSlider;
-    public void StartGameAction() {
-		SceneManager.LoadScene ("mainGame");
+    public void StartGameAction(string sceneName) {
+		SceneManager.LoadScene (sceneName);
 		PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
 		PlayerPrefs.SetFloat("soudEffectsVolume", soundEffectsSlider.value);
 	}
@@ -17,8 +17,11 @@ public class SceneHandler : MonoBehaviour
 	public void LoadNewScene() {
 		switch (this.gameObject.name)
 		{
-			case "StartButton":
-				StartGameAction();
+			case "EndlessModeButton":
+				StartGameAction("mainGame");
+				break;
+			case "AdventureModeButton":
+				StartGameAction("level1");
 				break;
 			case "CreditButton":
 				SceneManager.LoadScene("credits");

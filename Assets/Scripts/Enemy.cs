@@ -53,7 +53,7 @@ public class Enemy : MovingObject {
 	}
 
 	bool IsGameStartedAndIsPlayerAlive() {
-		return ((gameState.gameStart && player != null && player.GetComponent<Body>() != null) || !gameState.gameOver);
+		return (gameState.gameStart && player != null && player.GetComponent<Body>() != null);
 	}
 
 	void GetPlayerReference() {

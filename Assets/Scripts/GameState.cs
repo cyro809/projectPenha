@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameState : MonoBehaviour {
-	public bool gameOver;
+	public bool gameOver = false;
 	public bool gameStart = false;
 	GameObject gameOverText;
 	public GameObject button;
