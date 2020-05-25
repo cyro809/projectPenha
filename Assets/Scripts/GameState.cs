@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameState : MonoBehaviour {
-	bool gameOver;
+	public bool gameOver;
 	public bool gameStart = false;
 	GameObject gameOverText;
 	public GameObject button;
@@ -36,12 +36,14 @@ public class GameState : MonoBehaviour {
 	}
 
 	public void changeStateToGameOverState() {
+		gameStart = false;
 		gameOver = true;
 		setGameOverText ();
 		playGameOverMusic();
 	}
 
 	public void changeStateToWinState() {
+		gameStart = false;
 		gameOver = true;
 		setWinText ();
 	}

@@ -35,6 +35,7 @@ public class Enemy : MovingObject {
 	protected override void OnMove() {
 		GetPlayerReference();
 		if(IsGameStartedAndIsPlayerAlive()) {
+			
 			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
 			if (onGround && player != null) {
@@ -43,26 +44,25 @@ public class Enemy : MovingObject {
 			} else if (!playerBody.alive) {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
 			}
-			checkIfOutOfArena ();
-		} else {
+			
+		} 
+		if (gameState.gameOver) {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 		
 	}
 
 	bool IsGameStartedAndIsPlayerAlive() {
-		return (gameState.gameStart && player != null && player.GetComponent<Body>() != null);
+		return ((gameState.gameStart && player != null && player.GetComponent<Body>() != null) || !gameState.gameOver);
 	}
 
 	void GetPlayerReference() {
 		player = GameObject.Find ("Body");
 	}
 
-	void checkIfOutOfArena() {
-		if (transform.position.y < plane.transform.position.y - 5) {
-			score.addPoint ();
-			Destroy (gameObject);
-		}
+	void Kill() {
+		score.addPoint ();
+		Destroy (gameObject);
 	}
 
 	void OnCollisionEnter (Collision col) {
@@ -73,7 +73,7 @@ public class Enemy : MovingObject {
 			}
 			
 		}
-
+		// Debug.Log(col.gameObject.tag);
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
 			ChangeAudioClip();
@@ -81,6 +81,10 @@ public class Enemy : MovingObject {
 
 		if (col.gameObject.CompareTag("Bullet")) {
 			PlayBulletHitSound();
+		}
+
+		if (col.gameObject.CompareTag("LimitPlane")) {
+			Kill();
 		}
 	}
 

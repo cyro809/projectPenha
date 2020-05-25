@@ -68,6 +68,7 @@ public class Body : MovingObject {
 	}
 
 	void ChangeToWinState() {
+		FreezePlayer();
 		gameState.changeStateToWinState ();
 	}
 
