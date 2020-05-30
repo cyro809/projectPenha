@@ -73,12 +73,12 @@ public class Body : MovingObject {
 	}
 
 	void OnCollisionEnter(Collision col) {
-		if (col.gameObject.CompareTag("Enemy")) {
-			audioSource.Play();
-		} 
 		if (col.gameObject.CompareTag("LimitPlane")) {
 			KillPlayer();
 		}
+		if (col.gameObject.CompareTag("Enemy")) {
+			audioSource.Play();
+		} 	
 		if (col.gameObject.CompareTag("Goal")) {
 			ChangeToWinState();
 		}
