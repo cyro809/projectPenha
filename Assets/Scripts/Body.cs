@@ -49,15 +49,11 @@ public class Body : MovingObject {
 	}
 
 	void KillPlayer() {
-		if (transform.localPosition.y < plane.transform.localPosition.y - 5) {
-			alive = false;
-			FreezePlayer();
-			gameState.changeStateToGameOverState ();
-			gameObject.SetActive(false);
-			head.gameObject.SetActive(false);
-
-		}
-
+		alive = false;
+		FreezePlayer();
+		gameState.changeStateToGameOverState ();
+		gameObject.SetActive(false);
+		head.gameObject.SetActive(false);
 	}
 
 	void FreezePlayer() {
@@ -81,6 +77,12 @@ public class Body : MovingObject {
 		} 	
 		if (col.gameObject.CompareTag("Goal")) {
 			ChangeToWinState();
+		}
+	}
+
+	void OnCollisionStay(Collision col) {
+		if (col.gameObject.CompareTag("LimitPlane")) {
+			KillPlayer();
 		}
 	}
 }

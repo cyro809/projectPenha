@@ -7,7 +7,8 @@ public class GameState : MonoBehaviour {
 	public bool gameOver = false;
 	public bool gameStart = false;
 	GameObject gameOverText;
-	public GameObject button;
+	public GameObject restartButton;
+	public GameObject titleButton;
 	GameObject joystick;
 	Text text;
 	GameObject countDownText;
@@ -19,7 +20,8 @@ public class GameState : MonoBehaviour {
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
 		gameOverText = GameObject.FindGameObjectWithTag ("GameOverText");
-		button.SetActive (false);
+		restartButton.SetActive (false);
+		titleButton.SetActive(false);
 		text = gameOverText.GetComponent<Text> ();
 		joystick = GameObject.FindGameObjectWithTag ("Joystick");
 		backGroundThemeObj = GameObject.FindGameObjectWithTag("BackgroundTheme");
@@ -59,14 +61,16 @@ public class GameState : MonoBehaviour {
 
 	void setGameOverText() {
 		if (gameOver) {
-			button.SetActive (true);
+			restartButton.SetActive (true);
+			titleButton.SetActive(true);
 			text.text = "Game Over!";	
 		}
 	}
 
 	void setWinText() {
 		if (gameOver) {
-			button.SetActive (true);
+			restartButton.SetActive (true);
+			titleButton.SetActive(true);
 			text.text = "Great!";	
 		}
 
