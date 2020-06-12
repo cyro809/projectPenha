@@ -88,6 +88,12 @@ public class Enemy : MovingObject {
 		}
 	}
 
+	void OnCollisionStay(Collision col) {
+		if (col.gameObject.CompareTag("LimitPlane")) {
+			Kill();
+		}
+	}
+
 	void PlayBulletHitSound() {
         audioSource.Play();
 	}
