@@ -17,21 +17,25 @@ public class GunController : MonoBehaviour {
 	
 
 	void Start() {
+		shotCounter = 0;
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 	}
 	// Update is called once per frame
 	void Update () {
+		shotCounter -= Time.deltaTime;
 		if (isFiring) {
-			shotCounter -= Time.deltaTime;
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
 				BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
 				newBullet.beFired (bulletSpeed);
 				audioSource.Play();
+				isFiring = false;
+				resetShotCounter();
 			}
-		} else {
-			shotCounter = 0;
-		}
+		} 
+	}
+	public void resetShotCounter() {
+		shotCounter = timeBetweenShots;
 	}
 }
