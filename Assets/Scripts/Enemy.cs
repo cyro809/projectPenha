@@ -39,8 +39,17 @@ public class Enemy : MovingObject {
 			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
 			if (onGround && player != null) {
-				transform.LookAt (player.transform.position);
-				rB.AddForce (transform.forward * MoveSpeed);
+				// get the positions of this object and the target
+				Vector3 targetPosition = player.transform.position;
+				Vector3 myPosition = transform.position;
+				
+				// work out direction and distance
+				Vector3 direction = (targetPosition - myPosition).normalized;
+				float distance = Vector3.Magnitude(targetPosition - myPosition);       // you could move this inside the switch to avoid processing it for the Constant case where it's not used
+				
+				// apply square root to distance if specified to do so in the inspector
+				
+				rB.AddForce (direction * MoveSpeed);
 			} else if (!playerBody.alive) {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
 			}
@@ -50,6 +59,10 @@ public class Enemy : MovingObject {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 		
+	}
+
+	void lookAtPlayer() {
+
 	}
 
 	bool IsGameStartedAndIsPlayerAlive() {
