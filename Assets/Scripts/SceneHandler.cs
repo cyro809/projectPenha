@@ -18,10 +18,12 @@ public class SceneHandler : MonoBehaviour
 		switch (this.gameObject.name)
 		{
 			case "EndlessModeButton":
-				StartGameAction("mainGame");
+			PlayerPrefs.SetString("gameMode", "mainGame");
+				StartGameAction("instructions");
 				break;
 			case "AdventureModeButton":
-				StartGameAction("level1");
+				PlayerPrefs.SetString("gameMode", "level1");
+				StartGameAction("instructions");
 				break;
 			case "CreditButton":
 				SceneManager.LoadScene("credits");
