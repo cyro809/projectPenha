@@ -16,7 +16,7 @@ public class GameState : MonoBehaviour {
 	GameObject backGroundThemeObj;
 	// Use this for initialization
 	void Start () {
-		Application.targetFrameRate = 70;
+		Application.targetFrameRate = 20;
 		gameOver = false;
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
