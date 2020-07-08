@@ -33,7 +33,7 @@ public class StopwatchController : MonoBehaviour
     }
     void SetCountText() {
         TimeSpan ts = stopWatch.Elapsed;
-        string elapsedTime = String.Format("{0:00}.{1:00}", ts.Seconds, ts.Milliseconds / 10);
+        string elapsedTime = String.Format("{0:00.00}", ts.TotalMilliseconds / 1000);
 		countText.text = "Time: " + elapsedTime;
 	}
 }
