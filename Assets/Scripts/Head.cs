@@ -19,7 +19,7 @@ public class Head : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(gameState.gameStart) {
+		if(gameState.gameStart && !gameState.gameOver) {
 			// Player facing mouse Reference: https://www.youtube.com/watch?v=E56-ekpz0rM
 			if (SystemInfo.deviceType == DeviceType.Handheld) {
 				firePos = Input.GetTouch (TouchNumber()).position;
