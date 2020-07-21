@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class GameState : MonoBehaviour {
 	public bool gameOver = false;
 	public bool gameStart = false;
+	public bool gameWin = false;
 	GameObject gameOverText;
 	public GameObject restartButton;
 	public GameObject titleButton;
+	public GameObject nextLevelButton;
 	GameObject joystick;
 	Text text;
 	GameObject countDownText;
@@ -41,6 +43,7 @@ public class GameState : MonoBehaviour {
 	public void changeStateToGameOverState() {
 		gameStart = false;
 		gameOver = true;
+		gameWin = false;
 		setGameOverText ();
 		playGameOverMusic();
 	}
@@ -48,6 +51,7 @@ public class GameState : MonoBehaviour {
 	public void changeStateToWinState() {
 		gameStart = false;
 		gameOver = true;
+		gameWin = true;
 		setWinText ();
 	}
 
@@ -61,7 +65,7 @@ public class GameState : MonoBehaviour {
 	}
 
 	void setGameOverText() {
-		if (gameOver) {
+		if (gameOver && !gameWin) {
 			restartButton.SetActive (true);
 			titleButton.SetActive(true);
 			text.text = "Game Over!";	
@@ -69,8 +73,8 @@ public class GameState : MonoBehaviour {
 	}
 
 	void setWinText() {
-		if (gameOver) {
-			restartButton.SetActive (true);
+		if (gameOver && gameWin) {
+			nextLevelButton.SetActive (true);
 			titleButton.SetActive(true);
 			text.text = "Great!";	
 		}
