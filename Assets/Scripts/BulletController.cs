@@ -30,7 +30,7 @@ public class BulletController : MonoBehaviour {
 			hitEnemy.getHit (pushBackForce, transform.position);
 			Destroy (gameObject);
 		}
-		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall")) {
+		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall") || col.gameObject.CompareTag("Obstacle")) {
 			Destroy (gameObject);
 		}
 	}
