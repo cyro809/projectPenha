@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour {
 	public GameObject[] objects;
 	public float spawnTime = 6f;            // How long between each spawn.
 	private Vector3 spawnPosition;
-	public GameObject[] plane;
+	public List<GameObject> plane;
 	GameState gameState;
 	
 	// Use this for initialization
@@ -33,9 +33,16 @@ public class Spawner : MonoBehaviour {
 			} else {
 				CancelInvoke();
 			}
-			
+			int planeBeforeIndex = 0;
+			int playerOnIndex = plane.FindIndex(p => p.GetComponent<Ground>().isPlayerOn());
+			if (playerOnIndex == -1 || playerOnIndex == 0) {
+				playerOnIndex = 1;
+			} else if (playerOnIndex == 4) {
+				playerOnIndex = 3;
+			}
+			planeBeforeIndex = playerOnIndex - 1;
 			float scale = 0.5f;
-			int planeIndex = Random.Range(0, plane.Length - 1);
+			int planeIndex = Random.Range(planeBeforeIndex, playerOnIndex+1);
 			float moveAreaX = plane[planeIndex].GetComponent<Renderer>().bounds.size.x / 2;
 			float moveAreaZ = plane[planeIndex].GetComponent<Renderer>().bounds.size.z / 2;
 			Vector3 center = plane[planeIndex].GetComponent<Renderer>().bounds.center;
