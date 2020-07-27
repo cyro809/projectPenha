@@ -33,16 +33,11 @@ public class Spawner : MonoBehaviour {
 			} else {
 				CancelInvoke();
 			}
-			int planeBeforeIndex = 0;
-			int playerOnIndex = plane.FindIndex(p => p.GetComponent<Ground>().isPlayerOn());
-			if (playerOnIndex == -1 || playerOnIndex == 0) {
-				playerOnIndex = 1;
-			} else if (playerOnIndex == 4) {
-				playerOnIndex = 3;
-			}
-			planeBeforeIndex = playerOnIndex - 1;
+			IDictionary<string, int> indexes = getIndexes();
+			int planeBeforeIndex = (int) indexes["planeBeforeIndex"];
+			int playerOnIndex = (int) indexes["playerOnIndex"];
 			float scale = 0.5f;
-			int planeIndex = Random.Range(planeBeforeIndex, playerOnIndex+1);
+			int planeIndex = Random.Range(planeBeforeIndex, playerOnIndex);
 			float moveAreaX = plane[planeIndex].GetComponent<Renderer>().bounds.size.x / 2;
 			float moveAreaZ = plane[planeIndex].GetComponent<Renderer>().bounds.size.z / 2;
 			Vector3 center = plane[planeIndex].GetComponent<Renderer>().bounds.center;
@@ -57,5 +52,25 @@ public class Spawner : MonoBehaviour {
 			Destroy(gameObject);
 		}
 		
+	}
+
+	IDictionary<string, int> getIndexes() {
+		if (plane.Count == 1) {
+			return new Dictionary<string, int>() {{"playerOnIndex", 0}, {"planeBeforeIndex", 0}};
+		}
+		IDictionary<string, int> indexes = new Dictionary<string, int>();
+		int planeBeforeIndex = 0;
+		int playerOnIndex = plane.FindIndex(p => p.GetComponent<Ground>().isPlayerOn());
+		if (playerOnIndex == -1 || playerOnIndex == 0) {
+			playerOnIndex = 1;
+		} else if (playerOnIndex == plane.Count - 1) {
+			planeBeforeIndex = 3;
+		} else {
+			playerOnIndex++;
+			planeBeforeIndex = playerOnIndex - 1;
+		}
+		indexes.Add("playerOnIndex", playerOnIndex);
+		indexes.Add("planeBeforeIndex", planeBeforeIndex);
+		return indexes;
 	}
 }
