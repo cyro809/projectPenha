@@ -78,7 +78,7 @@ public class Enemy : MovingObject {
 	}
 
 	void OnCollisionEnter (Collision col) {
-		if (col.gameObject.CompareTag("Player")) {
+		if (col.gameObject.CompareTag("Body")) {
 			if (player.GetComponent<Body>() != null) {
 				Body hitPlayer = col.gameObject.GetComponent<Body>();
 				hitPlayer.getHit (pushBackForce, rB.transform.position);

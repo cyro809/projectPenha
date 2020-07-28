@@ -7,6 +7,7 @@ public class Body : MovingObject {
     public float dashSpeed = 300f;
 	public bool alive;
 	GameObject head;
+	public GameObject shield;
 	GameObject plane;
 	GameObject gameOverText;
 	SimpleTouchController joystick;
@@ -17,6 +18,7 @@ public class Body : MovingObject {
 	// Use this for initialization
 	public override void Start () {
 		head = GameObject.Find ("Head");
+		
 		plane = GameObject.FindWithTag ("Ground");
 		
 		gameOverText = GameObject.FindWithTag ("GameOverText"); 
@@ -44,6 +46,10 @@ public class Body : MovingObject {
 			Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
 			rB.AddForce (movement * maxSpeed);
 			head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
+			if(shield != null) {
+				shield.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
+			}
+			
 		}
 		
 	}
@@ -77,6 +83,9 @@ public class Body : MovingObject {
 		} 	
 		if (col.gameObject.CompareTag("Goal")) {
 			ChangeToWinState();
+		}
+		if(col.gameObject.CompareTag("ShieldPowerUp")) {
+			shield.GetComponent<Shield>().ActivateShield();
 		}
 	}
 
