@@ -11,7 +11,11 @@ public class GunController : MonoBehaviour {
 
 	public float timeBetweenShots;
 	private float shotCounter;
+	public float spreadAngle;
+	public int spreadAmount;
 
+	bool shotGunMode = false;
+	public int shotGunBullets = 10;
 	public Transform firePoint;
 	AudioSource audioSource;
 	
@@ -27,8 +31,9 @@ public class GunController : MonoBehaviour {
 		if (isFiring) {
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
-				BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
-				newBullet.beFired (bulletSpeed);
+				// BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
+				// newBullet.beFired (bulletSpeed);
+				shotGunFire();
 				audioSource.Play();
 				isFiring = false;
 				resetShotCounter();
@@ -37,5 +42,22 @@ public class GunController : MonoBehaviour {
 	}
 	public void resetShotCounter() {
 		shotCounter = timeBetweenShots;
+	}
+
+	void shotGunFire() {	
+		float perBulletAngle = spreadAngle / (spreadAmount - 1);
+       	float startAngle = spreadAngle * -0.5f;
+  
+		for (int i = 0; i < spreadAmount; i++)
+		{				
+			BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
+			newBullet.gameObject.transform.Rotate(Vector3.up, startAngle + i * perBulletAngle);
+			newBullet.beFired (bulletSpeed);			
+		}
+	}
+
+	void setShotGunMode() {
+		shotGunMode = true;
+
 	}
 }
