@@ -9,6 +9,7 @@ public class Body : MovingObject {
 	public bool alive;
 	GameObject head;
 	public GameObject shield;
+	public GameObject gun;
 	GameObject plane;
 	GameObject gameOverText;
 	SimpleTouchController joystick;
@@ -87,6 +88,9 @@ public class Body : MovingObject {
 		}
 		if(col.gameObject.CompareTag("ShieldPowerUp")) {
 			shield.GetComponent<Shield>().ActivateShield();
+		}
+		if(col.gameObject.CompareTag("ShotGunPowerUp")) {
+			gun.GetComponent<GunController>().setShotGunMode();
 		}
 	}
 
