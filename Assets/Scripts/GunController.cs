@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunController : MonoBehaviour {
 
@@ -15,7 +16,8 @@ public class GunController : MonoBehaviour {
 	public int spreadAmount;
 
 	bool shotGunMode = false;
-	public int shotGunBullets = 10;
+	public int shotGunBullets = 0;
+	public Text shotCounterText;
 	public Transform firePoint;
 	AudioSource audioSource;
 	
@@ -41,7 +43,8 @@ public class GunController : MonoBehaviour {
 				isFiring = false;
 				resetShotCounter();
 			}
-		} 
+		}
+		showShotCounterText();
 	}
 	public void resetShotCounter() {
 		shotCounter = timeBetweenShots;
@@ -72,5 +75,9 @@ public class GunController : MonoBehaviour {
 		shotGunBullets = 10;
 		shotGunMode = true;
 
+	}
+
+	void showShotCounterText() {
+		shotCounterText.text =  "Special Shots: " + shotGunBullets.ToString ();
 	}
 }
