@@ -15,6 +15,7 @@ public class Body : MovingObject {
 	SimpleTouchController joystick;
 	GameState gameState;
 	AudioSource audioSource;
+	public Text powerUpText;
 	
 
 	// Use this for initialization
@@ -88,9 +89,11 @@ public class Body : MovingObject {
 		}
 		if(col.gameObject.CompareTag("ShieldPowerUp")) {
 			shield.GetComponent<Shield>().ActivateShield();
+			StartCoroutine(showText("Shield"));
 		}
 		if(col.gameObject.CompareTag("ShotGunPowerUp")) {
 			gun.GetComponent<GunController>().setShotGunMode();
+			StartCoroutine(showText("Shot Gun"));
 		}
 	}
 
@@ -99,4 +102,12 @@ public class Body : MovingObject {
 			KillPlayer();
 		}
 	}
+
+	IEnumerator showText(string text) {
+        powerUpText.text = text;
+        // display something...
+        yield return new WaitForSeconds(1);
+		powerUpText.text = "";
+       
+    }
 }

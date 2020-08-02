@@ -1,15 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PowerUp : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float speed;
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -19,7 +15,7 @@ public class PowerUp : MonoBehaviour
 
     void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Body")) {
-            Destroy(gameObject);
+             Destroy(gameObject);
         }
     }
 }
