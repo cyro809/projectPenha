@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
 
 	public GameObject[] objects;
-	public float spawnTime = 6f;            // How long between each spawn.
+	public float spawnTime;            // How long between each spawn.
 	private Vector3 spawnPosition;
 	public List<GameObject> plane;
 	GameState gameState;
