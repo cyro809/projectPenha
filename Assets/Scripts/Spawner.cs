@@ -15,7 +15,13 @@ public class Spawner : MonoBehaviour {
 	{
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		InvokeRepeating ("Spawn", spawnTime, spawnTime);
+		Spawn();
+		StartCoroutine(CountdownEnum(spawnTime));
+		StartCoroutine(SpawnerCountdownEnum(10));
+	}
+
+	void Update() {
+		
 	}
 
 	void Spawn ()
@@ -73,4 +79,36 @@ public class Spawner : MonoBehaviour {
 		indexes.Add("planeBeforeIndex", planeBeforeIndex);
 		return indexes;
 	}
+
+	IEnumerator CountdownEnum(float seconds)
+    {
+        float count = seconds;
+        while (count > 0) {
+            // display something...
+            yield return new WaitForSeconds(1);
+            count --;
+        }
+       
+        // count down is finished...
+        Spawn();
+		StartCoroutine(CountdownEnum(spawnTime));
+		
+		
+    }
+	IEnumerator SpawnerCountdownEnum(float seconds)
+    {
+        float count = seconds;
+        while (count > 0) {
+            // display something...
+            yield return new WaitForSeconds(1);
+            count --;
+        }
+       
+        // count down is finished...
+        if(spawnTime > 1) {
+			spawnTime--;
+		}
+		StartCoroutine(SpawnerCountdownEnum(10));
+		
+    }
 }

@@ -31,6 +31,9 @@ public class Shield : MonoBehaviour
 	}
 
     public void ActivateShield() {
+        Color col = gameObject.GetComponent<MeshRenderer> ().material.color;
+        col.a = 1.0f;
+        GetComponent<MeshRenderer>().material.color = col;
         activate = true;
         gameObject.SetActive (true);
         StartCoroutine(CountdownEnum(5));
