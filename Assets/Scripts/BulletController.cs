@@ -30,8 +30,9 @@ public class BulletController : MonoBehaviour {
 			hitEnemy.getHit (pushBackForce, transform.position);
 			Destroy (gameObject);
 		}
-		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall") || col.gameObject.CompareTag("Obstacle")) {
+		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall") || col.gameObject.CompareTag("Obstacle") || col.gameObject.CompareTag("Goal")) {
 			Destroy (gameObject);
 		}
+		Debug.Log(col.gameObject.name);
 	}
 }
