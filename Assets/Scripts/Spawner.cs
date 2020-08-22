@@ -68,11 +68,11 @@ public class Spawner : MonoBehaviour {
 		int planeBeforeIndex = 0;
 		int playerOnIndex = plane.FindIndex(p => p.GetComponent<Ground>().isPlayerOn());
 		if (playerOnIndex == -1 || playerOnIndex == 0) {
-			playerOnIndex = 1;
+			playerOnIndex = 2; // Random.Range excludes max number
 		} else if (playerOnIndex == plane.Count - 1) {
-			planeBeforeIndex = 3;
+			planeBeforeIndex = plane.Count - 1;
 		} else {
-			playerOnIndex++;
+			playerOnIndex += 2; // Random.Range excludes max number
 			planeBeforeIndex = playerOnIndex - 1;
 		}
 		indexes.Add("playerOnIndex", playerOnIndex);

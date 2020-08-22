@@ -85,7 +85,7 @@ public class Enemy : MovingObject {
 			}
 			
 		}
-		// Debug.Log(col.gameObject.tag);
+		
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
 			ChangeAudioClip();

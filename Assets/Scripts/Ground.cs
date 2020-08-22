@@ -18,13 +18,13 @@ public class Ground : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision other) {
-        if(other.gameObject.CompareTag("Player") && !playerOn) {
+        if(other.gameObject.CompareTag("Body") && !playerOn) {
             playerOn = true;
         } 
     }
 
     void OnCollisionExit(Collision other) {
-        if(other.gameObject.CompareTag("Player") && playerOn) {
+        if(other.gameObject.CompareTag("Body") && playerOn) {
             playerOn = false;
         } 
     }
