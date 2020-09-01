@@ -9,6 +9,7 @@ public class Shield : MonoBehaviour
     // Start is called before the first frame update
     public bool activate;
     public GameObject shieldText;
+    int count;
     void Start()
     {
         
@@ -41,7 +42,7 @@ public class Shield : MonoBehaviour
 
     IEnumerator CountdownEnum(int seconds)
     {
-        int count = seconds;
+        count += seconds;
         while (count > 0) {
             // display something...
             yield return new WaitForSeconds(1);
