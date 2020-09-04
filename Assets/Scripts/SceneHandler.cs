@@ -10,13 +10,15 @@ public class SceneHandler : MonoBehaviour
 	public Slider soundEffectsSlider;
     public void StartGameAction(string sceneName) {
 		SceneManager.LoadScene (sceneName);
+		SetVolumes();
+	}
+
+	void SetVolumes() {
 		PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
 		PlayerPrefs.SetFloat("soudEffectsVolume", soundEffectsSlider.value);
 	}
 
 	void Start() {
-		musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.2f);
-		soundEffectsSlider.value = PlayerPrefs.GetFloat("soudEffectsVolume", 0.4f);
 	}
 	
 	public void LoadNewScene() {
