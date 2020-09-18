@@ -6,6 +6,7 @@ public class Ground : MonoBehaviour
 {
     // Start is called before the first frame update
     bool playerOn;
+    public float friction;
     void Start()
     {
         playerOn = false;
@@ -20,6 +21,8 @@ public class Ground : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Body") && !playerOn) {
             playerOn = true;
+            Body playerBody = other.gameObject.GetComponent<Body>();
+            playerBody.setAcceleration(friction);
         } 
     }
 

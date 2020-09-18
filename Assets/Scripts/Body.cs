@@ -7,6 +7,7 @@ public class Body : MovingObject {
 	public float maxSpeed = 5f;
     public float dashSpeed = 300f;
 	public float acceleration = 2f;
+	float defaultAcceleration;
 	public bool alive;
 	GameObject head;
 	public GameObject shield;
@@ -34,6 +35,7 @@ public class Body : MovingObject {
 		base.Start ();
 		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;
+		defaultAcceleration = acceleration;
 	}
 
 
@@ -60,6 +62,14 @@ public class Body : MovingObject {
 			
 		}
 		
+	}
+
+	public float getDefaultAcceleration() {
+		return defaultAcceleration;
+	}
+
+	public void setAcceleration(float friction) {
+		acceleration = defaultAcceleration - friction;
 	}
 
 	void KillPlayer() {
