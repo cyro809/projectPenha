@@ -12,6 +12,7 @@ public class DoorController : MonoBehaviour
 
     public float openedDegree;
     bool isOpened;
+    public bool isActive;
     void Start()
     {
         openRotation = Quaternion.Euler(0, openedDegree, 0);
@@ -23,15 +24,19 @@ public class DoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ToggleDoor();
+        if(isActive) {
+            ToggleDoor();
+        }
         if(transform.rotation == openRotation) {
             isOpened = true;
+            isActive = false;
         } else if (transform.rotation == closedRotation) {
             isOpened = false;
+            isActive = false;
         }
     }
 
-    public void ToggleDoor() {
+    void ToggleDoor() {
         if(isOpened) {
             target = closedRotation;
         } else {
@@ -39,5 +44,7 @@ public class DoorController : MonoBehaviour
         }
         transform.rotation = Quaternion.RotateTowards(transform.rotation, target, moveSpeed * Time.deltaTime);        
     }
-
+    public void ActivateDoor() {
+        isActive = true;
+    }
 }
