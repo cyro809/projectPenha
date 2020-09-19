@@ -6,22 +6,38 @@ public class DoorController : MonoBehaviour
 {
     // Start is called before the first frame update
     public float moveSpeed;
+    Quaternion openRotation;
+    Quaternion closedRotation;
     Quaternion target;
-    public float targetDegree;
-    
+
+    public float openedDegree;
+    bool isOpened;
     void Start()
     {
-        target = transform.rotation;
-        target = Quaternion.Euler(0, targetDegree, 0);
+        openRotation = Quaternion.Euler(0, openedDegree, 0);
+        closedRotation = transform.rotation;
+        target = openRotation;
+        isOpened = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, target, moveSpeed * Time.deltaTime);
+        ToggleDoor();
+        if(transform.rotation == openRotation) {
+            isOpened = true;
+        } else if (transform.rotation == closedRotation) {
+            isOpened = false;
+        }
     }
 
-    void RotateDoor(float degrees) {
-        
+    void ToggleDoor() {
+        if(isOpened) {
+            target = closedRotation;
+        } else {
+            target = openRotation;
+        }
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, target, moveSpeed * Time.deltaTime);        
     }
+
 }
