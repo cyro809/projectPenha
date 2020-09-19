@@ -31,7 +31,7 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    void ToggleDoor() {
+    public void ToggleDoor() {
         if(isOpened) {
             target = closedRotation;
         } else {
