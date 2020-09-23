@@ -7,6 +7,7 @@ public class Ground : MonoBehaviour
     // Start is called before the first frame update
     bool playerOn;
     public float friction;
+    
     void Start()
     {
         playerOn = false;
@@ -35,5 +36,6 @@ public class Ground : MonoBehaviour
     public bool isPlayerOn() {
         return playerOn;
     }
+
     
 }

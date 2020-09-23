@@ -30,7 +30,7 @@ public class GameState : MonoBehaviour {
 		backGroundThemeObj = GameObject.FindGameObjectWithTag("BackgroundTheme");
 
 		if (SystemInfo.deviceType != DeviceType.Handheld) {
-			joystick.SetActive (false);
+			//joystick.SetActive (false);
 		}
 	}
 
