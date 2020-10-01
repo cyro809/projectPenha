@@ -6,12 +6,16 @@ public class Platform : MonoBehaviour
 {
     // Start is called before the first frame update
     public float moveSpeed;
+    public float shakeAmount;
+    public float shakeSpeed;
     Quaternion target;
     bool isRotating;
 
     void Start()
     {
         isRotating = false;
+        shakeSpeed = 200;
+        shakeAmount = 0.1f;
     }
 
     // Update is called once per frame
@@ -24,6 +28,7 @@ public class Platform : MonoBehaviour
         if(transform.rotation == target) {
             isRotating = false;
         }
+        Shake();
     }
 
     public void SetTarget(Quaternion newTarget) {
@@ -36,5 +41,11 @@ public class Platform : MonoBehaviour
 
     public void ActivateRotation() {
         isRotating = true;
+    }
+
+    void Shake() {
+        Vector3 position = transform.position;
+        position.x = position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount;
+        transform.position = position;
     }
 }
