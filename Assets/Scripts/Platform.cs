@@ -9,6 +9,7 @@ public class Platform : MonoBehaviour
     float shakeAmount;
     float shakeSpeed;
     Quaternion target;
+    Vector3 dropTarget;
     bool isRotating;
 
     void Start()
@@ -16,6 +17,7 @@ public class Platform : MonoBehaviour
         isRotating = false;
         shakeAmount = 0.1f;
         shakeSpeed = 200;
+        dropTarget = new Vector3(transform.position.x, -7.5f, transform.position.z);
     }
 
     // Update is called once per frame
@@ -46,5 +48,9 @@ public class Platform : MonoBehaviour
         Vector3 position = transform.position;
         position.x = position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount;
         transform.position = position;
+    }
+
+    void Drop() {
+        transform.position = Vector3.MoveTowards(transform.position, dropTarget, moveSpeed * Time.deltaTime);
     }
 }
