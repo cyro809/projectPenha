@@ -6,16 +6,16 @@ public class Platform : MonoBehaviour
 {
     // Start is called before the first frame update
     public float moveSpeed;
-    public float shakeAmount;
-    public float shakeSpeed;
+    float shakeAmount;
+    float shakeSpeed;
     Quaternion target;
     bool isRotating;
 
     void Start()
     {
         isRotating = false;
-        shakeSpeed = 200;
         shakeAmount = 0.1f;
+        shakeSpeed = 200;
     }
 
     // Update is called once per frame
@@ -28,7 +28,6 @@ public class Platform : MonoBehaviour
         if(transform.rotation == target) {
             isRotating = false;
         }
-        Shake();
     }
 
     public void SetTarget(Quaternion newTarget) {
