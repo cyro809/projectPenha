@@ -42,18 +42,19 @@ public class Body : MovingObject {
 	protected override void OnMove () {
 		if(gameState.gameStart) {
 			
-			float sideMove = Input.GetAxis ("AD-Horizontal");
-			float straightMove = Input.GetAxis ("WS-Vertical");	
+			float sideMove = Input.GetAxisRaw ("AD-Horizontal");
+			float straightMove = Input.GetAxisRaw ("WS-Vertical");	
 			if (SystemInfo.deviceType == DeviceType.Handheld) {
 				sideMove = joystick.GetTouchPosition.x;
 				straightMove = joystick.GetTouchPosition.y;
 			}
 			float rigidBodyMagnitude = rB.velocity.magnitude;
-			
+			Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
 			if (rigidBodyMagnitude < maxSpeed) {
-				Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
+				
 				rB.AddForce (movement * acceleration);
 			}
+			rB.AddForce (movement);
 			
 			head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
 			if(shield != null) {
@@ -69,7 +70,21 @@ public class Body : MovingObject {
 	}
 
 	public void setAcceleration(float friction) {
-		acceleration = defaultAcceleration - friction;
+		acceleration = friction == 0 ? defaultAcceleration : defaultAcceleration - (friction * 2);
+	}
+
+	public void StopPlayer(float friction) {
+		float sideMove = Input.GetAxisRaw ("AD-Horizontal");
+		float straightMove = Input.GetAxisRaw ("WS-Vertical");	
+		
+		if (sideMove == 0 && straightMove == 0) {
+			rB.angularDrag = friction == 0 ? 0 : 10 * friction; 
+			rB.drag = friction == 0 ? 0 : 10 * friction;
+		} else {
+			rB.angularDrag = 0;
+			rB.drag = 0;
+		}
+		
 	}
 
 	void KillPlayer() {
