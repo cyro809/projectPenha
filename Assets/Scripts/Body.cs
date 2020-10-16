@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +7,7 @@ public class Body : MovingObject {
 	public float maxSpeed = 5f;
     public float dashSpeed = 300f;
 	public float acceleration = 2f;
+	float groundFriction = 0 ;
 	float defaultAcceleration;
 	public bool alive;
 	GameObject head;
@@ -18,6 +19,8 @@ public class Body : MovingObject {
 	GameState gameState;
 	AudioSource audioSource;
 	public Text powerUpText;
+
+	Vector3 movement;
 	
 
 	// Use this for initialization
@@ -41,21 +44,20 @@ public class Body : MovingObject {
 
 	protected override void OnMove () {
 		if(gameState.gameStart) {
-			
 			float sideMove = Input.GetAxisRaw ("AD-Horizontal");
 			float straightMove = Input.GetAxisRaw ("WS-Vertical");	
+			float rigidBodyMagnitude = rB.velocity.magnitude;
+
 			if (SystemInfo.deviceType == DeviceType.Handheld) {
 				sideMove = joystick.GetTouchPosition.x;
 				straightMove = joystick.GetTouchPosition.y;
 			}
-			float rigidBodyMagnitude = rB.velocity.magnitude;
-			Vector3 movement = new Vector3 (sideMove, 0.0f, straightMove);
+			
 			if (rigidBodyMagnitude < maxSpeed) {
-				
+				movement = new Vector3 (sideMove, 0.0f, straightMove);
 				rB.AddForce (movement * acceleration);
 			}
-			rB.AddForce (movement);
-			
+		
 			head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
 			if(shield != null) {
 				shield.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
@@ -65,26 +67,21 @@ public class Body : MovingObject {
 		
 	}
 
+	bool hasNoInput(float sideMove, float straightMove) {
+		return sideMove == 0 && straightMove == 0;
+	}
+
 	public float getDefaultAcceleration() {
 		return defaultAcceleration;
 	}
 
 	public void setAcceleration(float friction) {
-		acceleration = friction == 0 ? defaultAcceleration : defaultAcceleration - (friction * 2);
+		rB.AddForce(movement * (-friction * 50 ));
 	}
 
-	public void StopPlayer(float friction) {
-		float sideMove = Input.GetAxisRaw ("AD-Horizontal");
-		float straightMove = Input.GetAxisRaw ("WS-Vertical");	
-		
-		if (sideMove == 0 && straightMove == 0) {
-			rB.angularDrag = friction == 0 ? 0 : 10 * friction; 
-			rB.drag = friction == 0 ? 0 : 10 * friction;
-		} else {
-			rB.angularDrag = 0;
-			rB.drag = 0;
-		}
-		
+	public void SetDrag(float friction) {
+		rB.angularDrag = friction;
+		rB.drag = friction;
 	}
 
 	void KillPlayer() {
@@ -124,6 +121,9 @@ public class Body : MovingObject {
 		if(col.gameObject.CompareTag("ShotGunPowerUp")) {
 			gun.GetComponent<GunController>().setShotGunMode();
 			StartCoroutine(showText("Shot Gun"));
+		}
+		if(col.gameObject.CompareTag("Ground")) {
+			groundFriction = col.gameObject.GetComponent<Ground>().friction;
 		}
 	}
 

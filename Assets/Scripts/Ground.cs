@@ -26,7 +26,7 @@ public class Ground : MonoBehaviour
             playerOn = true;
             Body playerBody = other.gameObject.GetComponent<Body>();
             playerBody.setAcceleration(physicM.dynamicFriction);
-            playerBody.StopPlayer(physicM.dynamicFriction);
+            playerBody.SetDrag(physicM.dynamicFriction);
         } 
     }
 
@@ -34,14 +34,6 @@ public class Ground : MonoBehaviour
         if(other.gameObject.CompareTag("Body") && playerOn) {
             playerOn = false;
         } 
-    }
-
-    void OnCollisionStay(Collision other) {
-        if(other.gameObject.CompareTag("Body")) {
-            Body playerBody = other.gameObject.GetComponent<Body>();
-            playerBody.setAcceleration(friction);
-            playerBody.StopPlayer(physicM.dynamicFriction);
-        }
     }
 
     public bool isPlayerOn() {
