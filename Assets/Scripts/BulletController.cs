@@ -7,6 +7,8 @@ public class BulletController : MonoBehaviour {
 	public float speed;
 	public GameObject enemy;
 	private float pushBackForce = 1000;
+	private float lightEnemyPushBackForce = 1500;
+	private float heavyEnemyPushBackForce = 200;
 	Rigidbody rb;
 	AudioSource audioSource;
 
@@ -28,6 +30,18 @@ public class BulletController : MonoBehaviour {
 			audioSource.Play();
 			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
 			hitEnemy.getHit (pushBackForce, transform.position);
+			Destroy (gameObject);
+		}
+		if (col.gameObject.CompareTag("LightEnemy")) {
+			audioSource.Play();
+			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
+			hitEnemy.getHit (lightEnemyPushBackForce, transform.position);
+			Destroy (gameObject);
+		}
+		if (col.gameObject.CompareTag("HeavyEnemy")) {
+			audioSource.Play();
+			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
+			hitEnemy.getHit (heavyEnemyPushBackForce, transform.position);
 			Destroy (gameObject);
 		}
 		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall") || col.gameObject.CompareTag("Obstacle") || col.gameObject.CompareTag("Goal")) {
