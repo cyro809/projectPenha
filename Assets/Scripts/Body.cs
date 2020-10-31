@@ -7,9 +7,12 @@ public class Body : MovingObject {
 	public float maxSpeed = 5f;
     public float dashSpeed = 300f;
 	public float acceleration = 2f;
+	public float jumpForce = 20f;
+	public float jumpAcceleration = 10f;
 	float groundFriction = 0 ;
 	float defaultAcceleration;
 	public bool alive;
+	private bool isGrounded;
 	GameObject head;
 	public GameObject shield;
 	public GameObject gun;
@@ -19,6 +22,7 @@ public class Body : MovingObject {
 	GameState gameState;
 	AudioSource audioSource;
 	public Text powerUpText;
+
 
 	Vector3 movement;
 	
@@ -38,6 +42,7 @@ public class Body : MovingObject {
 		base.Start ();
 		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;
+		isGrounded = false;
 		defaultAcceleration = acceleration;
 	}
 
@@ -55,9 +60,13 @@ public class Body : MovingObject {
 			
 			if (rigidBodyMagnitude < maxSpeed) {
 				movement = new Vector3 (sideMove, 0.0f, straightMove);
-				rB.AddForce (movement * acceleration);
+				rB.AddForce (movement * GetAcceleration());
 			}
-		
+
+			if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
+				rB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+			}
+
 			head.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
 			if(shield != null) {
 				shield.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
@@ -69,6 +78,14 @@ public class Body : MovingObject {
 
 	bool hasNoInput(float sideMove, float straightMove) {
 		return sideMove == 0 && straightMove == 0;
+	}
+
+	float GetAcceleration() {
+		if (isGrounded) {
+			return getDefaultAcceleration();
+		} else {
+			return jumpAcceleration;
+		}
 	}
 
 	public float getDefaultAcceleration() {
@@ -124,12 +141,22 @@ public class Body : MovingObject {
 		}
 		if(col.gameObject.CompareTag("Ground")) {
 			groundFriction = col.gameObject.GetComponent<Ground>().friction;
+			isGrounded = true;
+		}
+	}
+	void OnCollisionExit(Collision col) {
+		if(col.gameObject.CompareTag("Ground")) {
+			isGrounded = false;
 		}
 	}
 
 	void OnCollisionStay(Collision col) {
 		if (col.gameObject.CompareTag("LimitPlane")) {
 			KillPlayer();
+		}
+
+		if(col.gameObject.CompareTag("Ground")) {
+			isGrounded = true;
 		}
 	}
 
