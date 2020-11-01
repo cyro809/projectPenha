@@ -139,6 +139,10 @@ public class Body : MovingObject {
 			gun.GetComponent<GunController>().setShotGunMode();
 			StartCoroutine(showText("Shot Gun"));
 		}
+		if(col.gameObject.CompareTag("MachineGunPowerUp")) {
+			gun.GetComponent<GunController>().setMachineGunMode();
+			StartCoroutine(showText("Machine Gun"));
+		}
 		if(col.gameObject.CompareTag("Ground")) {
 			groundFriction = col.gameObject.GetComponent<Ground>().friction;
 			isGrounded = true;

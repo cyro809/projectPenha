@@ -47,6 +47,7 @@ public class Head : MonoBehaviour {
 			if (DetectFireInputEnd()) {
 				gun.isFiring = false;
 			}
+			
 		}
 		
 	}
@@ -58,7 +59,7 @@ public class Head : MonoBehaviour {
 			}
 			return false;
 		} else {
-			if (Input.GetMouseButtonDown (0)) {
+			if (Input.GetMouseButton (0)) {
 				return true;
 			}
 			return false;

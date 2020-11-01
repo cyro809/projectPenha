@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GunController : MonoBehaviour {
 
+
+public class GunController : MonoBehaviour {
+	const int NORMAL_GUN_MODE = 0;
+	const int SHOT_GUN_MODE = 1;
+	const int MACHINE_GUN_MODE = 2;
+	
 	public bool isFiring;
 
 	public BulletController bullet;
@@ -14,9 +19,10 @@ public class GunController : MonoBehaviour {
 	private float shotCounter;
 	public float spreadAngle;
 	public int spreadAmount;
-
+	int gunMode = 0;
 	bool shotGunMode = false;
-	public int shotGunBullets = 0;
+	bool machineGunMode = true;
+	public int specialShotBullets = 0;
 	public Text shotCounterText;
 	public Transform firePoint;
 	AudioSource audioSource;
@@ -30,19 +36,26 @@ public class GunController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		shotCounter -= Time.deltaTime;
+		
 		if (isFiring) {
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
-				if(shotGunMode) {
+				if(gunMode == SHOT_GUN_MODE) {
 					shotGunFire();
 				} else {
 					normalFire();
 				}
 				
 				audioSource.Play();
-				isFiring = false;
+				if(!machineGunMode) {
+					isFiring = false;
+				}
+				
 				resetShotCounter();
 			}
+		}
+		if (specialShotBullets <= 0) {
+			ResetGunMode(); 
 		}
 		showShotCounterText();
 	}
@@ -53,6 +66,9 @@ public class GunController : MonoBehaviour {
 	void normalFire() {
 		BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
 		newBullet.beFired (bulletSpeed);
+		if(gunMode == MACHINE_GUN_MODE) {
+			specialShotBullets--;
+		}
 	}
 
 	void shotGunFire() {	
@@ -65,19 +81,27 @@ public class GunController : MonoBehaviour {
 			newBullet.gameObject.transform.Rotate(Vector3.up, startAngle + i * perBulletAngle);
 			newBullet.beFired (bulletSpeed);			
 		}
-		shotGunBullets--;
-		if(shotGunBullets == 0) {
-			shotGunMode = false;
-		}
+		specialShotBullets -= 3;
 	}
 
 	public void setShotGunMode() {
-		shotGunBullets = 10;
-		shotGunMode = true;
+		specialShotBullets = 30;
+		gunMode = SHOT_GUN_MODE;
+		timeBetweenShots = 1.2f;
+	}
 
+	public void setMachineGunMode() {
+		specialShotBullets = 50;
+		gunMode = MACHINE_GUN_MODE;
+		timeBetweenShots = 0.1f;
+	}
+
+	void ResetGunMode() {
+		gunMode = NORMAL_GUN_MODE;
+		timeBetweenShots = 1;
 	}
 
 	void showShotCounterText() {
-		shotCounterText.text =  "Special Shots: " + shotGunBullets.ToString ();
+		shotCounterText.text =  "Special Shots: " + specialShotBullets.ToString ();
 	}
 }
