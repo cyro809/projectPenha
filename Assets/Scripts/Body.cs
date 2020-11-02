@@ -1,4 +1,5 @@
-﻿ using System.Collections;
+﻿using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ public class Body : MovingObject {
 	SimpleTouchController joystick;
 	GameState gameState;
 	AudioSource audioSource;
-	public Text powerUpText;
+	public TextMeshProUGUI powerUpText;
 
 
 	Vector3 movement;

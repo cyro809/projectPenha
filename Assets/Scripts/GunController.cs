@@ -21,8 +21,6 @@ public class GunController : MonoBehaviour {
 	public float spreadAngle;
 	public int spreadAmount;
 	int gunMode = 0;
-	bool shotGunMode = false;
-	bool machineGunMode = true;
 	public int specialShotBullets = 0;
 	public TextMeshProUGUI shotCounterText;
 	public Transform firePoint;
@@ -48,7 +46,7 @@ public class GunController : MonoBehaviour {
 				}
 				
 				audioSource.Play();
-				if(!machineGunMode) {
+				if(gunMode == MACHINE_GUN_MODE) {
 					isFiring = false;
 				}
 				
@@ -103,6 +101,23 @@ public class GunController : MonoBehaviour {
 	}
 
 	void showShotCounterText() {
-		shotCounterText.text =  "Special Shots: " + specialShotBullets.ToString ();
+		switch(gunMode) {
+			case NORMAL_GUN_MODE:
+				shotCounterText.text = "";
+				break;
+			case MACHINE_GUN_MODE:
+				shotCounterText.text = "Machine Gun: ";
+				break;
+			case SHOT_GUN_MODE:
+				shotCounterText.text = "Shot Gun: ";
+				break;
+			default:
+				shotCounterText.text = "";
+				break;
+		}
+		if (gunMode != NORMAL_GUN_MODE) {
+			shotCounterText.text += specialShotBullets.ToString ();
+		}
+		
 	}
 }

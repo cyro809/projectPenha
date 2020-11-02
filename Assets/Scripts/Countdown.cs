@@ -1,15 +1,16 @@
-﻿using System.Collections;
+﻿using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Countdown : MonoBehaviour
 {
-    public Text countDownText;
+    public TextMeshProUGUI countDownText;
     public bool finishCount;
     void Start()
     {
-        countDownText = gameObject.GetComponent<Text> ();
+        countDownText = gameObject.GetComponent<TextMeshProUGUI> ();
         finishCount = false;
         StartCoroutine(CountdownEnum(3));
     }

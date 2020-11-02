@@ -15,8 +15,8 @@ public class Score : MonoBehaviour {
 		SetCountText ();
 	}
 
-	public void addPoint() {
-		counter++;
+	public void addPoint(int points) {
+		counter += points;
 		SetCountText ();
 	}
 

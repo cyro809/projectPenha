@@ -8,6 +8,7 @@ public class Enemy : MovingObject {
 	GameObject scoreGameObject;
 	GameState gameState;
 	Score score;
+	public int scorePoints = 1;
 	bool onGround;
 	public int MoveSpeed;
 	public float pushBackForce;
@@ -73,7 +74,7 @@ public class Enemy : MovingObject {
 	}
 
 	void Kill() {
-		score.addPoint ();
+		score.addPoint (scorePoints);
 		Destroy (gameObject);
 	}
 
