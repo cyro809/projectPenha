@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ public class GunController : MonoBehaviour {
 	bool shotGunMode = false;
 	bool machineGunMode = true;
 	public int specialShotBullets = 0;
-	public Text shotCounterText;
+	public TextMeshProUGUI shotCounterText;
 	public Transform firePoint;
 	AudioSource audioSource;
 	

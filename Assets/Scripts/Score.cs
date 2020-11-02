@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,10 +8,10 @@ public class Score : MonoBehaviour {
 
 	private int counter = 0;
 
-	public Text countText;
+	public TextMeshProUGUI countText;
 	// Use this for initialization
 	void Start () {
-		countText = gameObject.GetComponent<Text> ();
+		countText = gameObject.GetComponent<TextMeshProUGUI> ();
 		SetCountText ();
 	}
 
