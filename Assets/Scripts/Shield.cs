@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Shield : MonoBehaviour
     public float fadeSpeed = 5/30;
     // Start is called before the first frame update
     public bool activate;
-    public GameObject shieldText;
+    public TextMeshProUGUI shieldText;
     int count;
     void Start()
     {
@@ -45,12 +46,17 @@ public class Shield : MonoBehaviour
         count += seconds;
         while (count > 0) {
             // display something...
+            DisplayShieldCounter();
             yield return new WaitForSeconds(1);
             count --;
         }
        
         // count down is finished...
         activate = false;
+    }
+
+    void DisplayShieldCounter() {
+        shieldText.text = count.ToString();
     }
 
 }
