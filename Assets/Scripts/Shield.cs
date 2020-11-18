@@ -11,6 +11,8 @@ public class Shield : MonoBehaviour
     public bool activate;
     public TextMeshProUGUI shieldText;
     int count;
+
+    Coroutine currentCoroutine = null;
     void Start()
     {
         
@@ -38,12 +40,15 @@ public class Shield : MonoBehaviour
         GetComponent<MeshRenderer>().material.color = col;
         activate = true;
         gameObject.SetActive (true);
-        StartCoroutine(CountdownEnum(5));
+        if(currentCoroutine != null) {
+            StopCoroutine(currentCoroutine);
+        }
+        currentCoroutine = StartCoroutine(ShieldCountDown(5));
     }
 
-    IEnumerator CountdownEnum(int seconds)
+    IEnumerator ShieldCountDown(int seconds)
     {
-        count += seconds;
+        count = seconds;
         while (count > 0) {
             // display something...
             DisplayShieldCounter();
