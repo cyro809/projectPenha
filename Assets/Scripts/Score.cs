@@ -23,4 +23,8 @@ public class Score : MonoBehaviour {
 	void SetCountText() {
 		countText.text = "Score: " + counter.ToString ();
 	}
+
+	public int getCounter() {
+		return counter;
+	}
 }
