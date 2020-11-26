@@ -26,15 +26,15 @@ public class Body : MovingObject {
 
 
 	Vector3 movement;
-	
+
 
 	// Use this for initialization
 	public override void Start () {
 		head = GameObject.Find ("Head");
-		
+
 		plane = GameObject.FindWithTag ("Ground");
-		
-		gameOverText = GameObject.FindWithTag ("GameOverText"); 
+
+		gameOverText = GameObject.FindWithTag ("GameOverText");
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 
 		audioSource = GetComponent<AudioSource>();
@@ -49,16 +49,16 @@ public class Body : MovingObject {
 
 
 	protected override void OnMove () {
-		if(gameState.gameStart) {
+		if(gameState.gameStart && !gameState.paused) {
 			float sideMove = Input.GetAxisRaw ("AD-Horizontal");
-			float straightMove = Input.GetAxisRaw ("WS-Vertical");	
+			float straightMove = Input.GetAxisRaw ("WS-Vertical");
 			float rigidBodyMagnitude = rB.velocity.magnitude;
 
 			if (SystemInfo.deviceType == DeviceType.Handheld) {
 				sideMove = joystick.GetTouchPosition.x;
 				straightMove = joystick.GetTouchPosition.y;
 			}
-			
+
 			if (rigidBodyMagnitude < maxSpeed) {
 				movement = new Vector3 (sideMove, 0.0f, straightMove);
 				rB.AddForce (movement * GetAcceleration());
@@ -72,9 +72,9 @@ public class Body : MovingObject {
 			if(shield != null) {
 				shield.transform.position = new Vector3 (transform.position.x, head.transform.position.y, transform.position.z);
 			}
-			
+
 		}
-		
+
 	}
 
 	bool hasNoInput(float sideMove, float straightMove) {
@@ -128,7 +128,7 @@ public class Body : MovingObject {
 		}
 		if (col.gameObject.CompareTag("Enemy")) {
 			audioSource.Play();
-		} 	
+		}
 		if (col.gameObject.CompareTag("Goal")) {
 			ChangeToWinState();
 		}
@@ -170,6 +170,6 @@ public class Body : MovingObject {
         // display something...
         yield return new WaitForSeconds(1);
 		powerUpText.text = "";
-       
+
     }
 }

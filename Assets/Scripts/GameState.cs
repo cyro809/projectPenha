@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class GameState : MonoBehaviour {
 	public bool gameOver = false;
 	public bool gameStart = false;
 	public bool gameWin = false;
+	public bool paused;
 	GameObject gameOverText;
 	public GameObject restartButton;
 	public GameObject titleButton;
@@ -16,10 +18,14 @@ public class GameState : MonoBehaviour {
 	GameObject countDownText;
 	Countdown countdownObj;
 	GameObject backGroundThemeObj;
+	public TextMeshProUGUI pauseText;
+
 	// Use this for initialization
 	void Start () {
 		Application.targetFrameRate = 40;
 		gameOver = false;
+		paused = false;
+		pauseText.enabled = false;
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
 		gameOverText = GameObject.FindGameObjectWithTag ("GameOverText");
@@ -38,6 +44,11 @@ public class GameState : MonoBehaviour {
 		if(countDownText != null && countdownObj != null && countdownObj.finishCount) {
 			changeStateToGameStartState();
 		}
+
+	}
+
+	void Update() {
+		TogglePause();
 	}
 
 	public void changeStateToGameOverState() {
@@ -68,7 +79,7 @@ public class GameState : MonoBehaviour {
 		if (gameOver && !gameWin) {
 			restartButton.SetActive (true);
 			titleButton.SetActive(true);
-			text.text = "Game Over!";	
+			text.text = "Game Over!";
 		}
 	}
 
@@ -76,7 +87,7 @@ public class GameState : MonoBehaviour {
 		if (gameOver && gameWin) {
 			nextLevelButton.SetActive (true);
 			titleButton.SetActive(true);
-			text.text = "Great!";	
+			text.text = "Great!";
 		}
 
 	}
@@ -84,6 +95,24 @@ public class GameState : MonoBehaviour {
 	void playGameOverMusic() {
 		BackgroundTheme theme = GetBackgroundTheme();
 		theme.ToggleToGameOverSound();
+	}
+
+	void TogglePause() {
+		if(gameStart) {
+			if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) {
+				paused = !paused;
+				if(paused) {
+					Time.timeScale = 0;
+					pauseText.text = "PAUSED \n Press Esc or P to Resume";
+
+				} else if(!paused) {
+					Time.timeScale = 1;
+					pauseText.text = "";
+				}
+				pauseText.enabled = paused;
+			}
+		}
+
 	}
 
 }

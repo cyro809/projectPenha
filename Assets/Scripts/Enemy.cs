@@ -27,7 +27,7 @@ public class Enemy : MovingObject {
 
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
-		
+
 		bulletHit = Resources.Load<AudioClip>("SoundEffects/enemy-hit");
 		onGround = false;
 		base.Start ();
@@ -45,28 +45,28 @@ public class Enemy : MovingObject {
 			} else if (!playerBody.alive) {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
 			}
-			
-		} 
+
+		}
 		if (gameState.gameOver) {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
-		
+
 	}
 
 	Vector3 GetLookAtDirection(GameObject player) {
 		/*
 		Code reference from: https://answers.unity.com/questions/239614/roll-a-ball-towards-the-player.html
 		*/
-		
+
 		Vector3 targetPosition = player.transform.position;
 		Vector3 myPosition = transform.position;
-		
+
 		// work out direction and distance
 		return (targetPosition - myPosition).normalized;
 	}
 
 	bool IsGameStartedAndIsPlayerAlive() {
-		return (gameState.gameStart && player != null && player.GetComponent<Body>() != null);
+		return (gameState.gameStart  && !gameState.paused && player != null && player.GetComponent<Body>() != null);
 	}
 
 	void GetPlayerReference() {
@@ -84,9 +84,9 @@ public class Enemy : MovingObject {
 				Body hitPlayer = col.gameObject.GetComponent<Body>();
 				hitPlayer.getHit (pushBackForce, rB.transform.position);
 			}
-			
+
 		}
-		
+
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
 			ChangeAudioClip();
