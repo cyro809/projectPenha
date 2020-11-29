@@ -5,8 +5,10 @@ using UnityEngine;
 public class ResumeButtonController : MonoBehaviour
 {
     public GameObject canvasGameObject;
+    public GameObject gameStateObject;
     public void ResumeGame() {
-        canvasGameObject.GetComponent<Canvas>().enabled = false;
 		Time.timeScale = 1;
+        canvasGameObject.GetComponent<Canvas>().enabled = false;
+        gameStateObject.GetComponent<GameState>().paused = false;
 	}
 }
