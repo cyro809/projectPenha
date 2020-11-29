@@ -18,14 +18,15 @@ public class GameState : MonoBehaviour {
 	GameObject countDownText;
 	Countdown countdownObj;
 	GameObject backGroundThemeObj;
-	public TextMeshProUGUI pauseText;
+	public GameObject pauseCanvasObject;
+	Canvas pauseCanvas;
 
 	// Use this for initialization
 	void Start () {
 		Application.targetFrameRate = 40;
 		gameOver = false;
 		paused = false;
-		pauseText.enabled = false;
+		pauseCanvas = pauseCanvasObject.GetComponent<Canvas>();
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
 		gameOverText = GameObject.FindGameObjectWithTag ("GameOverText");
@@ -103,16 +104,13 @@ public class GameState : MonoBehaviour {
 				paused = !paused;
 				if(paused) {
 					Time.timeScale = 0;
-					pauseText.text = "PAUSED \n Press Esc or P to Resume";
 
 				} else if(!paused) {
 					Time.timeScale = 1;
-					pauseText.text = "";
 				}
-				pauseText.enabled = paused;
+				pauseCanvas.enabled = paused;
 			}
 		}
 
 	}
-
 }

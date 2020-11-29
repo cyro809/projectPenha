@@ -15,8 +15,13 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameState.GetComponent<GameState>().gameOver || gameState.GetComponent<GameState>().gameWin) {
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); 
+        if (isGameStopped()) {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
+    }
+
+    bool isGameStopped() {
+        GameState gs = gameState.GetComponent<GameState>();
+        return (gs.gameOver || gs.gameWin || gs.paused);
     }
 }

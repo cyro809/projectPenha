@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class TitleButtonController : MonoBehaviour
 {
     public void GoToTitleScreen() {
-		 Scene scene = SceneManager.GetActiveScene(); 
+		 Scene scene = SceneManager.GetActiveScene();
 		 SceneManager.LoadScene("titleScreen");
+		 Time.timeScale = 1;
 	}
 }
