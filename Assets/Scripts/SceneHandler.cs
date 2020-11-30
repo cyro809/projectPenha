@@ -6,25 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
-	public Slider musicSlider;
-	public Slider soundEffectsSlider;
     public void StartGameAction(string sceneName) {
 		SceneManager.LoadScene (sceneName);
-		SetVolumes();
 	}
 
-	void SetVolumes() {
-		PlayerPrefs.SetFloat("musicVolume", musicSlider.value);
-		PlayerPrefs.SetFloat("soudEffectsVolume", soundEffectsSlider.value);
-	}
-
-	void Start() {
-	}
-	
 	public void LoadNewScene() {
 		switch (this.gameObject.name)
 		{
-			case "EndlessModeButton":
+			case "GameStartButton":
+				SceneManager.LoadScene("gameModes");
+				break;
+			case "SurvivalModeButton":
 			PlayerPrefs.SetString("gameMode", "mainGame");
 				StartGameAction("instructions");
 				break;
@@ -32,7 +24,7 @@ public class SceneHandler : MonoBehaviour
 				PlayerPrefs.SetString("gameMode", "level1");
 				StartGameAction("instructions");
 				break;
-			case "CreditButton":
+			case "CreditsButton":
 				SceneManager.LoadScene("credits");
 				break;
 			case "TitleButton":
