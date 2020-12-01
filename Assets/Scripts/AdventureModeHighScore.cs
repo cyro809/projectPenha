@@ -27,7 +27,6 @@ public class AdventureModeHighScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(highScore);
         if(gameState.gameWin) {
             if(score.GetMillisecondsTime() < highScore || highScore == 0) {
                 PlayerPrefs.SetString(sceneHighscorePrefName, score.GetMillisecondsTime().ToString());
