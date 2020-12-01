@@ -90,6 +90,7 @@ public class GameState : MonoBehaviour {
 			titleButton.SetActive(true);
 			gameOverText.enabled = true;
 			gameOverText.text = "Great!";
+			gameOverText.color = new Color32(10, 132, 38, 255);
 		}
 
 	}

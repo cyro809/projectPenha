@@ -1,4 +1,5 @@
-﻿using System;
+﻿using TMPro;
+using System;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ using UnityEngine.UI;
 public class StopwatchController : MonoBehaviour
 {
     bool started = false;
-    public Text countText;
+    public TextMeshProUGUI countText;
     // Start is called before the first frame update
     Stopwatch stopWatch;
     GameState gameState;
+    double millisecondsTime;
     void Start()
     {
         gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
@@ -31,9 +33,19 @@ public class StopwatchController : MonoBehaviour
         }
         SetCountText();
     }
+
+    public double GetMillisecondsTime() {
+        return millisecondsTime;
+    }
+
     void SetCountText() {
         TimeSpan ts = stopWatch.Elapsed;
-        string elapsedTime = String.Format("{0:00.00}", ts.TotalMilliseconds / 1000);
+        millisecondsTime = ts.TotalMilliseconds;
+        string elapsedTime = FormatMillisecondsTime(millisecondsTime);
 		countText.text = "Time: " + elapsedTime;
 	}
+
+    public string FormatMillisecondsTime(double milliseconds) {
+        return String.Format("{0:00.00}", milliseconds / 1000);
+    }
 }
