@@ -9,7 +9,7 @@ public class GameState : MonoBehaviour {
 	public bool gameStart = false;
 	public bool gameWin = false;
 	public bool paused;
-	GameObject gameOverText;
+	public TextMeshProUGUI gameOverText;
 	public GameObject restartButton;
 	public GameObject titleButton;
 	public GameObject nextLevelButton;
@@ -27,12 +27,11 @@ public class GameState : MonoBehaviour {
 		gameOver = false;
 		paused = false;
 		pauseCanvas = pauseCanvasObject.GetComponent<Canvas>();
+		gameOverText.enabled = false;
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
-		gameOverText = GameObject.FindGameObjectWithTag ("GameOverText");
 		restartButton.SetActive (false);
 		titleButton.SetActive(false);
-		text = gameOverText.GetComponent<Text> ();
 		joystick = GameObject.FindGameObjectWithTag ("Joystick");
 		backGroundThemeObj = GameObject.FindGameObjectWithTag("BackgroundTheme");
 
@@ -80,7 +79,8 @@ public class GameState : MonoBehaviour {
 		if (gameOver && !gameWin) {
 			restartButton.SetActive (true);
 			titleButton.SetActive(true);
-			text.text = "Game Over!";
+			gameOverText.enabled = true;
+			gameOverText.text = "Game Over!";
 		}
 	}
 
@@ -88,7 +88,8 @@ public class GameState : MonoBehaviour {
 		if (gameOver && gameWin) {
 			nextLevelButton.SetActive (true);
 			titleButton.SetActive(true);
-			text.text = "Great!";
+			gameOverText.enabled = true;
+			gameOverText.text = "Great!";
 		}
 
 	}
