@@ -12,4 +12,7 @@ public class LevelSelect : MonoBehaviour
         SceneManager.LoadScene(levelName);
     }
 
+    public void LoadLevelSelectScreen() {
+        SceneManager.LoadScene("levelSelect");
+    }
 }
