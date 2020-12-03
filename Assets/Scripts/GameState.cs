@@ -1,8 +1,11 @@
 ﻿using TMPro;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour {
 	public bool gameOver = false;
@@ -63,7 +66,22 @@ public class GameState : MonoBehaviour {
 		gameStart = false;
 		gameOver = true;
 		gameWin = true;
+		SaveLevelCleared();
 		setWinText ();
+	}
+
+	void SaveLevelCleared() {
+		Scene scene = SceneManager.GetActiveScene();
+		string levelName = scene.name;
+		if (levelName.StartsWith("level")) {
+			int currentLevelNumber = Convert.ToInt32(Regex.Split(levelName, "level")[1]);
+
+			int lastSavedLevel = PlayerPrefs.GetInt("lastClearedLevel");
+			if(currentLevelNumber > lastSavedLevel) {
+				PlayerPrefs.SetInt("lastClearedLevel", currentLevelNumber);
+
+			}
+		}
 	}
 
 	void changeStateToGameStartState() {
