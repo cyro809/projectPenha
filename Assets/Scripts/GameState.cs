@@ -61,8 +61,12 @@ public class GameState : MonoBehaviour {
 		gameStart = false;
 		gameOver = true;
 		gameWin = false;
-		setGameOverText ();
-		playGameOverMusic();
+		RestartLevel();
+	}
+
+	void RestartLevel() {
+		Scene scene = SceneManager.GetActiveScene();
+		SceneManager.LoadScene(scene.name);
 	}
 
 	public void changeStateToWinState() {
