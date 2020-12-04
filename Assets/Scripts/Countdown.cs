@@ -12,28 +12,28 @@ public class Countdown : MonoBehaviour
     {
         countDownText = gameObject.GetComponent<TextMeshProUGUI> ();
         finishCount = false;
-        StartCoroutine(CountdownEnum(3));
+        StartCoroutine(CountdownEnum(1));
     }
-   
+
     IEnumerator CountdownEnum(int seconds)
     {
         int count = seconds;
-       
+
         while (count > 0) {
-           countDownText.text = "" + count.ToString ();
+           countDownText.text = "Ready";
             // display something...
             yield return new WaitForSeconds(1);
             count --;
         }
-       
+
         // count down is finished...
         countDownText.text = "GO!";
         Invoke("StartGame", 1);
     }
- 
+
     void StartGame()
     {
-        
+
         finishCount = true;
         // do something...
     }

@@ -106,17 +106,6 @@ public class GameState : MonoBehaviour {
 		}
 	}
 
-	void setWinText() {
-		if (gameOver && gameWin) {
-			nextLevelButton.SetActive (true);
-			titleButton.SetActive(true);
-			gameOverText.enabled = true;
-			gameOverText.text = "Great!";
-			gameOverText.color = new Color32(10, 132, 38, 255);
-		}
-
-	}
-
 	void playGameOverMusic() {
 		BackgroundTheme theme = GetBackgroundTheme();
 		theme.ToggleToGameOverSound();
