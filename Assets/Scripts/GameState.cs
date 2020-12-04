@@ -12,12 +12,12 @@ public class GameState : MonoBehaviour {
 	public bool gameStart = false;
 	public bool gameWin = false;
 	public bool paused;
-	public TextMeshProUGUI gameOverText;
+
 	public GameObject restartButton;
 	public GameObject titleButton;
 	public GameObject nextLevelButton;
+
 	GameObject joystick;
-	Text text;
 	GameObject countDownText;
 	Countdown countdownObj;
 	GameObject backGroundThemeObj;
@@ -33,7 +33,6 @@ public class GameState : MonoBehaviour {
 		paused = false;
 		pauseCanvas = pauseCanvasObject.GetComponent<Canvas>();
 		gameWinCanvas = gameWinCanvasObject.GetComponent<Canvas>();
-		gameOverText.enabled = false;
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
 		restartButton.SetActive (false);
@@ -99,15 +98,6 @@ public class GameState : MonoBehaviour {
 
 	BackgroundTheme GetBackgroundTheme() {
 		return backGroundThemeObj.GetComponent<BackgroundTheme>();
-	}
-
-	void setGameOverText() {
-		if (gameOver && !gameWin) {
-			restartButton.SetActive (true);
-			titleButton.SetActive(true);
-			gameOverText.enabled = true;
-			gameOverText.text = "Game Over!";
-		}
 	}
 
 	void playGameOverMusic() {
