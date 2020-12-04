@@ -23,6 +23,8 @@ public class GameState : MonoBehaviour {
 	GameObject backGroundThemeObj;
 	public GameObject pauseCanvasObject;
 	Canvas pauseCanvas;
+	public GameObject gameWinCanvasObject;
+	Canvas gameWinCanvas;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +32,7 @@ public class GameState : MonoBehaviour {
 		gameOver = false;
 		paused = false;
 		pauseCanvas = pauseCanvasObject.GetComponent<Canvas>();
+		gameWinCanvas = gameWinCanvasObject.GetComponent<Canvas>();
 		gameOverText.enabled = false;
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
@@ -67,7 +70,8 @@ public class GameState : MonoBehaviour {
 		gameOver = true;
 		gameWin = true;
 		SaveLevelCleared();
-		setWinText ();
+		gameWinCanvas.enabled = true;
+
 	}
 
 	void SaveLevelCleared() {

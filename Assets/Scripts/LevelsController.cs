@@ -10,7 +10,6 @@ public class LevelsController : MonoBehaviour
     void Start () {
         lastClearedLevel = PlayerPrefs.GetInt("lastClearedLevel", 0);
         levels = GameObject.FindGameObjectsWithTag("levelButton");
-        Debug.Log(levels[0].GetComponent<Button>().interactable);
         DisableAllLevels();
         EnableClearedLevels();
     }

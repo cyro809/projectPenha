@@ -7,7 +7,11 @@ public class StartGameHandler : MonoBehaviour
 {
     public void StartGameScene() {
         string gameMode = PlayerPrefs.GetString("gameMode", "mainGame");
-        Scene scene = SceneManager.GetActiveScene(); 
-		SceneManager.LoadScene(gameMode); 
+        Scene scene = SceneManager.GetActiveScene();
+        if (gameMode == "level1") {
+            SceneManager.LoadScene("levelSelect");
+        } else {
+		    SceneManager.LoadScene(gameMode);
+        }
 	}
 }
