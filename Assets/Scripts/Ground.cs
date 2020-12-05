@@ -8,7 +8,7 @@ public class Ground : MonoBehaviour
     bool playerOn;
     public float friction;
     PhysicMaterial physicM;
-    
+
     void Start()
     {
         playerOn = false;
@@ -18,27 +18,27 @@ public class Ground : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Body") && !playerOn) {
             playerOn = true;
             Body playerBody = other.gameObject.GetComponent<Body>();
-            playerBody.setAcceleration(physicM.dynamicFriction);
-            playerBody.SetDrag(physicM.dynamicFriction);
-        } 
+            // playerBody.setAcceleration(physicM.dynamicFriction);
+            // playerBody.SetDrag(physicM.dynamicFriction);
+        }
     }
 
     void OnCollisionExit(Collision other) {
         if(other.gameObject.CompareTag("Body") && playerOn) {
             playerOn = false;
-        } 
+        }
     }
 
     public bool isPlayerOn() {
         return playerOn;
     }
 
-    
+
 }

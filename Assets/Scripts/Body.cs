@@ -61,7 +61,14 @@ public class Body : MovingObject {
 
 			if (rigidBodyMagnitude < maxSpeed) {
 				movement = new Vector3 (sideMove, 0.0f, straightMove);
-				rB.AddForce (movement * GetAcceleration());
+
+				rB.AddForce (movement * GetAcceleration(), ForceMode.Acceleration);
+				// rB.velocity = new Vector3(sideMove*GetAcceleration(), 0.0f, straightMove*GetAcceleration());
+				Debug.Log("movement = "+ movement.ToString());
+				Debug.Log(rB.velocity);
+			}
+			if (hasNoInput(sideMove, straightMove)) {
+				rB.Sleep();
 			}
 
 			if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
