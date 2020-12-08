@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Enemy : MovingObject {
 	GameObject player;
-	GameObject plane;
 	GameObject scoreGameObject;
 	GameState gameState;
 	Score score;
 	public int scorePoints = 1;
-	bool onGround;
+	bool enemyTriggered = false;
 	public int MoveSpeed;
 	public float pushBackForce;
 	AudioSource audioSource;
 	AudioClip bulletHit;
+	string gameMode;
+	GameObject gameTypeObject;
+	GameType gameType;
 
 	// Use this for initialization
 	public override void Start () {
 		player = GameObject.Find ("Body");
-		plane = GameObject.FindWithTag ("Ground");
 
 		scoreGameObject = GameObject.FindWithTag ("Score");
 		score = scoreGameObject.GetComponent<Score> ();
@@ -29,7 +30,9 @@ public class Enemy : MovingObject {
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 
 		bulletHit = Resources.Load<AudioClip>("SoundEffects/enemy-hit");
-		onGround = false;
+		gameTypeObject = GameObject.Find("GameTypeObject");
+		gameType = gameTypeObject.GetComponent<GameType>();
+		gameMode = gameType.GetGameMode();
 		base.Start ();
 	}
 
@@ -38,7 +41,7 @@ public class Enemy : MovingObject {
 		if(IsGameStartedAndIsPlayerAlive()) {
 			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
-			if (onGround && player != null) {
+			if (enemyTriggered && player !=  null) {
 				Vector3 direction = GetLookAtDirection(player);
 				rB.AddForce (direction * MoveSpeed);
 
@@ -69,6 +72,10 @@ public class Enemy : MovingObject {
 		return (gameState.gameStart  && !gameState.paused && player != null && player.GetComponent<Body>() != null);
 	}
 
+	public void TriggerEnemy() {
+		enemyTriggered = true;
+	}
+
 	void GetPlayerReference() {
 		player = GameObject.Find ("Body");
 	}
@@ -88,7 +95,9 @@ public class Enemy : MovingObject {
 		}
 
 		if (col.gameObject.CompareTag("Ground")) {
-			onGround = true;
+			if (gameMode == "survival") {
+				TriggerEnemy();
+			}
 			ChangeAudioClip();
 		}
 

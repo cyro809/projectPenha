@@ -32,7 +32,9 @@ public class GameState : MonoBehaviour {
 		gameOver = false;
 		paused = false;
 		pauseCanvas = pauseCanvasObject.GetComponent<Canvas>();
-		gameWinCanvas = gameWinCanvasObject.GetComponent<Canvas>();
+		if(gameWinCanvasObject != null) {
+			gameWinCanvas = gameWinCanvasObject.GetComponent<Canvas>();
+		}
 		countDownText = GameObject.FindGameObjectWithTag("CountDownText");
 		countdownObj = countDownText.GetComponent<Countdown>();
 		restartButton.SetActive (false);
