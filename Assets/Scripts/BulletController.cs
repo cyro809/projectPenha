@@ -27,25 +27,25 @@ public class BulletController : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.CompareTag("Enemy")) {
-			audioSource.Play();
-			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
-			hitEnemy.getHit (pushBackForce, transform.position);
-			Destroy (gameObject);
+			HitEnemy(pushBackForce, col);
 		}
 		if (col.gameObject.CompareTag("LightEnemy")) {
-			audioSource.Play();
-			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
-			hitEnemy.getHit (lightEnemyPushBackForce, transform.position);
-			Destroy (gameObject);
+			HitEnemy(lightEnemyPushBackForce, col);
 		}
 		if (col.gameObject.CompareTag("HeavyEnemy")) {
-			audioSource.Play();
-			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
-			hitEnemy.getHit (heavyEnemyPushBackForce, transform.position);
-			Destroy (gameObject);
+			HitEnemy(heavyEnemyPushBackForce, col);
 		}
 		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall") || col.gameObject.CompareTag("Obstacle") || col.gameObject.CompareTag("Goal")) {
 			Destroy (gameObject);
 		}
+	}
+
+	void HitEnemy(float pushForce, Collision col) {
+		Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
+		if (hitEnemy.IsTriggered()) {
+			hitEnemy.getHit (pushForce, transform.position);
+			audioSource.Play();
+		}
+		Destroy (gameObject);
 	}
 }

@@ -45,7 +45,7 @@ public class Enemy : MovingObject {
 				Vector3 direction = GetLookAtDirection(player);
 				rB.AddForce (direction * MoveSpeed);
 
-			} else if (!playerBody.alive) {
+			} else if (!playerBody.alive || !IsTriggered()) {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
 			}
 
@@ -74,6 +74,10 @@ public class Enemy : MovingObject {
 
 	public void TriggerEnemy() {
 		enemyTriggered = true;
+	}
+
+	public bool IsTriggered() {
+		return enemyTriggered;
 	}
 
 	void GetPlayerReference() {
