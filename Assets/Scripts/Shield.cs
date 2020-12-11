@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    private float pushBackForce = 1650;
+    private float pushBackForce = 2050;
     public float fadeSpeed = 5/30;
     // Start is called before the first frame update
     public bool activate;
@@ -15,7 +15,7 @@ public class Shield : MonoBehaviour
     Coroutine currentCoroutine = null;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -55,7 +55,7 @@ public class Shield : MonoBehaviour
             yield return new WaitForSeconds(1);
             count --;
         }
-       
+
         // count down is finished...
         activate = false;
     }
