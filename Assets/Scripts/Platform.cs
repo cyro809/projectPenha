@@ -9,7 +9,9 @@ public class Platform : MonoBehaviour
     public float dropSpeed;
     float shakeAmount;
     float shakeSpeed;
-    Quaternion target;
+    public Quaternion targetRotation;
+    Quaternion originalRotation;
+    Quaternion finalRotation;
     bool isRotating;
     bool isMoving;
     bool isAtTheEnd;
@@ -24,12 +26,12 @@ public class Platform : MonoBehaviour
 
     void Start()
     {
-        isRotating = false;
         isAtTheEnd = false;
         shakeAmount = 0.1f;
         shakeSpeed = 200;
         originalPosition = transform.position;
         finalPosition = targetPosition;
+        originalRotation = transform.rotation;
         AutoMoveIfActivated();
     }
 
@@ -41,32 +43,46 @@ public class Platform : MonoBehaviour
                 Rotate();
             }
 
-            if(transform.rotation == target) {
+            if(transform.rotation == targetRotation && !isAtTheEnd) {
+                isAtTheEnd = true;
+                finalRotation = originalRotation;
+                Debug.Log("oioioioi");
+                isRotating = false;
+                AutoMoveIfActivated();
+            } else if (transform.rotation == originalRotation && isAtTheEnd) {
+                isAtTheEnd = false;
+
+                finalRotation = targetRotation;
                 isRotating = false;
                 AutoMoveIfActivated();
             }
         }
 
         if(toMove) {
-            if(isMoving) {
-                Move();
-            }
-
-            if(transform.position == targetPosition && !isAtTheEnd) {
-                isMoving = false;
-                isAtTheEnd = true;
-                finalPosition = originalPosition;
-                AutoMoveIfActivated();
-
-            } else if (transform.position == originalPosition && isAtTheEnd) {
-                isMoving = false;
-                isAtTheEnd = false;
-                finalPosition = targetPosition;
-                AutoMoveIfActivated();
-            }
+            HandleMove();
         }
 
     }
+
+    void HandleMove() {
+        if(isMoving) {
+            Move();
+        }
+
+        if(transform.position == targetPosition && !isAtTheEnd) {
+            isMoving = false;
+            isAtTheEnd = true;
+            finalPosition = originalPosition;
+            AutoMoveIfActivated();
+
+        } else if (transform.position == originalPosition && isAtTheEnd) {
+            isMoving = false;
+            isAtTheEnd = false;
+            finalPosition = targetPosition;
+            AutoMoveIfActivated();
+        }
+    }
+
 
     void AutoMoveIfActivated() {
         Debug.Log("AutoMoveIfActivated");
@@ -76,11 +92,11 @@ public class Platform : MonoBehaviour
     }
 
     public void SetTarget(Quaternion newTarget) {
-        target = newTarget;
+        targetRotation = newTarget;
     }
 
     public void Rotate() {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, target, moveSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, finalRotation, moveSpeed * Time.deltaTime);
     }
 
     public void ActivateRotation() {
