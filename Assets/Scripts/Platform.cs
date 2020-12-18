@@ -12,19 +12,25 @@ public class Platform : MonoBehaviour
     Quaternion target;
     bool isRotating;
     bool isMoving;
+    bool isAtTheEnd;
     Vector3 originalPosition;
     public Vector3 targetPosition;
+    Vector3 finalPosition;
     public bool toRotate;
     public bool toMove;
     public bool autoMove;
     public int idleCount;
 
+
     void Start()
     {
         isRotating = false;
+        isAtTheEnd = false;
         shakeAmount = 0.1f;
         shakeSpeed = 200;
         originalPosition = transform.position;
+        finalPosition = targetPosition;
+        AutoMoveIfActivated();
     }
 
     // Update is called once per frame
@@ -46,8 +52,16 @@ public class Platform : MonoBehaviour
                 Move();
             }
 
-            if(transform.position == targetPosition) {
+            if(transform.position == targetPosition && !isAtTheEnd) {
                 isMoving = false;
+                isAtTheEnd = true;
+                finalPosition = originalPosition;
+                AutoMoveIfActivated();
+
+            } else if (transform.position == originalPosition && isAtTheEnd) {
+                isMoving = false;
+                isAtTheEnd = false;
+                finalPosition = targetPosition;
                 AutoMoveIfActivated();
             }
         }
@@ -55,6 +69,7 @@ public class Platform : MonoBehaviour
     }
 
     void AutoMoveIfActivated() {
+        Debug.Log("AutoMoveIfActivated");
         if(autoMove) {
             StartCoroutine(CountdownEnum(idleCount));
         }
@@ -83,13 +98,18 @@ public class Platform : MonoBehaviour
     }
 
     public void Move() {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        // Debug.Log(originalPosition);
+        transform.position = Vector3.MoveTowards(transform.position, finalPosition, moveSpeed * Time.deltaTime);
+    }
+
+    bool isMoveFisinhed() {
+        return transform.position == targetPosition && isMoving;
     }
 
     IEnumerator CountdownEnum(int seconds)
     {
-        int count = seconds;
 
+        int count = seconds;
         while (count > 0) {
 
             // display something...
