@@ -6,17 +6,18 @@ public class Platform : MonoBehaviour
 {
     // Start is called before the first frame update
     public float moveSpeed;
-    public float dropSpeed;
     float shakeAmount;
     float shakeSpeed;
     public Quaternion targetRotation;
+
+    public Vector3 targetPosition;
     Quaternion originalRotation;
     Quaternion finalRotation;
     bool isRotating;
     bool isMoving;
     bool isAtTheEnd;
     Vector3 originalPosition;
-    public Vector3 targetPosition;
+
     Vector3 finalPosition;
     public bool toRotate;
     public bool toMove;
@@ -24,15 +25,17 @@ public class Platform : MonoBehaviour
     public int idleCount;
 
 
+
     void Start()
     {
         isAtTheEnd = false;
         shakeAmount = 0.1f;
         shakeSpeed = 200;
-        originalPosition = transform.position;
+        originalPosition = transform.localPosition;
         finalPosition = targetPosition;
         originalRotation = transform.rotation;
         finalRotation = targetRotation;
+
         AutoMoveIfActivated();
     }
 
@@ -40,28 +43,31 @@ public class Platform : MonoBehaviour
     void Update()
     {
         if(toRotate) {
-            if(isRotating) {
-                Rotate();
-            }
-
-            if(transform.rotation == targetRotation && !isAtTheEnd) {
-                isAtTheEnd = true;
-                finalRotation = originalRotation;
-                isRotating = false;
-                AutoMoveIfActivated();
-            } else if (transform.rotation == originalRotation && isAtTheEnd) {
-                isAtTheEnd = false;
-
-                finalRotation = targetRotation;
-                isRotating = false;
-                AutoMoveIfActivated();
-            }
+            HandleRotation();
         }
 
         if(toMove) {
             HandleMove();
         }
+    }
 
+    void HandleRotation() {
+        if(isRotating) {
+            Rotate();
+        }
+
+        if(transform.rotation == targetRotation && !isAtTheEnd) {
+            isAtTheEnd = true;
+            finalRotation = originalRotation;
+            isRotating = false;
+            AutoMoveIfActivated();
+        } else if (transform.rotation == originalRotation && isAtTheEnd) {
+            isAtTheEnd = false;
+
+            finalRotation = targetRotation;
+            isRotating = false;
+            AutoMoveIfActivated();
+        }
     }
 
     void HandleMove() {
@@ -69,13 +75,13 @@ public class Platform : MonoBehaviour
             Move();
         }
 
-        if(transform.position == targetPosition && !isAtTheEnd) {
+        if(transform.localPosition == targetPosition && !isAtTheEnd) {
             isMoving = false;
             isAtTheEnd = true;
             finalPosition = originalPosition;
             AutoMoveIfActivated();
 
-        } else if (transform.position == originalPosition && isAtTheEnd) {
+        } else if (transform.localPosition == originalPosition && isAtTheEnd) {
             isMoving = false;
             isAtTheEnd = false;
             finalPosition = targetPosition;
@@ -83,9 +89,7 @@ public class Platform : MonoBehaviour
         }
     }
 
-
     void AutoMoveIfActivated() {
-
         if(autoMove) {
             StartCoroutine(CountdownEnum(idleCount));
         }
@@ -114,11 +118,11 @@ public class Platform : MonoBehaviour
     }
 
     public void Move() {
-        transform.position = Vector3.MoveTowards(transform.position, finalPosition, moveSpeed * Time.deltaTime);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, finalPosition, moveSpeed * Time.deltaTime);
     }
 
     bool isMoveFisinhed() {
-        return transform.position == targetPosition && isMoving;
+        return transform.localPosition == targetPosition && isMoving;
     }
 
     IEnumerator CountdownEnum(int seconds)

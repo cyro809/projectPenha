@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Code taken from: https://forum.unity.com/threads/ball-wont-stay-on-moving-platform.530643/
 public class EqualizeVelocity : MonoBehaviour
 {
     private GameObject target = null;
