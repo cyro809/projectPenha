@@ -32,6 +32,7 @@ public class Platform : MonoBehaviour
         originalPosition = transform.position;
         finalPosition = targetPosition;
         originalRotation = transform.rotation;
+        finalRotation = targetRotation;
         AutoMoveIfActivated();
     }
 
@@ -46,7 +47,6 @@ public class Platform : MonoBehaviour
             if(transform.rotation == targetRotation && !isAtTheEnd) {
                 isAtTheEnd = true;
                 finalRotation = originalRotation;
-                Debug.Log("oioioioi");
                 isRotating = false;
                 AutoMoveIfActivated();
             } else if (transform.rotation == originalRotation && isAtTheEnd) {
@@ -85,7 +85,7 @@ public class Platform : MonoBehaviour
 
 
     void AutoMoveIfActivated() {
-        Debug.Log("AutoMoveIfActivated");
+
         if(autoMove) {
             StartCoroutine(CountdownEnum(idleCount));
         }
@@ -114,7 +114,6 @@ public class Platform : MonoBehaviour
     }
 
     public void Move() {
-        // Debug.Log(originalPosition);
         transform.position = Vector3.MoveTowards(transform.position, finalPosition, moveSpeed * Time.deltaTime);
     }
 
