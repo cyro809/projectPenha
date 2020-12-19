@@ -9,7 +9,9 @@ public class Enemy : MovingObject {
 	Score score;
 	public int scorePoints = 1;
 	bool enemyTriggered = false;
+	bool onGround = false;
 	public int MoveSpeed;
+	int airMoveSpeed = 10;
 	public float pushBackForce;
 	AudioSource audioSource;
 	AudioClip bulletHit;
@@ -38,12 +40,17 @@ public class Enemy : MovingObject {
 
 	protected override void OnMove() {
 		GetPlayerReference();
+		Rigidbody rB = gameObject.GetComponent<Rigidbody>();
 		if(IsGameStartedAndIsPlayerAlive()) {
 			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
 			if (enemyTriggered && player !=  null) {
 				Vector3 direction = GetLookAtDirection(player);
-				rB.AddForce (direction * MoveSpeed);
+				if(onGround) {
+					rB.AddForce (direction * MoveSpeed);
+				} else {
+					rB.AddForce (direction * airMoveSpeed);
+				}
 
 			} else if (!playerBody.alive || !IsTriggered()) {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
@@ -90,15 +97,19 @@ public class Enemy : MovingObject {
 	}
 
 	void OnCollisionEnter (Collision col) {
-		if (col.gameObject.CompareTag("Body")) {
+
+		if (col.gameObject.CompareTag("Body") || col.gameObject.CompareTag("Player")) {
 			if (player.GetComponent<Body>() != null) {
-				Body hitPlayer = col.gameObject.GetComponent<Body>();
-				hitPlayer.getHit (pushBackForce, rB.transform.position);
+				Debug.Log(pushBackForce);
+				Body hitPlayer = player.GetComponent<Body>();
+				Vector3 pos = new Vector3(rB.transform.position.x, player.transform.position.y, rB.transform.position.z);
+				hitPlayer.getHit (pushBackForce, pos);
 			}
 
 		}
 
 		if (col.gameObject.CompareTag("Ground")) {
+			onGround = true;
 			if (gameMode == "survival") {
 				TriggerEnemy();
 			}
@@ -111,6 +122,12 @@ public class Enemy : MovingObject {
 
 		if (col.gameObject.CompareTag("LimitPlane")) {
 			Kill();
+		}
+	}
+
+	void OnCollisionExit (Collision col) {
+		if (col.gameObject.CompareTag("Ground")) {
+			onGround = false;
 		}
 	}
 
