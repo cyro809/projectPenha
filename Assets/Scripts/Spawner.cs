@@ -12,7 +12,10 @@ public class Spawner : MonoBehaviour {
 	public bool fixedTime;
 	public bool fixedOrder;
 	public bool oneTimeSpawn;
+	public bool fixedPlaneOrder;
+	public bool spawnInCenter;
 	int spawnIndex = 0;
+	int planeIndex = 0;
 
 
 	// Use this for initialization
@@ -47,22 +50,34 @@ public class Spawner : MonoBehaviour {
 				CancelInvoke();
 			}
 			IDictionary<string, int> indexes = getIndexes();
-			int planeBeforeIndex = (int) indexes["planeBeforeIndex"];
-			int playerOnIndex = (int) indexes["playerOnIndex"];
-			float scale = 0.5f;
-			int planeIndex = Random.Range(planeBeforeIndex, playerOnIndex);
+			if (!fixedPlaneOrder) {
+				int planeBeforeIndex = (int) indexes["planeBeforeIndex"];
+				int playerOnIndex = (int) indexes["playerOnIndex"];
+
+				planeIndex = Random.Range(planeBeforeIndex, playerOnIndex);
+
+			}
 			float moveAreaX = plane[planeIndex].GetComponent<Renderer>().bounds.size.x / 2;
 			float moveAreaZ = plane[planeIndex].GetComponent<Renderer>().bounds.size.z / 2;
+
 			Vector3 center = plane[planeIndex].GetComponent<Renderer>().bounds.center;
-			spawnPosition.x = center.x + Random.Range(-moveAreaX*scale, moveAreaX*scale);
-			spawnPosition.y = transform.position.y;
-			spawnPosition.z = center.z + Random.Range(-moveAreaZ*scale, moveAreaZ*scale);
+
+			if (fixedPlaneOrder) {
+				planeIndex++;
+				if (planeIndex > plane.Count - 1) {
+					planeIndex = 0;
+				}
+			}
+
+			SetSpawnPosition(center, moveAreaX, moveAreaZ);
+
 			if (!fixedOrder) {
 				Instantiate(objects[UnityEngine.Random.Range(0, objects.Length)], spawnPosition, Quaternion.identity);
 			} else {
 				Instantiate(objects[spawnIndex], spawnPosition, Quaternion.identity);
 			}
 			spawnIndex++;
+
 			if(spawnIndex > objects.Length - 1) {
 				if(oneTimeSpawn) {
 					CancelInvoke();
@@ -80,6 +95,16 @@ public class Spawner : MonoBehaviour {
 
 	}
 
+	void SetSpawnPosition(Vector3 center, float moveAreaX, float moveAreaZ) {
+		float scale = 0.5f;
+		spawnPosition.x = center.x;
+		spawnPosition.y = transform.position.y;
+		spawnPosition.z = center.z;
+		if(!spawnInCenter) {
+			spawnPosition.x += Random.Range(-moveAreaX*scale, moveAreaX*scale);
+			spawnPosition.z += Random.Range(-moveAreaZ*scale, moveAreaZ*scale);
+		}
+	}
 
 	IDictionary<string, int> getIndexes() {
 		if (plane.Count == 1) {
