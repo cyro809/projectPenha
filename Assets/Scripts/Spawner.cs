@@ -9,19 +9,26 @@ public class Spawner : MonoBehaviour {
 	private Vector3 spawnPosition;
 	public List<GameObject> plane;
 	GameState gameState;
-	
+	public bool fixedTime;
+	public bool fixedOrder;
+	public bool oneTimeSpawn;
+	int spawnIndex = 0;
+
+
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 		Spawn();
 		StartCoroutine(CountdownEnum(spawnTime));
-		StartCoroutine(SpawnerCountdownEnum(10));
+		if (!fixedTime) {
+			StartCoroutine(SpawnerCountdownEnum(10));
+		}
 	}
 
 	void Update() {
-		
+
 	}
 
 	void Spawn ()
@@ -50,15 +57,29 @@ public class Spawner : MonoBehaviour {
 			spawnPosition.x = center.x + Random.Range(-moveAreaX*scale, moveAreaX*scale);
 			spawnPosition.y = transform.position.y;
 			spawnPosition.z = center.z + Random.Range(-moveAreaZ*scale, moveAreaZ*scale);
+			if (!fixedOrder) {
+				Instantiate(objects[UnityEngine.Random.Range(0, objects.Length)], spawnPosition, Quaternion.identity);
+			} else {
+				Instantiate(objects[spawnIndex], spawnPosition, Quaternion.identity);
+			}
+			spawnIndex++;
+			if(spawnIndex > objects.Length - 1) {
+				if(oneTimeSpawn) {
+					CancelInvoke();
+					Destroy(gameObject);
+				} else {
+					spawnIndex = 0;
+				}
 
-			Instantiate(objects[UnityEngine.Random.Range(0, objects.Length - 1)], spawnPosition, Quaternion.identity);
+			}
 		}
-		if(gameState.gameOver) {
+		if(gameState.gameOver || gameState.gameWin) {
 			CancelInvoke ();
 			Destroy(gameObject);
 		}
-		
+
 	}
+
 
 	IDictionary<string, int> getIndexes() {
 		if (plane.Count == 1) {
@@ -88,12 +109,12 @@ public class Spawner : MonoBehaviour {
             yield return new WaitForSeconds(1);
             count --;
         }
-       
+
         // count down is finished...
         Spawn();
 		StartCoroutine(CountdownEnum(spawnTime));
-		
-		
+
+
     }
 	IEnumerator SpawnerCountdownEnum(float seconds)
     {
@@ -103,12 +124,12 @@ public class Spawner : MonoBehaviour {
             yield return new WaitForSeconds(1);
             count --;
         }
-       
+
         // count down is finished...
         if(spawnTime > 1) {
 			spawnTime--;
 		}
 		StartCoroutine(SpawnerCountdownEnum(10));
-		
+
     }
 }
