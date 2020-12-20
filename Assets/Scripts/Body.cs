@@ -110,7 +110,7 @@ public class Body : MovingObject {
 		head.gameObject.SetActive(false);
 	}
 
-	void FreezePlayer() {
+	public void FreezePlayer() {
 		GameObject parent = transform.parent.gameObject;
 		Rigidbody parentRigidBody = parent.GetComponent<Rigidbody>();
 		parentRigidBody.constraints = RigidbodyConstraints.FreezeAll;
