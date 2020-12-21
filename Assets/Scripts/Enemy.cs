@@ -10,6 +10,7 @@ public class Enemy : MovingObject {
 	public int scorePoints = 1;
 	bool enemyTriggered = false;
 	bool onGround = false;
+	public bool spawned = false;
 	public int MoveSpeed;
 	int airMoveSpeed = 10;
 	public float pushBackForce;
@@ -52,7 +53,7 @@ public class Enemy : MovingObject {
 					rB.AddForce (direction * airMoveSpeed);
 				}
 
-			} else if (!playerBody.alive || !IsTriggered()) {
+			} else if (!playerBody.alive || !IsTriggered() && onGround) {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
 			}
 
@@ -110,7 +111,7 @@ public class Enemy : MovingObject {
 
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = true;
-			if (gameMode == "survival") {
+			if (spawned) {
 				TriggerEnemy();
 			}
 			ChangeAudioClip();

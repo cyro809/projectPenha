@@ -14,6 +14,9 @@ public class Spawner : MonoBehaviour {
 	public bool oneTimeSpawn;
 	public bool fixedPlaneOrder;
 	public bool spawnInCenter;
+	public bool spawnTriggered;
+	bool alreadyTriggered = false;
+
 	int spawnIndex = 0;
 	int planeIndex = 0;
 
@@ -23,20 +26,23 @@ public class Spawner : MonoBehaviour {
 	{
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 		// Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		Spawn();
-		StartCoroutine(CountdownEnum(spawnTime));
-		if (!fixedTime) {
-			StartCoroutine(SpawnerCountdownEnum(10));
-		}
+
 	}
 
 	void Update() {
-
+		if(spawnTriggered && !alreadyTriggered) {
+			Spawn();
+			StartCoroutine(CountdownEnum(spawnTime));
+			if (!fixedTime) {
+				StartCoroutine(SpawnerCountdownEnum(10));
+			}
+			alreadyTriggered = true;
+		}
 	}
 
 	void Spawn ()
 	{
-		if(gameState.gameStart) {
+		if(gameState.gameStart && spawnTriggered) {
 			if(GameObject.Find ("Body") != null) {
 				GameObject player = GameObject.Find ("Body");
 				if(player.GetComponent<Body>() != null) {
@@ -93,6 +99,10 @@ public class Spawner : MonoBehaviour {
 			Destroy(gameObject);
 		}
 
+	}
+
+	public void TriggerSpawn() {
+		spawnTriggered = true;
 	}
 
 	void SetSpawnPosition(Vector3 center, float moveAreaX, float moveAreaZ) {
