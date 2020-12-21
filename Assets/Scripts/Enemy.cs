@@ -11,6 +11,9 @@ public class Enemy : MovingObject {
 	bool enemyTriggered = false;
 	bool onGround = false;
 	public bool spawned = false;
+	public bool jumpingEnemy;
+	public float jumpForce = 20f;
+
 	public int MoveSpeed;
 	int airMoveSpeed = 10;
 	public float pushBackForce;
@@ -49,7 +52,7 @@ public class Enemy : MovingObject {
 				Vector3 direction = GetLookAtDirection(player);
 				if(onGround) {
 					rB.AddForce (direction * MoveSpeed);
-				} else {
+				} else if (!onGround && jumpingEnemy) {
 					rB.AddForce (direction * airMoveSpeed);
 				}
 
@@ -62,6 +65,12 @@ public class Enemy : MovingObject {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 
+	}
+
+	void Jump() {
+		if(onGround) {
+			rB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+		}
 	}
 
 	Vector3 GetLookAtDirection(GameObject player) {
@@ -113,6 +122,9 @@ public class Enemy : MovingObject {
 			onGround = true;
 			if (spawned) {
 				TriggerEnemy();
+			}
+			if(jumpingEnemy) {
+				Jump();
 			}
 			ChangeAudioClip();
 		}
