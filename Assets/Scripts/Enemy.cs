@@ -44,15 +44,15 @@ public class Enemy : MovingObject {
 
 	protected override void OnMove() {
 		GetPlayerReference();
-		Rigidbody rB = gameObject.GetComponent<Rigidbody>();
+		rB = gameObject.GetComponent<Rigidbody>();
 		if(IsGameStartedAndIsPlayerAlive()) {
 			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
 			if (enemyTriggered && player !=  null) {
 				Vector3 direction = GetLookAtDirection(player);
-				if(onGround) {
+				if(onGround || (!onGround && jumpingEnemy)) {
 					rB.AddForce (direction * MoveSpeed);
-				} else if (!onGround && jumpingEnemy) {
+				} else if (!onGround && !jumpingEnemy) {
 					rB.AddForce (direction * airMoveSpeed);
 				}
 
@@ -147,6 +147,14 @@ public class Enemy : MovingObject {
 	void OnCollisionStay(Collision col) {
 		if (col.gameObject.CompareTag("LimitPlane")) {
 			Kill();
+		}
+
+		if (col.gameObject.CompareTag("Ground")) {
+			onGround = true;
+			if(jumpingEnemy) {
+				Jump();
+			}
+			ChangeAudioClip();
 		}
 	}
 
