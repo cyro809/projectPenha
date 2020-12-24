@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class LevelsController : MonoBehaviour
 {
     int lastClearedLevel;
-    GameObject[] levels;
+    public GameObject[] levels;
     void Start () {
         lastClearedLevel = PlayerPrefs.GetInt("lastClearedLevel", 0);
-        levels = GameObject.FindGameObjectsWithTag("levelButton");
+        // levels = GameObject.FindGameObjectsWithTag("levelButton");
         DisableAllLevels();
         EnableClearedLevels();
     }
