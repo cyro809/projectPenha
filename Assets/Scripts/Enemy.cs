@@ -110,7 +110,6 @@ public class Enemy : MovingObject {
 
 		if (col.gameObject.CompareTag("Body") || col.gameObject.CompareTag("Player")) {
 			if (player.GetComponent<Body>() != null) {
-				Debug.Log(pushBackForce);
 				Body hitPlayer = player.GetComponent<Body>();
 				Vector3 pos = new Vector3(rB.transform.position.x, player.transform.position.y, rB.transform.position.z);
 				hitPlayer.getHit (pushBackForce, pos);
