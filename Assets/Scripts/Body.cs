@@ -9,7 +9,7 @@ public class Body : MovingObject {
     public float dashSpeed = 300f;
 	public float acceleration = 2f;
 	public float jumpForce = 20f;
-	public float jumpAcceleration = 10f;
+	public float jumpAcceleration = 30f;
 	float groundFriction = 0 ;
 	float defaultAcceleration;
 	public bool alive;
