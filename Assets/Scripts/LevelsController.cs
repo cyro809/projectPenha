@@ -12,6 +12,7 @@ public class LevelsController : MonoBehaviour
         // levels = GameObject.FindGameObjectsWithTag("levelButton");
         DisableAllLevels();
         EnableClearedLevels();
+        Time.timeScale = 1;
     }
 
 

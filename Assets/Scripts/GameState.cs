@@ -45,6 +45,7 @@ public class GameState : MonoBehaviour {
 		if (SystemInfo.deviceType != DeviceType.Handheld) {
 			//joystick.SetActive (false);
 		}
+		Time.timeScale = 1;
 	}
 
 	void FixedUpdate() {
