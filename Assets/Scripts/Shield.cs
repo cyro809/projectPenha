@@ -28,7 +28,9 @@ public class Shield : MonoBehaviour
     }
 
     void OnCollisionEnter (Collision col) {
-		if (col.gameObject.CompareTag("Enemy")) {
+		if (col.gameObject.CompareTag("Enemy") ||
+            col.gameObject.CompareTag("LightEnemy") ||
+            col.gameObject.CompareTag("HeavyEnemy")) {
 			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
 			hitEnemy.getHit (pushBackForce, transform.position);
 		}
