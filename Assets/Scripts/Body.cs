@@ -83,7 +83,7 @@ public class Body : MovingObject {
 
 	float GetAcceleration() {
 		if (isGrounded) {
-			return getDefaultAcceleration();
+			return acceleration;
 		} else {
 			return jumpAcceleration;
 		}
@@ -94,7 +94,7 @@ public class Body : MovingObject {
 	}
 
 	public void setAcceleration(float friction) {
-		rB.AddForce(movement * (-friction * 50 ));
+		acceleration = defaultAcceleration - friction;
 	}
 
 	public void SetDrag(float friction) {
