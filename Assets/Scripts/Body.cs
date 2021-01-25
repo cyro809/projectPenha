@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Body : MovingObject {
-	public float maxSpeed = 5f;
+	public float maxSpeed;
+	float defaultMaxSpeed;
     public float dashSpeed = 300f;
 	public float acceleration = 2f;
 	public float jumpForce = 20f;
@@ -45,6 +46,7 @@ public class Body : MovingObject {
 		alive = true;
 		isGrounded = false;
 		defaultAcceleration = acceleration;
+		defaultMaxSpeed = maxSpeed;
 	}
 
 
@@ -93,8 +95,14 @@ public class Body : MovingObject {
 		return defaultAcceleration;
 	}
 
+	public float getDefaultMaxSpeed() {
+		return defaultMaxSpeed;
+	}
+
 	public void setAcceleration(float friction) {
-		acceleration = defaultAcceleration - friction;
+		maxSpeed = defaultMaxSpeed - friction;
+		rB.velocity = Vector3.ClampMagnitude(rB.velocity, maxSpeed);
+		// acceleration = defaultAcceleration - friction;
 	}
 
 	public void SetDrag(float friction) {

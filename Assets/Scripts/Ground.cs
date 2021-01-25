@@ -26,7 +26,6 @@ public class Ground : MonoBehaviour
             playerOn = true;
             Body playerBody = other.gameObject.GetComponent<Body>();
             playerBody.setAcceleration(friction);
-            // playerBody.SetDrag(physicM.dynamicFriction);
         }
     }
 
