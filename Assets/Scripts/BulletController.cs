@@ -5,7 +5,6 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
 	public float speed;
-	public GameObject enemy;
 	private float pushBackForce = 1000;
 	private float lightEnemyPushBackForce = 1500;
 	private float heavyEnemyPushBackForce = 200;
@@ -22,7 +21,9 @@ public class BulletController : MonoBehaviour {
 
 	public void beFired(float speed) {
 		rb = GetComponent<Rigidbody> ();
+		Debug.Log(transform.forward);
 		rb.AddForce (transform.forward * speed);
+		Debug.Log(rb.velocity.magnitude);
 	}
 
 	void OnCollisionEnter (Collision col) {
@@ -38,12 +39,26 @@ public class BulletController : MonoBehaviour {
 		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall") || col.gameObject.CompareTag("Obstacle") || col.gameObject.CompareTag("Goal")) {
 			Destroy (gameObject);
 		}
+		if(col.gameObject.CompareTag("Body") || col.gameObject.CompareTag("Player")) {
+			HitPlayer(pushBackForce, col);
+		}
 	}
 
 	void HitEnemy(float pushForce, Collision col) {
-		Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
-		if (hitEnemy.IsTriggered()) {
-			hitEnemy.getHit (pushForce, transform.position);
+		if(gameObject.CompareTag("Bullet")) {
+			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
+			if (hitEnemy.IsTriggered()) {
+				hitEnemy.getHit (pushForce, transform.position);
+				audioSource.Play();
+			}
+		}
+		Destroy (gameObject);
+	}
+
+	void HitPlayer(float pushForce, Collision col) {
+		if(gameObject.CompareTag("CannonBall")) {
+			Body player = col.gameObject.GetComponent<Body>();
+			player.getHit (pushForce, transform.position);
 			audioSource.Play();
 		}
 		Destroy (gameObject);

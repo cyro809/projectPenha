@@ -10,7 +10,7 @@ public class GunController : MonoBehaviour {
 	const int NORMAL_GUN_MODE = 0;
 	const int SHOT_GUN_MODE = 1;
 	const int MACHINE_GUN_MODE = 2;
-	
+	public bool playerGun = true;
 	public bool isFiring;
 
 	public BulletController bullet;
@@ -25,7 +25,7 @@ public class GunController : MonoBehaviour {
 	public TextMeshProUGUI shotCounterText;
 	public Transform firePoint;
 	AudioSource audioSource;
-	
+
 
 	void Start() {
 		shotCounter = 0;
@@ -35,7 +35,7 @@ public class GunController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		shotCounter -= Time.deltaTime;
-		
+
 		if (isFiring) {
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
@@ -44,17 +44,17 @@ public class GunController : MonoBehaviour {
 				} else {
 					normalFire();
 				}
-				
+
 				audioSource.Play();
 				if(gunMode == MACHINE_GUN_MODE) {
 					isFiring = false;
 				}
-				
+
 				resetShotCounter();
 			}
 		}
 		if (specialShotBullets <= 0) {
-			ResetGunMode(); 
+			ResetGunMode();
 		}
 		showShotCounterText();
 	}
@@ -64,21 +64,22 @@ public class GunController : MonoBehaviour {
 
 	void normalFire() {
 		BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
+
 		newBullet.beFired (bulletSpeed);
 		if(gunMode == MACHINE_GUN_MODE) {
 			specialShotBullets--;
 		}
 	}
 
-	void shotGunFire() {	
+	void shotGunFire() {
 		float perBulletAngle = spreadAngle / (spreadAmount - 1);
        	float startAngle = spreadAngle * -0.5f;
-  
+
 		for (int i = 0; i < spreadAmount; i++)
-		{				
+		{
 			BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
 			newBullet.gameObject.transform.Rotate(Vector3.up, startAngle + i * perBulletAngle);
-			newBullet.beFired (bulletSpeed);			
+			newBullet.beFired (bulletSpeed);
 		}
 		specialShotBullets -= 3;
 	}
@@ -101,23 +102,25 @@ public class GunController : MonoBehaviour {
 	}
 
 	void showShotCounterText() {
-		switch(gunMode) {
-			case NORMAL_GUN_MODE:
-				shotCounterText.text = "";
-				break;
-			case MACHINE_GUN_MODE:
-				shotCounterText.text = "Machine Gun: ";
-				break;
-			case SHOT_GUN_MODE:
-				shotCounterText.text = "Shot Gun: ";
-				break;
-			default:
-				shotCounterText.text = "";
-				break;
+		if(playerGun) {
+			switch(gunMode) {
+				case NORMAL_GUN_MODE:
+					shotCounterText.text = "";
+					break;
+				case MACHINE_GUN_MODE:
+					shotCounterText.text = "Machine Gun: ";
+					break;
+				case SHOT_GUN_MODE:
+					shotCounterText.text = "Shot Gun: ";
+					break;
+				default:
+					shotCounterText.text = "";
+					break;
+			}
+			if (gunMode != NORMAL_GUN_MODE) {
+				shotCounterText.text += specialShotBullets.ToString ();
+			}
 		}
-		if (gunMode != NORMAL_GUN_MODE) {
-			shotCounterText.text += specialShotBullets.ToString ();
-		}
-		
+
 	}
 }
