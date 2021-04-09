@@ -5,9 +5,12 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
 	public float speed;
-	private float pushBackForce = 1000;
-	private float lightEnemyPushBackForce = 1500;
-	private float heavyEnemyPushBackForce = 200;
+
+	public float pushBackForce = 1000;
+	public float lightEnemyPushBackForce = 1500;
+	public float heavyEnemyPushBackForce = 200;
+
+	public float playerPushBackForce = 2000;
 	Rigidbody rb;
 	AudioSource audioSource;
 
@@ -21,9 +24,7 @@ public class BulletController : MonoBehaviour {
 
 	public void beFired(float speed) {
 		rb = GetComponent<Rigidbody> ();
-		Debug.Log(transform.forward);
 		rb.AddForce (transform.forward * speed);
-		Debug.Log(rb.velocity.magnitude);
 	}
 
 	void OnCollisionEnter (Collision col) {
@@ -36,11 +37,16 @@ public class BulletController : MonoBehaviour {
 		if (col.gameObject.CompareTag("HeavyEnemy")) {
 			HitEnemy(heavyEnemyPushBackForce, col);
 		}
-		if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Wall") || col.gameObject.CompareTag("Obstacle") || col.gameObject.CompareTag("Goal")) {
+		if (col.gameObject.CompareTag("Ground") ||
+		col.gameObject.CompareTag("Wall") ||
+		col.gameObject.CompareTag("Obstacle") ||
+		col.gameObject.CompareTag("Goal") ||
+		(col.gameObject.CompareTag("Cannon") && gameObject.CompareTag("Bullet"))) {
 			Destroy (gameObject);
 		}
+
 		if(col.gameObject.CompareTag("Body") || col.gameObject.CompareTag("Player")) {
-			HitPlayer(pushBackForce, col);
+			HitPlayer(playerPushBackForce, col);
 		}
 	}
 
@@ -58,8 +64,11 @@ public class BulletController : MonoBehaviour {
 	void HitPlayer(float pushForce, Collision col) {
 		if(gameObject.CompareTag("CannonBall")) {
 			Body player = col.gameObject.GetComponent<Body>();
-			player.getHit (pushForce, transform.position);
-			audioSource.Play();
+			if(player) {
+				Vector3 pos = new Vector3(rb.transform.position.x, player.transform.position.y, rb.transform.position.z);
+				player.getHit (pushForce, pos);
+				audioSource.Play();
+			}
 		}
 		Destroy (gameObject);
 	}
