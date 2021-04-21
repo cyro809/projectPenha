@@ -26,17 +26,20 @@ public class GunController : MonoBehaviour {
 	public Transform firePoint;
 	AudioSource audioSource;
 
+	GameState gameState;
+
 
 	void Start() {
 		shotCounter = 0;
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
+		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 	}
 	// Update is called once per frame
 	void Update () {
 		shotCounter -= Time.deltaTime;
 
-		if (isFiring) {
+		if (isFiring && IsGameStarted()) {
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
 				if(gunMode == SHOT_GUN_MODE) {
@@ -122,5 +125,9 @@ public class GunController : MonoBehaviour {
 			}
 		}
 
+	}
+
+	bool IsGameStarted() {
+		return gameState.gameStart && !gameState.paused;
 	}
 }
