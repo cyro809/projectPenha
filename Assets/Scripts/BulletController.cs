@@ -63,7 +63,7 @@ public class BulletController : MonoBehaviour {
 	}
 
 	void HitPlayer(float pushForce, Collision col) {
-		if(gameObject.CompareTag("CannonBall") || gameObject.CompareTag("ShootingEnemyBullet")) {
+		if(gameObject.CompareTag("CannonBall") || gameObject.CompareTag("EnemyBullet")) {
 			Body player = col.gameObject.GetComponent<Body>();
 			if(player) {
 				Vector3 pos = new Vector3(rb.transform.position.x, player.transform.position.y, rb.transform.position.z);
