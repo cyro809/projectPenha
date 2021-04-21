@@ -57,19 +57,21 @@ public class BulletController : MonoBehaviour {
 				hitEnemy.getHit (pushForce, transform.position);
 				audioSource.Play();
 			}
+			Destroy (gameObject);
 		}
-		Destroy (gameObject);
+		
 	}
 
 	void HitPlayer(float pushForce, Collision col) {
-		if(gameObject.CompareTag("CannonBall")) {
+		if(gameObject.CompareTag("CannonBall") || gameObject.CompareTag("ShootingEnemyBullet")) {
 			Body player = col.gameObject.GetComponent<Body>();
 			if(player) {
 				Vector3 pos = new Vector3(rb.transform.position.x, player.transform.position.y, rb.transform.position.z);
 				player.getHit (pushForce, pos);
 				audioSource.Play();
 			}
+			Destroy (gameObject);
 		}
-		Destroy (gameObject);
+		
 	}
 }
