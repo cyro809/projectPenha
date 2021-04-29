@@ -44,4 +44,9 @@ public class GrenadeController : MonoBehaviour
 
         }
     }
+
+    public void beFired(float speed) {
+		Rigidbody rb = GetComponent<Rigidbody> ();
+		rb.AddForce (transform.forward * speed);
+	}
 }

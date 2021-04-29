@@ -15,8 +15,10 @@ public class ChopperEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up *(rotationSpeed * Time.deltaTime));
-        Vector3 enemyPosition = enemyBody.transform.position;
-        transform.position = new Vector3(enemyPosition.x, transform.position.y, enemyPosition.z);
+        if(enemyBody) {
+            transform.Rotate(Vector3.up *(rotationSpeed * Time.deltaTime));
+            Vector3 enemyPosition = enemyBody.transform.position;
+            transform.position = new Vector3(enemyPosition.x, transform.position.y, enemyPosition.z);
+        }
     }
 }

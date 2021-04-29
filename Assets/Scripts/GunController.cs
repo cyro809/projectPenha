@@ -10,17 +10,20 @@ public class GunController : MonoBehaviour {
 	const int NORMAL_GUN_MODE = 0;
 	const int SHOT_GUN_MODE = 1;
 	const int MACHINE_GUN_MODE = 2;
+	const int GRENADE_LAUNCHER_MODE = 3;
 	public bool playerGun = true;
 	public bool isFiring;
 
 	public BulletController bullet;
 	public float bulletSpeed;
 
+	public GrenadeController grenade;
+
 	public float timeBetweenShots;
 	private float shotCounter;
 	public float spreadAngle;
 	public int spreadAmount;
-	int gunMode = 0;
+	int gunMode = 3;
 	public int specialShotBullets = 0;
 	public TextMeshProUGUI shotCounterText;
 	public Transform firePoint;
@@ -66,10 +69,17 @@ public class GunController : MonoBehaviour {
 	}
 
 	void normalFire() {
-		BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
+		if(gunMode == NORMAL_GUN_MODE) {
+			BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
+			newBullet.beFired (bulletSpeed);
 
-		newBullet.beFired (bulletSpeed);
-		if(gunMode == MACHINE_GUN_MODE) {
+		} else if (gunMode == GRENADE_LAUNCHER_MODE) {
+			GrenadeController newGrenade = Instantiate (grenade, firePoint.position, firePoint.rotation) as GrenadeController;
+			newGrenade.beFired (bulletSpeed);
+		}
+
+
+		if(gunMode == MACHINE_GUN_MODE || gunMode == GRENADE_LAUNCHER_MODE) {
 			specialShotBullets--;
 		}
 	}
