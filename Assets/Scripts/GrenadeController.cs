@@ -26,8 +26,10 @@ public class GrenadeController : MonoBehaviour
                 explosionSpeed
             );
             explosionSpeed += Time.deltaTime;
-            if(explosionSpeed == 1) {
+            Debug.Log(explosionSpeed);
+            if(explosionSpeed >= 1) {
                 exploding = false;
+                StartCoroutine(WaitBeforeDestroyExplosion(0));
             }
         }
     }
@@ -49,4 +51,17 @@ public class GrenadeController : MonoBehaviour
 		Rigidbody rb = GetComponent<Rigidbody> ();
 		rb.AddForce (transform.forward * speed);
 	}
+
+    IEnumerator WaitBeforeDestroyExplosion(int seconds) {
+        int count = seconds;
+
+        while (count > 0) {
+            // display something...
+            yield return new WaitForSeconds(1);
+            count --;
+        }
+
+        // count down is finished...
+        Destroy(gameObject);
+    }
 }
