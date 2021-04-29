@@ -140,6 +140,7 @@ public class Body : MovingObject {
 		if (col.gameObject.CompareTag("Goal")) {
 			ChangeToWinState();
 		}
+
 		if(col.gameObject.CompareTag("ShieldPowerUp")) {
 			shield.GetComponent<Shield>().ActivateShield();
 			StartCoroutine(showText("Shield"));
@@ -152,6 +153,11 @@ public class Body : MovingObject {
 			gun.GetComponent<GunController>().setMachineGunMode();
 			StartCoroutine(showText("Machine Gun"));
 		}
+		if(col.gameObject.CompareTag("GrenadePowerUp")) {
+			gun.GetComponent<GunController>().setGrenadeLauncherMode();
+			StartCoroutine(showText("Grenade Launcher"));
+		}
+
 		if(col.gameObject.CompareTag("Ground")) {
 			groundFriction = col.gameObject.GetComponent<Ground>().friction;
 			isGrounded = true;

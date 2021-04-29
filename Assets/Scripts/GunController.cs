@@ -109,6 +109,12 @@ public class GunController : MonoBehaviour {
 		timeBetweenShots = 0.1f;
 	}
 
+	public void setGrenadeLauncherMode() {
+		specialShotBullets = 5;
+		gunMode = GRENADE_LAUNCHER_MODE;
+		timeBetweenShots = 1.5f;
+	}
+
 	void ResetGunMode() {
 		gunMode = NORMAL_GUN_MODE;
 		timeBetweenShots = 1;
