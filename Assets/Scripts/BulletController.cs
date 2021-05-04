@@ -14,6 +14,7 @@ public class BulletController : MonoBehaviour {
 	Rigidbody rb;
 	AudioSource audioSource;
 
+
 	void Start() {
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
@@ -42,12 +43,15 @@ public class BulletController : MonoBehaviour {
 		col.gameObject.CompareTag("Obstacle") ||
 		col.gameObject.CompareTag("Goal") ||
 		(col.gameObject.CompareTag("Cannon") && gameObject.CompareTag("Bullet"))) {
+			Debug.Log("Destroyed!");
+			Debug.Log(col.gameObject.tag);
 			Destroy (gameObject);
 		}
 
 		if(col.gameObject.CompareTag("Body") || col.gameObject.CompareTag("Player")) {
 			HitPlayer(playerPushBackForce, col);
 		}
+
 	}
 
 	void HitEnemy(float pushForce, Collision col) {
@@ -59,7 +63,7 @@ public class BulletController : MonoBehaviour {
 			}
 			Destroy (gameObject);
 		}
-		
+
 	}
 
 	void HitPlayer(float pushForce, Collision col) {
@@ -72,6 +76,6 @@ public class BulletController : MonoBehaviour {
 			}
 			Destroy (gameObject);
 		}
-		
+
 	}
 }
