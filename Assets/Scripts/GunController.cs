@@ -20,7 +20,7 @@ public class GunController : MonoBehaviour {
 
 	public GrenadeController grenade;
 
-	public ChasingBullet chasingBullet;
+	public ChasingBulletRadar chasingBullet;
 
 	public float timeBetweenShots;
 	private float shotCounter;
@@ -80,7 +80,8 @@ public class GunController : MonoBehaviour {
 			GrenadeController newGrenade = Instantiate (grenade, firePoint.position, firePoint.rotation) as GrenadeController;
 			newGrenade.beFired (bulletSpeed);
 		} else if(gunMode == CHASING_BULLET_MODE) {
-			ChasingBullet newBullet = Instantiate(chasingBullet, firePoint.position, firePoint.rotation) as ChasingBullet;
+			ChasingBulletRadar newBullet = Instantiate(chasingBullet, firePoint.position, firePoint.rotation) as ChasingBulletRadar;
+			newBullet.beFired(bulletSpeed);
 		}
 
 

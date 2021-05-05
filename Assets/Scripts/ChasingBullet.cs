@@ -6,7 +6,7 @@ public class ChasingBullet : MonoBehaviour
 {
     public Transform target;
     public float pushBackForce = 1000;
-	public float speed = 5f;
+	public float speed = 1000f;
 	public float rotateSpeed = 200f;
 
 	private Rigidbody rb;
@@ -14,29 +14,28 @@ public class ChasingBullet : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody>();
+
 	}
 
 	void FixedUpdate () {
-        if(target != null) {
+        if(target && target != null) {
+            rb = gameObject.AddComponent<Rigidbody>() as Rigidbody;
+            Debug.Log(target);
             Vector3 direction = (Vector3)target.position - rb.position;
-            Debug.Log(direction);
+
             direction.Normalize();
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
 
-            rb.velocity = transform.up * this.GetComponent<BulletController>().speed;
+            rb.velocity = transform.up * speed;
         }
 
-	}
-
-    public void beFired(float speed) {
-		rb.AddForce (transform.forward * speed);
 	}
 
     void OnCollisionEnter (Collision col) {
 		if (col.gameObject.CompareTag("Enemy")) {
 			HitEnemy(pushBackForce, col);
 		}
+        Debug.Log(col.gameObject);
 	}
 
 	void HitEnemy(float pushForce, Collision col) {
