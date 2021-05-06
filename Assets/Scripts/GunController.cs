@@ -20,8 +20,6 @@ public class GunController : MonoBehaviour {
 
 	public GrenadeController grenade;
 
-	public ChasingBulletRadar chasingBullet;
-
 	public float timeBetweenShots;
 	private float shotCounter;
 	public float spreadAngle;
@@ -72,18 +70,17 @@ public class GunController : MonoBehaviour {
 	}
 
 	void normalFire() {
-		if(gunMode == NORMAL_GUN_MODE) {
+		if(gunMode == NORMAL_GUN_MODE || gunMode == CHASING_BULLET_MODE) {
 			BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
+			if(gunMode == CHASING_BULLET_MODE) {
+				newBullet.SetChaserBullet();
+			}
 			newBullet.beFired (bulletSpeed);
 
 		} else if (gunMode == GRENADE_LAUNCHER_MODE) {
 			GrenadeController newGrenade = Instantiate (grenade, firePoint.position, firePoint.rotation) as GrenadeController;
 			newGrenade.beFired (bulletSpeed);
-		} else if(gunMode == CHASING_BULLET_MODE) {
-			ChasingBulletRadar newBullet = Instantiate(chasingBullet, firePoint.position, firePoint.rotation) as ChasingBulletRadar;
-			newBullet.beFired(bulletSpeed);
 		}
-
 
 		if(gunMode == MACHINE_GUN_MODE || gunMode == GRENADE_LAUNCHER_MODE || gunMode == CHASING_BULLET_MODE) {
 			specialShotBullets--;

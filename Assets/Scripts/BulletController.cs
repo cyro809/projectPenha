@@ -14,11 +14,42 @@ public class BulletController : MonoBehaviour {
 	Rigidbody rb;
 	AudioSource audioSource;
 
+	bool chaser = false;
+	Transform target;
+	public float rotateSpeed = 200f;
+    bool lockedOn = false;
+
+	public Material chaserMaterial;
+	public Material defaultMaterial;
+
 
 	void Start() {
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 	}
+
+
+	void Update () {
+        if(IsChaserBullet()) {
+            Vector3 direction = (Vector3)target.position - rb.position;
+
+            direction.Normalize();
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
+
+            rb.velocity = transform.forward * speed;
+        }
+
+	}
+
+	bool IsChaserBullet() {
+		return chaser && target && target != null && lockedOn;
+	}
+
+	public void SetChaserBullet() {
+		chaser = true;
+		gameObject.GetComponent<MeshRenderer>().material = chaserMaterial;
+	}
+
 	void OnBecameInvisible() {
 		Destroy (gameObject);
 	}
@@ -26,6 +57,11 @@ public class BulletController : MonoBehaviour {
 	public void beFired(float speed) {
 		rb = GetComponent<Rigidbody> ();
 		rb.AddForce (transform.forward * speed);
+		if(chaser) {
+			target = FindClosestEnemy();
+			if(target != null) lockedOn = true;
+		}
+		Debug.Log(rb.velocity.magnitude);
 	}
 
 	void OnCollisionEnter (Collision col) {
@@ -43,7 +79,6 @@ public class BulletController : MonoBehaviour {
 		col.gameObject.CompareTag("Obstacle") ||
 		col.gameObject.CompareTag("Goal") ||
 		(col.gameObject.CompareTag("Cannon") && gameObject.CompareTag("Bullet"))) {
-			Debug.Log("Destroyed!");
 			Debug.Log(col.gameObject.tag);
 			Destroy (gameObject);
 		}
@@ -78,4 +113,27 @@ public class BulletController : MonoBehaviour {
 		}
 
 	}
+
+	public Transform FindClosestEnemy()
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+		if(closest != null) {
+        	return closest.transform;
+		}
+		return null;
+    }
 }
