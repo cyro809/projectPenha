@@ -16,7 +16,7 @@ public class BulletController : MonoBehaviour {
 
 	bool chaser = false;
 	Transform target;
-	public float rotateSpeed = 200f;
+	public float rotateSpeed = 1000f;
     bool lockedOn = false;
 
 	public Material chaserMaterial;

@@ -24,7 +24,7 @@ public class GunController : MonoBehaviour {
 	private float shotCounter;
 	public float spreadAngle;
 	public int spreadAmount;
-	int gunMode = 4;
+	int gunMode = 0;
 	public int specialShotBullets = 0;
 	public TextMeshProUGUI shotCounterText;
 	public Transform firePoint;
@@ -116,6 +116,12 @@ public class GunController : MonoBehaviour {
 		specialShotBullets = 5;
 		gunMode = GRENADE_LAUNCHER_MODE;
 		timeBetweenShots = 1.5f;
+	}
+
+	public void setChasingBulletMode() {
+		specialShotBullets = 10;
+		gunMode = CHASING_BULLET_MODE;
+		timeBetweenShots = 1;
 	}
 
 	void ResetGunMode() {

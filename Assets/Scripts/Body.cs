@@ -157,6 +157,10 @@ public class Body : MovingObject {
 			gun.GetComponent<GunController>().setGrenadeLauncherMode();
 			StartCoroutine(showText("Grenade Launcher"));
 		}
+		if(col.gameObject.CompareTag("ChasingBulletPowerUp")) {
+			gun.GetComponent<GunController>().setChasingBulletMode();
+			StartCoroutine(showText("Chasing Bullets"));
+		}
 
 		if(col.gameObject.CompareTag("Ground")) {
 			groundFriction = col.gameObject.GetComponent<Ground>().friction;
