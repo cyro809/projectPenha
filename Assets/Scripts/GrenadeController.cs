@@ -26,7 +26,6 @@ public class GrenadeController : MonoBehaviour
                 explosionSpeed
             );
             explosionSpeed += Time.deltaTime;
-            Debug.Log(explosionSpeed);
             if(explosionSpeed >= 1) {
                 exploding = false;
                 StartCoroutine(WaitBeforeDestroyExplosion(0));

@@ -61,7 +61,6 @@ public class BulletController : MonoBehaviour {
 			target = FindClosestEnemy();
 			if(target != null) lockedOn = true;
 		}
-		Debug.Log(rb.velocity.magnitude);
 	}
 
 	void OnCollisionEnter (Collision col) {
@@ -79,7 +78,6 @@ public class BulletController : MonoBehaviour {
 		col.gameObject.CompareTag("Obstacle") ||
 		col.gameObject.CompareTag("Goal") ||
 		(col.gameObject.CompareTag("Cannon") && gameObject.CompareTag("Bullet"))) {
-			Debug.Log(col.gameObject.tag);
 			Destroy (gameObject);
 		}
 
