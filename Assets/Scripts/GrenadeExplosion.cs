@@ -24,6 +24,8 @@ public class GrenadeExplosion : MonoBehaviour
     }
 
     bool IsEnemy(Collision col) {
-        return col.gameObject.CompareTag("Enemy");
+        return col.gameObject.CompareTag("Enemy") ||
+        col.gameObject.CompareTag("LightEnemy") ||
+        col.gameObject.CompareTag("HeavyEnemy");
     }
 }

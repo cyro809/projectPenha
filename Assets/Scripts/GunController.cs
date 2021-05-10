@@ -141,6 +141,12 @@ public class GunController : MonoBehaviour {
 				case SHOT_GUN_MODE:
 					shotCounterText.text = "Shot Gun: ";
 					break;
+				case CHASING_BULLET_MODE:
+					shotCounterText.text = "Chasing BUllets: ";
+					break;
+				case GRENADE_LAUNCHER_MODE:
+					shotCounterText.text = "Grenade Launcher: ";
+					break;
 				default:
 					shotCounterText.text = "";
 					break;

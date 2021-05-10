@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,13 +116,25 @@ public class BulletController : MonoBehaviour {
 	public Transform FindClosestEnemy()
     {
         GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("Enemy");
+		GameObject[] lightEnemies;
+		GameObject[] enemies;
+		GameObject[] heavyEnemies;
+		lightEnemies = GameObject.FindGameObjectsWithTag("LightEnemy");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        heavyEnemies = GameObject.FindGameObjectsWithTag("HeavyEnemy");
+		int enemiesArraySize = lightEnemies.Length + enemies.Length + heavyEnemies.Length;
+        gos = new GameObject[enemiesArraySize];
+
+		Array.Copy(lightEnemies, 0, gos, 0, lightEnemies.Length);
+		Array.Copy(enemies, 0, gos, lightEnemies.Length, enemies.Length);
+		Array.Copy(heavyEnemies, 0, gos, lightEnemies.Length + enemies.Length, heavyEnemies.Length);
         GameObject closest = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
         foreach (GameObject go in gos)
         {
-            Vector3 diff = go.transform.position - position;
+            Debug.Log(go);
+			Vector3 diff = go.transform.position - position;
             float curDistance = diff.sqrMagnitude;
             if (curDistance < distance)
             {
