@@ -43,7 +43,7 @@ public class GunController : MonoBehaviour {
 	void Update () {
 		shotCounter -= Time.deltaTime;
 
-		if (isFiring && IsGameStarted()) {
+		if (isFiring && IsGameStarted() && CanFireGun()) {
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
 				if(gunMode == SHOT_GUN_MODE) {
@@ -161,4 +161,32 @@ public class GunController : MonoBehaviour {
 	bool IsGameStarted() {
 		return gameState.gameStart && !gameState.paused;
 	}
+
+	bool CanFireGun() {
+		if(!playerGun) {
+			GameObject parentObj = transform.parent.gameObject;
+			if(parentObj.tag == "ShootingEnemy") {
+				Enemy enemyComponent = FindEnemyComponent(parentObj);
+				return enemyComponent.IsTriggered();
+			}
+			return true;
+		} else {
+			return true;
+		}
+	}
+
+	Enemy FindEnemyComponent(GameObject enemyObj) {
+		Enemy enemyComponent = null;
+		foreach (Transform child in enemyObj.transform) {
+			enemyComponent = child.gameObject.GetComponent<Enemy>();
+			if(EnemyComponentExists(enemyComponent)) {
+				return enemyComponent;
+			}
+		}
+		return enemyComponent;
+	}
+
+	bool EnemyComponentExists(Enemy enemyComponent) {
+        return enemyComponent && enemyComponent != null;
+    }
 }

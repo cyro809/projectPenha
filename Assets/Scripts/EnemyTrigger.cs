@@ -12,10 +12,30 @@ public class EnemyTrigger : MonoBehaviour
         if(col.gameObject.CompareTag("Body") && !hasEntered) {
             for (int i=0;i < enemiesObject.Length; i++) {
                 if(enemiesObject[i] != null) {
-                    enemiesObject[i].GetComponent<Enemy>().TriggerEnemy();
+                    Enemy enemyComponent = GetEnemyComponent(enemiesObject[i]);
+                    enemyComponent.TriggerEnemy();
                 }
             }
             hasEntered = true;
         }
+    }
+
+    Enemy GetEnemyComponent(GameObject enemyObj) {
+        Enemy enemyComponent = enemyObj.GetComponent<Enemy>();
+        if(EnemyComponentExists(enemyComponent)) {
+            return enemyComponent;
+        } else {
+            foreach (Transform child in enemyObj.transform) {
+                enemyComponent = child.gameObject.GetComponent<Enemy>();
+                if(EnemyComponentExists(enemyComponent)) {
+                    return enemyComponent;
+                }
+            }
+        }
+        return enemyComponent;
+    }
+
+    bool EnemyComponentExists(Enemy enemyComponent) {
+        return enemyComponent && enemyComponent != null;
     }
 }
