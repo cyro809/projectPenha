@@ -70,7 +70,7 @@ public class GunController : MonoBehaviour {
 	}
 
 	void normalFire() {
-		if(gunMode == NORMAL_GUN_MODE || gunMode == CHASING_BULLET_MODE) {
+		if(gunMode == NORMAL_GUN_MODE || gunMode == CHASING_BULLET_MODE || gunMode == MACHINE_GUN_MODE) {
 			BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
 			if(gunMode == CHASING_BULLET_MODE) {
 				newBullet.SetChaserBullet();
