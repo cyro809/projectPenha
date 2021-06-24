@@ -18,7 +18,7 @@ public class ChopperEnemy : MonoBehaviour
         if(enemyBody) {
             transform.Rotate(Vector3.up *(rotationSpeed * Time.deltaTime));
             Vector3 enemyPosition = enemyBody.transform.position;
-            transform.position = new Vector3(enemyPosition.x, transform.position.y, enemyPosition.z);
+            transform.position = new Vector3(enemyPosition.x, enemyPosition.y, enemyPosition.z);
         }
     }
 }

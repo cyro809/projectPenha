@@ -103,7 +103,20 @@ public class Enemy : MovingObject {
 
 	void Kill() {
 		score.addPoint (scorePoints);
-		Destroy (gameObject);
+		if(IsSpecialEnemy()) {
+			Destroy(transform.parent.gameObject);
+			Destroy (gameObject);
+		} else {
+			Destroy (gameObject);
+		}
+	}
+
+	bool IsSpecialEnemy() {
+		Transform parent = transform.parent;
+		if(parent != null) {
+			return parent.gameObject.CompareTag("ShootingEnemy") || parent.gameObject.CompareTag("ChopperEnemy");
+		}
+		return false;
 	}
 
 	void OnCollisionEnter (Collision col) {

@@ -15,7 +15,7 @@ public class ShootingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyGun.transform.position = new Vector3 (transform.position.x, enemyGun.transform.position.y, transform.position.z);
+        enemyGun.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 
         enemyGun.transform.LookAt(player.transform.position);
     }
