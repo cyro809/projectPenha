@@ -26,7 +26,6 @@ public class GunController : MonoBehaviour {
 	public int spreadAmount;
 	int gunMode = 0;
 	public int specialShotBullets = 0;
-	public TextMeshProUGUI shotCounterText;
 	public Transform firePoint;
 	AudioSource audioSource;
 
@@ -131,6 +130,7 @@ public class GunController : MonoBehaviour {
 
 	void showShotCounterText() {
 		if(playerGun) {
+			TextMeshProUGUI shotCounterText = GameObject.FindWithTag("ShotCounter").GetComponent<TextMeshProUGUI>();
 			switch(gunMode) {
 				case NORMAL_GUN_MODE:
 					shotCounterText.text = "";
