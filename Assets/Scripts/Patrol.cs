@@ -3,22 +3,21 @@ using UnityEngine.AI;
 using System.Collections;
 
 
-public class Patrol : MonoBehaviour {
+public class Patrol : MovingObject {
 
     public Transform[] points;
     private int destPoint = 0;
     private NavMeshAgent agent;
-    Rigidbody rB;
 
-    void Start () {
+    public override void Start () {
         agent = GetComponent<NavMeshAgent>();
-        rB = gameObject.GetComponent<Rigidbody>();
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
         agent.autoBraking = false;
 
         GotoNextPoint();
+        base.Start ();
     }
 
 
@@ -28,7 +27,8 @@ public class Patrol : MonoBehaviour {
             return;
 
         // Set the agent to go to the currently selected destination.
-        agent.destination = points[destPoint].position;
+        if (agent.enabled)
+            agent.destination = points[destPoint].position;
 
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
@@ -39,22 +39,19 @@ public class Patrol : MonoBehaviour {
         }
     }
 
+    protected override void OnMove() {
+        if(agent.enabled) {
+            Vector3 direction = GetLookAtDirection(agent.destination);
+            if (!agent.pathPending && agent.remainingDistance < 0.5f) {
 
-    void Update () {
-        // Choose the next destination point when the agent g ets
-        // close to the current one.
+                Debug.Log(direction);
+                GotoNextPoint();
 
-        Vector3 direction = GetLookAtDirection(agent.destination);
-        if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-
-            Debug.Log(direction);
-            GotoNextPoint();
-
-        } else if (agent.remainingDistance >= 0.5f){
-            // rB.AddForce (points[destPoint].position * 2);
+            } else if (agent.remainingDistance >= 0.5f){
+                // rB.AddForce (points[destPoint].position * 2);
+            }
+            rB.AddTorque (direction * 20);
         }
-        rB.AddForce (direction * 20);
-
     }
 
     Vector3 GetLookAtDirection(Vector3 nextPoint) {
@@ -70,7 +67,31 @@ public class Patrol : MonoBehaviour {
 
     void OnCollisionEnter(Collision col) {
         if(col.gameObject.CompareTag("Bullet")) {
-
+            agent.enabled = false;
+            StartCoroutine(CooldownCount(1));
+            // getHit(1000, transform.position);
         }
+        if (col.gameObject.CompareTag("LimitPlane")) {
+            Kill();
+        }
+    }
+
+    void Kill() {
+        Destroy(transform.parent.gameObject);
+        Destroy(gameObject);
+    }
+
+    IEnumerator CooldownCount(int seconds)
+    {
+        int count = seconds;
+
+        while (count > 0) {
+            // display something...
+            yield return new WaitForSeconds(1);
+            count --;
+        }
+
+        // count down is finished...
+        agent.enabled = true;
     }
 }

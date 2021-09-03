@@ -68,6 +68,9 @@ public class BulletController : MonoBehaviour {
 		if (col.gameObject.CompareTag("Enemy")) {
 			HitEnemy(pushBackForce, col);
 		}
+		if (col.gameObject.CompareTag("ShootingEnemyBoss")) {
+			HitBoss(500, col);
+		}
 		if (col.gameObject.CompareTag("LightEnemy")) {
 			HitEnemy(lightEnemyPushBackForce, col);
 		}
@@ -95,6 +98,15 @@ public class BulletController : MonoBehaviour {
 				hitEnemy.getHit (pushForce, transform.position);
 				audioSource.Play();
 			}
+			Destroy (gameObject);
+		}
+
+	}
+
+	void HitBoss(float pushForce, Collision col) {
+		if(gameObject.CompareTag("Bullet")) {
+			Patrol hitEnemy = col.gameObject.GetComponent<Patrol>();
+			hitEnemy.getHit (pushForce, transform.position);
 			Destroy (gameObject);
 		}
 
