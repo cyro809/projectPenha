@@ -50,7 +50,7 @@ public class Patrol : MovingObject {
             } else if (agent.remainingDistance >= 0.5f){
                 // rB.AddForce (points[destPoint].position * 2);
             }
-            rB.AddTorque (direction * 20);
+            rB.AddForce (direction * 5);
         }
     }
 
