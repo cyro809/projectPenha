@@ -30,6 +30,7 @@ public class GunController : MonoBehaviour {
 	AudioSource audioSource;
 
 	GameState gameState;
+	public Gun gun;
 
 
 	void Start() {
@@ -37,6 +38,7 @@ public class GunController : MonoBehaviour {
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
+		gun = gameObject.AddComponent<Gun>();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -48,7 +50,7 @@ public class GunController : MonoBehaviour {
 				if(gunMode == SHOT_GUN_MODE) {
 					shotGunFire();
 				} else {
-					normalFire();
+					gun.fire(bullet, firePoint);
 				}
 
 				audioSource.Play();
