@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +31,7 @@ public class GunController : MonoBehaviour {
 	AudioSource audioSource;
 
 	GameState gameState;
-	public Gun gun;
+	Gun gun;
 
 
 	void Start() {
@@ -47,11 +48,13 @@ public class GunController : MonoBehaviour {
 		if (isFiring && IsGameStarted() && CanFireGun()) {
 			if (shotCounter <= 0) {
 				shotCounter = timeBetweenShots;
-				if(gunMode == SHOT_GUN_MODE) {
-					shotGunFire();
-				} else {
-					gun.fire(bullet, firePoint);
-				}
+				// if(gunMode == SHOT_GUN_MODE) {
+				// 	shotGunFire();
+				// } else {
+
+				// }
+				gun.Fire(bullet, firePoint);
+				specialShotBullets -= gun.GetBulletsPerShot();
 
 				audioSource.Play();
 				if(gunMode == MACHINE_GUN_MODE) {
@@ -102,9 +105,19 @@ public class GunController : MonoBehaviour {
 	}
 
 	public void setShotGunMode() {
-		specialShotBullets = 30;
-		gunMode = SHOT_GUN_MODE;
-		timeBetweenShots = 1.2f;
+		// specialShotBullets = 30;
+		// gunMode = SHOT_GUN_MODE;
+		// timeBetweenShots = 1.2f;
+		// gun = gameObject.RemoveComponent<Gun>();
+		Destroy(gameObject.GetComponent<Gun>());
+		gun = Cast(gameObject.AddComponent<Shotgun>(), typeof(Shotgun));
+		// var newGun = Cast(gun, typeof(Shotgun));
+		specialShotBullets = gun.SpecialBulletsNumber;
+	}
+
+	public static dynamic Cast(dynamic obj, Type castTo)
+	{
+		return Convert.ChangeType(obj, castTo);
 	}
 
 	public void setMachineGunMode() {
@@ -127,7 +140,6 @@ public class GunController : MonoBehaviour {
 
 	void ResetGunMode() {
 		gunMode = NORMAL_GUN_MODE;
-		timeBetweenShots = 1;
 	}
 
 	void showShotCounterText() {

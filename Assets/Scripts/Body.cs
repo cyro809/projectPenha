@@ -15,6 +15,7 @@ public class Body : MovingObject {
 	float defaultAcceleration;
 	public bool alive;
 	private bool isGrounded;
+	private bool hitPowerup;
 	GameObject head;
 	public GameObject shield;
 	public GameObject gun;
@@ -45,6 +46,7 @@ public class Body : MovingObject {
 		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;
 		isGrounded = false;
+		hitPowerup = false;
 		defaultAcceleration = acceleration;
 		defaultMaxSpeed = maxSpeed;
 	}
@@ -145,10 +147,7 @@ public class Body : MovingObject {
 			shield.GetComponent<Shield>().ActivateShield();
 			StartCoroutine(showText("Shield"));
 		}
-		if(col.gameObject.CompareTag("ShotGunPowerUp")) {
-			gun.GetComponent<GunController>().setShotGunMode();
-			StartCoroutine(showText("Shot Gun"));
-		}
+
 		if(col.gameObject.CompareTag("MachineGunPowerUp")) {
 			gun.GetComponent<GunController>().setMachineGunMode();
 			StartCoroutine(showText("Machine Gun"));
@@ -156,6 +155,11 @@ public class Body : MovingObject {
 		if(col.gameObject.CompareTag("GrenadePowerUp")) {
 			gun.GetComponent<GunController>().setGrenadeLauncherMode();
 			StartCoroutine(showText("Grenade Launcher"));
+		}
+		if(col.gameObject.CompareTag("ShotGunPowerUp") && !hitPowerup) {
+			hitPowerup = true;
+			gun.GetComponent<GunController>().setShotGunMode();
+			StartCoroutine(showText("Shot Gun"));
 		}
 		if(col.gameObject.CompareTag("ChasingBulletPowerUp")) {
 			gun.GetComponent<GunController>().setChasingBulletMode();
@@ -171,6 +175,7 @@ public class Body : MovingObject {
 		if(col.gameObject.CompareTag("Ground")) {
 			isGrounded = false;
 		}
+		hitPowerup = false;
 	}
 
 	void OnCollisionStay(Collision col) {

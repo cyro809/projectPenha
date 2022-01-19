@@ -43,8 +43,6 @@ public class Patrol : MovingObject {
         if(agent.enabled) {
             Vector3 direction = GetLookAtDirection(agent.destination);
             if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-
-                Debug.Log(direction);
                 GotoNextPoint();
 
             } else if (agent.remainingDistance >= 0.5f){
