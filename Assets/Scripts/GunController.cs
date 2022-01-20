@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,14 +46,11 @@ public class GunController : MonoBehaviour {
 
 		if (isFiring && IsGameStarted() && CanFireGun()) {
 			if (shotCounter <= 0) {
-				shotCounter = timeBetweenShots;
-				// if(gunMode == SHOT_GUN_MODE) {
-				// 	shotGunFire();
-				// } else {
-
-				// }
+				shotCounter = gun.TimeBetweenShots;
 				gun.Fire(bullet, firePoint);
-				specialShotBullets -= gun.GetBulletsPerShot();
+				if(!isNormalGun()) {
+					specialShotBullets -= gun.BulletsPerShot;
+				}
 
 				audioSource.Play();
 				if(gunMode == MACHINE_GUN_MODE) {
@@ -70,7 +66,7 @@ public class GunController : MonoBehaviour {
 		showShotCounterText();
 	}
 	public void resetShotCounter() {
-		shotCounter = timeBetweenShots;
+		shotCounter = gun.TimeBetweenShots;
 	}
 
 	void normalFire() {
@@ -91,33 +87,11 @@ public class GunController : MonoBehaviour {
 		}
 	}
 
-	void shotGunFire() {
-		float perBulletAngle = spreadAngle / (spreadAmount - 1);
-       	float startAngle = spreadAngle * -0.5f;
-
-		for (int i = 0; i < spreadAmount; i++)
-		{
-			BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
-			newBullet.gameObject.transform.Rotate(Vector3.up, startAngle + i * perBulletAngle);
-			newBullet.beFired (bulletSpeed);
-		}
-		specialShotBullets -= 3;
-	}
-
 	public void setShotGunMode() {
-		// specialShotBullets = 30;
-		// gunMode = SHOT_GUN_MODE;
-		// timeBetweenShots = 1.2f;
-		// gun = gameObject.RemoveComponent<Gun>();
+		gunMode = SHOT_GUN_MODE;
 		Destroy(gameObject.GetComponent<Gun>());
-		gun = Cast(gameObject.AddComponent<Shotgun>(), typeof(Shotgun));
-		// var newGun = Cast(gun, typeof(Shotgun));
+		gun = gameObject.AddComponent<Shotgun>();
 		specialShotBullets = gun.SpecialBulletsNumber;
-	}
-
-	public static dynamic Cast(dynamic obj, Type castTo)
-	{
-		return Convert.ChangeType(obj, castTo);
 	}
 
 	public void setMachineGunMode() {
@@ -139,34 +113,42 @@ public class GunController : MonoBehaviour {
 	}
 
 	void ResetGunMode() {
+		Destroy(gun);
+		gun = gameObject.AddComponent<Gun>();
 		gunMode = NORMAL_GUN_MODE;
 	}
 
+	bool isNormalGun() {
+		return gunMode == NORMAL_GUN_MODE;
+	}
+
 	void showShotCounterText() {
+
 		if(playerGun) {
 			TextMeshProUGUI shotCounterText = GameObject.FindWithTag("ShotCounter").GetComponent<TextMeshProUGUI>();
-			switch(gunMode) {
-				case NORMAL_GUN_MODE:
-					shotCounterText.text = "";
-					break;
-				case MACHINE_GUN_MODE:
-					shotCounterText.text = "Machine Gun: ";
-					break;
-				case SHOT_GUN_MODE:
-					shotCounterText.text = "Shot Gun: ";
-					break;
-				case CHASING_BULLET_MODE:
-					shotCounterText.text = "Chasing BUllets: ";
-					break;
-				case GRENADE_LAUNCHER_MODE:
-					shotCounterText.text = "Grenade Launcher: ";
-					break;
-				default:
-					shotCounterText.text = "";
-					break;
-			}
-			if (gunMode != NORMAL_GUN_MODE) {
-				shotCounterText.text += specialShotBullets.ToString ();
+			shotCounterText.text = gun.GunName;
+			// switch(gunMode) {
+			// 	case NORMAL_GUN_MODE:
+			// 		shotCounterText.text = "";
+			// 		break;
+			// 	case MACHINE_GUN_MODE:
+			// 		shotCounterText.text = "Machine Gun: ";
+			// 		break;
+			// 	case SHOT_GUN_MODE:
+			// 		shotCounterText.text = "Shot Gun: ";
+			// 		break;
+			// 	case CHASING_BULLET_MODE:
+			// 		shotCounterText.text = "Chasing BUllets: ";
+			// 		break;
+			// 	case GRENADE_LAUNCHER_MODE:
+			// 		shotCounterText.text = "Grenade Launcher: ";
+			// 		break;
+			// 	default:
+			// 		shotCounterText.text = "";
+			// 		break;
+			// }
+			if (!isNormalGun()) {
+				shotCounterText.text += ": " + specialShotBullets.ToString ();
 			}
 		}
 

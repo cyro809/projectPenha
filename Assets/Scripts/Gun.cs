@@ -6,11 +6,11 @@ public class Gun : MonoBehaviour
 {
     // Start is called before the first frame update
     protected bool isFiring = false;
-    protected int specialBulletsNumber {get;} = 0;
-     protected float bulletSpeed = 2000;
-     protected int bulletsPerShot = 1 ;
-     protected float timeBetweenShots = 1.0f;
-    protected string gunName;
+    public virtual int SpecialBulletsNumber { get { return 0; } }
+    protected virtual float BulletSpeed { get { return 2000.0f; } }
+    public virtual int BulletsPerShot { get { return 1; } }
+    public virtual float TimeBetweenShots { get { return 1.0f; } }
+    public virtual string GunName {get; }
     protected AudioClip shotSound;
 
     protected virtual void Start()
@@ -19,21 +19,7 @@ public class Gun : MonoBehaviour
     }
     public virtual void Fire(BulletController bullet, Transform firePoint) {
         BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
-        newBullet.beFired (bulletSpeed);
-    }
-
-    public virtual float GetTimeBetweenShots() {
-        return timeBetweenShots;
-    }
-
-    public virtual string GetGunName() {
-        return gunName;
-    }
-
-    public int SpecialBulletsNumber{get;}
-
-    public virtual int GetBulletsPerShot() {
-        return bulletsPerShot;
+        newBullet.beFired (BulletSpeed);
     }
 
     // Update is called once per frame
