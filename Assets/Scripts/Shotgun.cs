@@ -9,11 +9,7 @@ public class Shotgun : Gun
     public override float TimeBetweenShots { get { return 1.2f; } }
     public override string GunName { get { return "Shotgun"; } }
     float spreadAngle = 30.0f;
-    // Start is called before the first frame update
-    // void Start()
-    // {
 
-    // }
 
     public override void Fire(BulletController bullet, Transform firePoint) {
         float perBulletAngle = spreadAngle / (BulletsPerShot - 1);

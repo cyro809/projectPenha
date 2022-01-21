@@ -15,7 +15,6 @@ public class Body : MovingObject {
 	float defaultAcceleration;
 	public bool alive;
 	private bool isGrounded;
-	private bool hitPowerup;
 	GameObject head;
 	public GameObject shield;
 	public GameObject gun;
@@ -46,7 +45,6 @@ public class Body : MovingObject {
 		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;
 		isGrounded = false;
-		hitPowerup = false;
 		defaultAcceleration = acceleration;
 		defaultMaxSpeed = maxSpeed;
 	}
@@ -148,34 +146,40 @@ public class Body : MovingObject {
 			StartCoroutine(showText("Shield"));
 		}
 
-		if(col.gameObject.CompareTag("MachineGunPowerUp")) {
-			gun.GetComponent<GunController>().setMachineGunMode();
-			StartCoroutine(showText("Machine Gun"));
-		}
-		if(col.gameObject.CompareTag("GrenadePowerUp")) {
-			gun.GetComponent<GunController>().setGrenadeLauncherMode();
-			StartCoroutine(showText("Grenade Launcher"));
-		}
-		if(col.gameObject.CompareTag("ShotGunPowerUp") && !hitPowerup) {
-			hitPowerup = true;
-			gun.GetComponent<GunController>().setShotGunMode();
-			StartCoroutine(showText("Shot Gun"));
-		}
-		if(col.gameObject.CompareTag("ChasingBulletPowerUp")) {
-			gun.GetComponent<GunController>().setChasingBulletMode();
-			StartCoroutine(showText("Chasing Bullets"));
+		// if(col.gameObject.CompareTag("MachineGunPowerUp")) {
+		// 	gun.GetComponent<GunController>().setMachineGunMode();
+		// 	StartCoroutine(showText("Machine Gun"));
+		// }
+		// if(col.gameObject.CompareTag("GrenadePowerUp")) {
+		// 	gun.GetComponent<GunController>().setGrenadeLauncherMode();
+		// 	StartCoroutine(showText("Grenade Launcher"));
+		// }
+		// if(col.gameObject.CompareTag("ShotGunPowerUp") && !hitPowerup) {
+		// 	hitPowerup = true;
+		// 	gun.GetComponent<GunController>().setShotGunMode();
+		// 	StartCoroutine(showText("Shot Gun"));
+		// }
+		// if(col.gameObject.CompareTag("ChasingBulletPowerUp")) {
+		// 	gun.GetComponent<GunController>().setChasingBulletMode();
+		// 	StartCoroutine(showText("Chasing Bullets"));
+		// }
+
+		if(col.gameObject.layer == LayerMask.NameToLayer("PowerUp")) {
+			GunController gunController = gun.GetComponent<GunController>();
+			gunController.SetGunMode(col.gameObject.tag);
+			StartCoroutine(showText(gunController.GetGunName()));
 		}
 
 		if(col.gameObject.CompareTag("Ground")) {
 			groundFriction = col.gameObject.GetComponent<Ground>().friction;
 			isGrounded = true;
 		}
+
 	}
 	void OnCollisionExit(Collision col) {
 		if(col.gameObject.CompareTag("Ground")) {
 			isGrounded = false;
 		}
-		hitPowerup = false;
 	}
 
 	void OnCollisionStay(Collision col) {

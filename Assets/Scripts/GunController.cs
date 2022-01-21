@@ -22,8 +22,6 @@ public class GunController : MonoBehaviour {
 
 	public float timeBetweenShots;
 	private float shotCounter;
-	public float spreadAngle;
-	public int spreadAmount;
 	int gunMode = 0;
 	public int specialShotBullets = 0;
 	public Transform firePoint;
@@ -87,17 +85,40 @@ public class GunController : MonoBehaviour {
 		}
 	}
 
+	public void SetGunMode(string powerUpTag) {
+		Destroy(gun);
+
+		switch(powerUpTag) {
+			case "ShotGunPowerUp":
+				setShotGunMode();
+				break;
+			default:
+				ResetGunMode();
+				break;
+		}
+	}
+
+	public string GetGunName() {
+		return gun.GunName;
+	}
+
 	public void setShotGunMode() {
 		gunMode = SHOT_GUN_MODE;
-		Destroy(gameObject.GetComponent<Gun>());
 		gun = gameObject.AddComponent<Shotgun>();
-		specialShotBullets = gun.SpecialBulletsNumber;
+		SetGunSpecs();
 	}
 
 	public void setMachineGunMode() {
 		specialShotBullets = 50;
 		gunMode = MACHINE_GUN_MODE;
 		timeBetweenShots = 0.1f;
+		gun = gameObject.AddComponent<MachineGun>();
+		SetGunSpecs();
+	}
+
+	void SetGunSpecs() {
+		specialShotBullets = gun.SpecialBulletsNumber;
+		timeBetweenShots = gun.TimeBetweenShots;
 	}
 
 	public void setGrenadeLauncherMode() {
@@ -116,6 +137,7 @@ public class GunController : MonoBehaviour {
 		Destroy(gun);
 		gun = gameObject.AddComponent<Gun>();
 		gunMode = NORMAL_GUN_MODE;
+		SetGunSpecs();
 	}
 
 	bool isNormalGun() {
@@ -123,35 +145,13 @@ public class GunController : MonoBehaviour {
 	}
 
 	void showShotCounterText() {
-
 		if(playerGun) {
 			TextMeshProUGUI shotCounterText = GameObject.FindWithTag("ShotCounter").GetComponent<TextMeshProUGUI>();
 			shotCounterText.text = gun.GunName;
-			// switch(gunMode) {
-			// 	case NORMAL_GUN_MODE:
-			// 		shotCounterText.text = "";
-			// 		break;
-			// 	case MACHINE_GUN_MODE:
-			// 		shotCounterText.text = "Machine Gun: ";
-			// 		break;
-			// 	case SHOT_GUN_MODE:
-			// 		shotCounterText.text = "Shot Gun: ";
-			// 		break;
-			// 	case CHASING_BULLET_MODE:
-			// 		shotCounterText.text = "Chasing BUllets: ";
-			// 		break;
-			// 	case GRENADE_LAUNCHER_MODE:
-			// 		shotCounterText.text = "Grenade Launcher: ";
-			// 		break;
-			// 	default:
-			// 		shotCounterText.text = "";
-			// 		break;
-			// }
 			if (!isNormalGun()) {
 				shotCounterText.text += ": " + specialShotBullets.ToString ();
 			}
 		}
-
 	}
 
 	bool IsGameStarted() {
