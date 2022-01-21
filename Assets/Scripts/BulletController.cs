@@ -5,66 +5,31 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour {
 
-	public float speed;
+	public float speed = 40;
 
 	public float pushBackForce = 1000;
 	public float lightEnemyPushBackForce = 1500;
 	public float heavyEnemyPushBackForce = 200;
-
 	public float playerPushBackForce = 2000;
-	Rigidbody rb;
-	AudioSource audioSource;
-
-	bool chaser = false;
-	Transform target;
-	public float rotateSpeed = 1000f;
-    bool lockedOn = false;
-
-	public Material chaserMaterial;
-	public Material defaultMaterial;
+	protected Rigidbody rb;
+	protected AudioSource audioSource;
 
 
-	void Start() {
+	protected virtual void Start() {
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
-	}
-
-
-	void Update () {
-        if(IsChaserBullet()) {
-            Vector3 direction = (Vector3)target.position - rb.position;
-
-            direction.Normalize();
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), rotateSpeed * Time.deltaTime);
-
-            rb.velocity = transform.forward * speed;
-        }
-
-	}
-
-	bool IsChaserBullet() {
-		return chaser && target && target != null && lockedOn;
-	}
-
-	public void SetChaserBullet() {
-		chaser = true;
-		gameObject.GetComponent<MeshRenderer>().material = chaserMaterial;
 	}
 
 	void OnBecameInvisible() {
 		Destroy (gameObject);
 	}
 
-	public void beFired(float speed) {
+	public virtual void beFired(float speed) {
 		rb = GetComponent<Rigidbody> ();
 		rb.AddForce (transform.forward * speed);
-		if(chaser) {
-			target = FindClosestEnemy();
-			if(target != null) lockedOn = true;
-		}
 	}
 
-	void OnCollisionEnter (Collision col) {
+	protected virtual void OnCollisionEnter (Collision col) {
 		if (col.gameObject.CompareTag("Enemy")) {
 			HitEnemy(pushBackForce, col);
 		}
@@ -91,12 +56,12 @@ public class BulletController : MonoBehaviour {
 
 	}
 
-	void HitEnemy(float pushForce, Collision col) {
+	protected virtual void HitEnemy(float pushForce, Collision col) {
 		if(gameObject.CompareTag("Bullet")) {
 			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
 			if (hitEnemy.IsTriggered()) {
 				hitEnemy.getHit (pushForce, transform.position);
-				audioSource.Play();
+				// audioSource.Play();
 			}
 			Destroy (gameObject);
 		}
@@ -125,37 +90,4 @@ public class BulletController : MonoBehaviour {
 
 	}
 
-	public Transform FindClosestEnemy()
-    {
-        GameObject[] gos;
-		GameObject[] lightEnemies;
-		GameObject[] enemies;
-		GameObject[] heavyEnemies;
-		lightEnemies = GameObject.FindGameObjectsWithTag("LightEnemy");
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        heavyEnemies = GameObject.FindGameObjectsWithTag("HeavyEnemy");
-		int enemiesArraySize = lightEnemies.Length + enemies.Length + heavyEnemies.Length;
-        gos = new GameObject[enemiesArraySize];
-
-		Array.Copy(lightEnemies, 0, gos, 0, lightEnemies.Length);
-		Array.Copy(enemies, 0, gos, lightEnemies.Length, enemies.Length);
-		Array.Copy(heavyEnemies, 0, gos, lightEnemies.Length + enemies.Length, heavyEnemies.Length);
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector3 position = transform.position;
-        foreach (GameObject go in gos)
-        {
-			Vector3 diff = go.transform.position - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
-            }
-        }
-		if(closest != null) {
-        	return closest.transform;
-		}
-		return null;
-    }
 }

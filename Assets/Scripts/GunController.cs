@@ -16,6 +16,7 @@ public class GunController : MonoBehaviour {
 	public bool isFiring;
 
 	public BulletController bullet;
+	public ChaserBulletController chaserBullet;
 	public float bulletSpeed;
 
 	public GrenadeController grenade;
@@ -45,15 +46,19 @@ public class GunController : MonoBehaviour {
 		if (isFiring && IsGameStarted() && CanFireGun()) {
 			if (shotCounter <= 0) {
 				shotCounter = gun.TimeBetweenShots;
-				gun.Fire(bullet, firePoint);
+				if(!isChaserGun()) {
+					gun.Fire(bullet, firePoint);
+				}
+				else {
+					gun.Fire(chaserBullet, firePoint);
+				}
+
 				if(!isNormalGun()) {
 					specialShotBullets -= gun.BulletsPerShot;
 				}
 
 				audioSource.Play();
-				if(gunMode == MACHINE_GUN_MODE) {
-					isFiring = false;
-				}
+				MachineGunIsFiringReset();
 
 				resetShotCounter();
 			}
@@ -71,7 +76,7 @@ public class GunController : MonoBehaviour {
 		if(gunMode == NORMAL_GUN_MODE || gunMode == CHASING_BULLET_MODE || gunMode == MACHINE_GUN_MODE) {
 			BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
 			if(gunMode == CHASING_BULLET_MODE) {
-				newBullet.SetChaserBullet();
+
 			}
 			newBullet.beFired (bulletSpeed);
 
@@ -90,7 +95,13 @@ public class GunController : MonoBehaviour {
 
 		switch(powerUpTag) {
 			case "ShotGunPowerUp":
-				setShotGunMode();
+				SetShotGunMode();
+				break;
+			case "MachineGunPowerUp":
+				SetMachineGunMode();
+				break;
+			case "ChasingBulletPowerUp":
+				SetChasingBulletMode();
 				break;
 			default:
 				ResetGunMode();
@@ -102,18 +113,22 @@ public class GunController : MonoBehaviour {
 		return gun.GunName;
 	}
 
-	public void setShotGunMode() {
+	public void SetShotGunMode() {
 		gunMode = SHOT_GUN_MODE;
 		gun = gameObject.AddComponent<Shotgun>();
 		SetGunSpecs();
 	}
 
-	public void setMachineGunMode() {
-		specialShotBullets = 50;
+	public void SetMachineGunMode() {
 		gunMode = MACHINE_GUN_MODE;
-		timeBetweenShots = 0.1f;
 		gun = gameObject.AddComponent<MachineGun>();
 		SetGunSpecs();
+	}
+
+	void MachineGunIsFiringReset() {
+		if(gunMode == MACHINE_GUN_MODE) {
+			isFiring = false;
+		}
 	}
 
 	void SetGunSpecs() {
@@ -127,21 +142,26 @@ public class GunController : MonoBehaviour {
 		timeBetweenShots = 1.5f;
 	}
 
-	public void setChasingBulletMode() {
-		specialShotBullets = 10;
+	public void SetChasingBulletMode() {
 		gunMode = CHASING_BULLET_MODE;
-		timeBetweenShots = 1;
+		gun = gameObject.AddComponent<ChaserGun>();
+
+		SetGunSpecs();
 	}
 
 	void ResetGunMode() {
 		Destroy(gun);
-		gun = gameObject.AddComponent<Gun>();
 		gunMode = NORMAL_GUN_MODE;
+		gun = gameObject.AddComponent<Gun>();
 		SetGunSpecs();
 	}
 
 	bool isNormalGun() {
 		return gunMode == NORMAL_GUN_MODE;
+	}
+
+	bool isChaserGun() {
+		return gunMode == CHASING_BULLET_MODE;
 	}
 
 	void showShotCounterText() {
