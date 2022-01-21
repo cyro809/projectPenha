@@ -47,6 +47,7 @@ public class BulletController : MonoBehaviour {
 		col.gameObject.CompareTag("Obstacle") ||
 		col.gameObject.CompareTag("Goal") ||
 		(col.gameObject.CompareTag("Cannon") && gameObject.CompareTag("Bullet"))) {
+			Debug.Log("Bullet collide!");
 			Destroy (gameObject);
 		}
 

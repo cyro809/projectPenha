@@ -10,6 +10,7 @@ public class GrenadeController : MonoBehaviour
     Transform bombExplosionTransform;
     Vector3 explosionRadiusStart;
     bool exploding = false;
+    Rigidbody rb;
     void Start()
     {
         bombExplosionTransform = transform.GetChild(0);
@@ -19,7 +20,9 @@ public class GrenadeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(exploding);
         if(exploding) {
+            Debug.Log("Exploding!");
             bombExplosionTransform.localScale = Vector3.Lerp(
                     explosionRadiusStart,
                     new Vector3(explosionRadius, explosionRadius, explosionRadius),
@@ -37,17 +40,18 @@ public class GrenadeController : MonoBehaviour
         if (col.gameObject.CompareTag("Ground")) {
             MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
             renderer.enabled = false;
-            Rigidbody rB = gameObject.GetComponent<Rigidbody>();
-            Destroy(rB);
+            rb = gameObject.GetComponent<Rigidbody>();
+            Destroy(rb);
             CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
             collider.enabled = false;
             exploding = true;
+            Debug.Log("Ground Collide!");
 
         }
     }
 
-    public void beFired(float speed) {
-		Rigidbody rb = GetComponent<Rigidbody> ();
+    public virtual void beFired(float speed) {
+		rb = GetComponent<Rigidbody> ();
 		rb.AddForce (transform.forward * speed);
 	}
 

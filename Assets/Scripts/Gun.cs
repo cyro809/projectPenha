@@ -18,6 +18,7 @@ public class Gun : MonoBehaviour
         shotSound = Resources.Load<AudioClip>("SoundEffects/shoot");
     }
     public virtual void Fire(BulletController bullet, Transform firePoint) {
+        Debug.Log("Gun Fire");
         BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
         newBullet.beFired (BulletSpeed);
     }

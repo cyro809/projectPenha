@@ -46,14 +46,17 @@ public class GunController : MonoBehaviour {
 		if (isFiring && IsGameStarted() && CanFireGun()) {
 			if (shotCounter <= 0) {
 				shotCounter = gun.TimeBetweenShots;
-				if(!isChaserGun()) {
+				if(IsGrenadeLauncherGun()) {
+					((GrenadeLauncher)gun).Fire(grenade, firePoint);
+				}
+				else if(!IsChaserGun()) {
 					gun.Fire(bullet, firePoint);
 				}
 				else {
 					gun.Fire(chaserBullet, firePoint);
 				}
 
-				if(!isNormalGun()) {
+				if(!IsNormalGun()) {
 					specialShotBullets -= gun.BulletsPerShot;
 				}
 
@@ -67,6 +70,12 @@ public class GunController : MonoBehaviour {
 			ResetGunMode();
 		}
 		showShotCounterText();
+	}
+
+	void MachineGunIsFiringReset() {
+		if(gunMode == MACHINE_GUN_MODE) {
+			isFiring = false;
+		}
 	}
 	public void resetShotCounter() {
 		shotCounter = gun.TimeBetweenShots;
@@ -103,10 +112,15 @@ public class GunController : MonoBehaviour {
 			case "ChasingBulletPowerUp":
 				SetChasingBulletMode();
 				break;
+			case "GrenadePowerUp":
+				SetGrenadeLauncherMode();
+				break;
 			default:
 				ResetGunMode();
 				break;
 		}
+
+		SetGunSpecs();
 	}
 
 	public string GetGunName() {
@@ -116,30 +130,24 @@ public class GunController : MonoBehaviour {
 	public void SetShotGunMode() {
 		gunMode = SHOT_GUN_MODE;
 		gun = gameObject.AddComponent<Shotgun>();
-		SetGunSpecs();
 	}
 
 	public void SetMachineGunMode() {
 		gunMode = MACHINE_GUN_MODE;
 		gun = gameObject.AddComponent<MachineGun>();
-		SetGunSpecs();
 	}
 
-	void MachineGunIsFiringReset() {
-		if(gunMode == MACHINE_GUN_MODE) {
-			isFiring = false;
-		}
-	}
+
 
 	void SetGunSpecs() {
 		specialShotBullets = gun.SpecialBulletsNumber;
 		timeBetweenShots = gun.TimeBetweenShots;
 	}
 
-	public void setGrenadeLauncherMode() {
-		specialShotBullets = 5;
+	public void SetGrenadeLauncherMode() {
 		gunMode = GRENADE_LAUNCHER_MODE;
-		timeBetweenShots = 1.5f;
+		gun = gameObject.AddComponent<GrenadeLauncher>();
+		Debug.Log("SetGrenadeLauncher");
 	}
 
 	public void SetChasingBulletMode() {
@@ -156,19 +164,23 @@ public class GunController : MonoBehaviour {
 		SetGunSpecs();
 	}
 
-	bool isNormalGun() {
+	bool IsNormalGun() {
 		return gunMode == NORMAL_GUN_MODE;
 	}
 
-	bool isChaserGun() {
+	bool IsChaserGun() {
 		return gunMode == CHASING_BULLET_MODE;
+	}
+
+	bool IsGrenadeLauncherGun() {
+		return gunMode == GRENADE_LAUNCHER_MODE;
 	}
 
 	void showShotCounterText() {
 		if(playerGun) {
 			TextMeshProUGUI shotCounterText = GameObject.FindWithTag("ShotCounter").GetComponent<TextMeshProUGUI>();
 			shotCounterText.text = gun.GunName;
-			if (!isNormalGun()) {
+			if (!IsNormalGun()) {
 				shotCounterText.text += ": " + specialShotBullets.ToString ();
 			}
 		}
