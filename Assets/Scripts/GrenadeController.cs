@@ -20,9 +20,7 @@ public class GrenadeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(exploding);
         if(exploding) {
-            Debug.Log("Exploding!");
             bombExplosionTransform.localScale = Vector3.Lerp(
                     explosionRadiusStart,
                     new Vector3(explosionRadius, explosionRadius, explosionRadius),
@@ -45,7 +43,6 @@ public class GrenadeController : MonoBehaviour
             CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
             collider.enabled = false;
             exploding = true;
-            Debug.Log("Ground Collide!");
 
         }
     }

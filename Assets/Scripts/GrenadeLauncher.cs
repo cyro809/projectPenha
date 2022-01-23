@@ -9,7 +9,6 @@ public class GrenadeLauncher : Gun
     public override string GunName { get { return "Grenade Launcher"; } }
 
     public void Fire(GrenadeController grenade, Transform firePoint) {
-        Debug.Log("Grenade Fire");
         GrenadeController newGrenade = Instantiate (grenade, firePoint.position, firePoint.rotation) as GrenadeController;
         newGrenade.beFired (BulletSpeed);
     }

@@ -146,24 +146,6 @@ public class Body : MovingObject {
 			StartCoroutine(showText("Shield"));
 		}
 
-		// if(col.gameObject.CompareTag("MachineGunPowerUp")) {
-		// 	gun.GetComponent<GunController>().setMachineGunMode();
-		// 	StartCoroutine(showText("Machine Gun"));
-		// }
-		// if(col.gameObject.CompareTag("GrenadePowerUp")) {
-		// 	gun.GetComponent<GunController>().setGrenadeLauncherMode();
-		// 	StartCoroutine(showText("Grenade Launcher"));
-		// }
-		// if(col.gameObject.CompareTag("ShotGunPowerUp") && !hitPowerup) {
-		// 	hitPowerup = true;
-		// 	gun.GetComponent<GunController>().setShotGunMode();
-		// 	StartCoroutine(showText("Shot Gun"));
-		// }
-		// if(col.gameObject.CompareTag("ChasingBulletPowerUp")) {
-		// 	gun.GetComponent<GunController>().setChasingBulletMode();
-		// 	StartCoroutine(showText("Chasing Bullets"));
-		// }
-
 		if(col.gameObject.layer == LayerMask.NameToLayer("PowerUp")) {
 			GunController gunController = gun.GetComponent<GunController>();
 			gunController.SetGunMode(col.gameObject.tag);
