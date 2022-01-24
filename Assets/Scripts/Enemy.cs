@@ -8,12 +8,9 @@ public class Enemy : MovingObject {
 	GameState gameState;
 	Score score;
 	public int scorePoints = 1;
-	bool enemyTriggered = false;
-	bool onGround = false;
+	protected bool enemyTriggered = false;
+	protected bool onGround = false;
 	public bool spawned = false;
-	public bool jumpingEnemy;
-	public float jumpForce = 20f;
-
 	public int MoveSpeed;
 	int airMoveSpeed = 10;
 	public float pushBackForce;
@@ -29,6 +26,7 @@ public class Enemy : MovingObject {
 
 		scoreGameObject = GameObject.FindWithTag ("Score");
 		score = scoreGameObject.GetComponent<Score> ();
+		rB = gameObject.GetComponent<Rigidbody>();
 
 		gameState = GameObject.FindWithTag("GameState").GetComponent<GameState>();
 
@@ -44,18 +42,16 @@ public class Enemy : MovingObject {
 
 	protected override void OnMove() {
 		GetPlayerReference();
-		rB = gameObject.GetComponent<Rigidbody>();
-		if(IsGameStartedAndIsPlayerAlive()) {
+		if(CanMove()) {
 			rB.constraints = RigidbodyConstraints.None;
 			Body playerBody = player.GetComponent<Body>();
-			if (enemyTriggered && player !=  null) {
+			if (IsTriggered() && IsPlayerAlive()) {
 				Vector3 direction = GetLookAtDirection(player);
-				if(onGround || (!onGround && jumpingEnemy)) {
+				if(onGround) {
 					rB.AddForce (direction * MoveSpeed);
-				} else if (!onGround && !jumpingEnemy) {
-					rB.AddForce (direction * airMoveSpeed);
+				} else {
+					AirMove(direction);
 				}
-
 			} else if (!playerBody.alive || !IsTriggered() && onGround) {
 				rB.constraints = RigidbodyConstraints.FreezeAll;
 			}
@@ -64,14 +60,8 @@ public class Enemy : MovingObject {
 		if (gameState.gameOver) {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
-
 	}
 
-	void Jump() {
-		if(onGround) {
-			rB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-		}
-	}
 
 	Vector3 GetLookAtDirection(GameObject player) {
 		/*
@@ -85,8 +75,16 @@ public class Enemy : MovingObject {
 		return (targetPosition - myPosition).normalized;
 	}
 
-	bool IsGameStartedAndIsPlayerAlive() {
-		return (gameState.gameStart  && !gameState.paused && player != null && player.GetComponent<Body>() != null);
+	bool CanMove() {
+		return (gameState.gameStart  && !gameState.paused && IsPlayerAlive());
+	}
+
+	bool IsPlayerAlive() {
+		return player != null && player.GetComponent<Body>() != null;
+	}
+
+	protected virtual void AirMove(Vector3 direction) {
+		rB.AddForce (direction * airMoveSpeed);
 	}
 
 	public void TriggerEnemy() {
@@ -100,6 +98,7 @@ public class Enemy : MovingObject {
 	void GetPlayerReference() {
 		player = GameObject.Find ("Body");
 	}
+
 
 	void Kill() {
 		score.addPoint (scorePoints);
@@ -119,10 +118,10 @@ public class Enemy : MovingObject {
 		return false;
 	}
 
-	void OnCollisionEnter (Collision col) {
+	protected virtual void OnCollisionEnter (Collision col) {
 
 		if (col.gameObject.CompareTag("Body") || col.gameObject.CompareTag("Player")) {
-			if (player.GetComponent<Body>() != null) {
+			if (IsPlayerAlive()) {
 				Body hitPlayer = player.GetComponent<Body>();
 				Vector3 pos = new Vector3(rB.transform.position.x, player.transform.position.y, rB.transform.position.z);
 				hitPlayer.getHit (pushBackForce, pos);
@@ -134,9 +133,6 @@ public class Enemy : MovingObject {
 			onGround = true;
 			if (spawned) {
 				TriggerEnemy();
-			}
-			if(jumpingEnemy) {
-				Jump();
 			}
 			ChangeAudioClip();
 		}
@@ -150,31 +146,17 @@ public class Enemy : MovingObject {
 		}
 	}
 
-	void OnCollisionExit (Collision col) {
+	protected virtual void OnCollisionExit (Collision col) {
 		if (col.gameObject.CompareTag("Ground")) {
 			onGround = false;
 		}
 	}
 
-	void OnCollisionStay(Collision col) {
-		if (col.gameObject.CompareTag("LimitPlane")) {
-			Kill();
-		}
-
-		if (col.gameObject.CompareTag("Ground")) {
-			onGround = true;
-			if(jumpingEnemy) {
-				Jump();
-			}
-			ChangeAudioClip();
-		}
-	}
-
-	void PlayBulletHitSound() {
+	protected virtual void PlayBulletHitSound() {
         audioSource.Play();
 	}
 
-	void ChangeAudioClip() {
+	protected virtual void ChangeAudioClip() {
 		audioSource.clip = bulletHit;
         audioSource.loop = false;
 	}
