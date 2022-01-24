@@ -10,7 +10,7 @@ public class EnemyGunController : GunController
     protected override void Update () {
 		shotCounter -= Time.deltaTime;
 
-		if (isFiring && IsGameStarted()) {
+		if (isFiring && IsGameStarted() && CanFireGun()) {
 			if (shotCounter <= 0) {
 				shotCounter = gun.TimeBetweenShots;
 				gun.Fire(bullet, firePoint);
@@ -23,16 +23,16 @@ public class EnemyGunController : GunController
     bool CanFireGun() {
 		GameObject parentObj = transform.parent.gameObject;
         if(parentObj.tag == "ShootingEnemy") {
-            Enemy enemyComponent = FindEnemyComponent(parentObj);
+            ShootingEnemy enemyComponent = FindEnemyComponent(parentObj);
             return enemyComponent.IsTriggered();
         }
-        return true;
+		return false;
 	}
 
-	Enemy FindEnemyComponent(GameObject enemyObj) {
-		Enemy enemyComponent = null;
+	ShootingEnemy FindEnemyComponent(GameObject enemyObj) {
+		ShootingEnemy enemyComponent = null;
 		foreach (Transform child in enemyObj.transform) {
-			enemyComponent = child.gameObject.GetComponent<Enemy>();
+			enemyComponent = child.gameObject.GetComponent<ShootingEnemy>();
 			if(EnemyComponentExists(enemyComponent)) {
 				return enemyComponent;
 			}
@@ -40,7 +40,7 @@ public class EnemyGunController : GunController
 		return enemyComponent;
 	}
 
-	bool EnemyComponentExists(Enemy enemyComponent) {
+	bool EnemyComponentExists(ShootingEnemy enemyComponent) {
         return enemyComponent && enemyComponent != null;
     }
 }

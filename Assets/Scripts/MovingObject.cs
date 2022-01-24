@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingObject : MonoBehaviour {
-	
+
 	protected Rigidbody rB;
 	// Use this for initialization
 	public virtual void Start () {
 		rB = GetComponent<Rigidbody> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		OnMove ();
 	}
 
 	protected virtual void OnMove () {
-		
+
 	}
 
 	public void getHit (float magnitude, Vector3 colliderPosition) {

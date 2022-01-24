@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MovingObject {
-	GameObject player;
+	protected GameObject player;
 	GameObject scoreGameObject;
 	GameState gameState;
 	Score score;
@@ -134,11 +134,15 @@ public class Enemy : MovingObject {
 			if (spawned) {
 				TriggerEnemy();
 			}
-			ChangeAudioClip();
+			if(audioSource) {
+				ChangeAudioClip();
+			}
 		}
 
 		if (col.gameObject.CompareTag("Bullet")) {
-			PlayBulletHitSound();
+			if(audioSource) {
+				PlayBulletHitSound();
+			}
 		}
 
 		if (col.gameObject.CompareTag("LimitPlane")) {

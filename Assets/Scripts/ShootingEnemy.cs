@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingEnemy : MonoBehaviour
+public class ShootingEnemy : Enemy
 {
     public GameObject enemyGun;
-    GameObject player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = GameObject.Find ("Body");
-    }
+    // GameObject player;
+    // // Start is called before the first frame update
+    // void Start()
+    // {
+    //     player = GameObject.Find ("Body");
+    // }
 
     // Update is called once per frame
-    void Update()
+    protected override void OnMove()
     {
         enemyGun.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 
         enemyGun.transform.LookAt(player.transform.position);
+        base.OnMove();
     }
 }
