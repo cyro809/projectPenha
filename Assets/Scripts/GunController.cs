@@ -28,10 +28,10 @@ public class GunController : MonoBehaviour {
 	protected AudioSource audioSource;
 
 	protected GameState gameState;
-	protected Gun gun;
+	protected virtual Gun gun{get; set;}
 
 
-	protected void Start() {
+	protected virtual void Start() {
 		shotCounter = 0;
 		audioSource = GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");

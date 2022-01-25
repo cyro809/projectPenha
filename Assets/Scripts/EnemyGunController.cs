@@ -5,7 +5,11 @@ using UnityEngine;
 public class EnemyGunController : GunController
 {
 
-
+	protected override void Start() {
+		base.Start();
+		Destroy(gameObject.GetComponent<Gun>());
+		gun = gameObject.AddComponent<EnemyGun>();
+	}
     // Update is called once per frame
     protected override void Update () {
 		shotCounter -= Time.deltaTime;

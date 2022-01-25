@@ -30,7 +30,7 @@ public class BulletController : MonoBehaviour {
 	}
 
 	protected virtual void OnCollisionEnter (Collision col) {
-		if (col.gameObject.CompareTag("Enemy")) {
+		if (col.gameObject.CompareTag("Enemy") || col.gameObject.CompareTag("ShootingEnemy")) {
 			HitEnemy(pushBackForce, col);
 		}
 		if (col.gameObject.CompareTag("ShootingEnemyBoss")) {
