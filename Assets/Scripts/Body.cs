@@ -20,7 +20,6 @@ public class Body : MovingObject {
 	public GameObject gun;
 	GameObject plane;
 	GameObject gameOverText;
-	SimpleTouchController joystick;
 	GameState gameState;
 	AudioSource audioSource;
 	public TextMeshProUGUI powerUpText;
@@ -42,7 +41,6 @@ public class Body : MovingObject {
 		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 
 		base.Start ();
-		joystick = FindObjectOfType<SimpleTouchController> ();
 		alive = true;
 		isGrounded = false;
 		defaultAcceleration = acceleration;
@@ -51,15 +49,10 @@ public class Body : MovingObject {
 
 
 	protected override void OnMove () {
-		if(gameState.gameStart && !gameState.paused) {
+		if(gameState.IsGameRunning()) {
 			float sideMove = Input.GetAxisRaw ("AD-Horizontal");
 			float straightMove = Input.GetAxisRaw ("WS-Vertical");
 			float rigidBodyMagnitude = rB.velocity.magnitude;
-
-			if (SystemInfo.deviceType == DeviceType.Handheld) {
-				sideMove = joystick.GetTouchPosition.x;
-				straightMove = joystick.GetTouchPosition.y;
-			}
 
 			if (rigidBodyMagnitude < maxSpeed) {
 				movement = new Vector3 (sideMove, 0.0f, straightMove);
@@ -102,7 +95,6 @@ public class Body : MovingObject {
 	public void setAcceleration(float friction) {
 		maxSpeed = defaultMaxSpeed - friction;
 		rB.velocity = Vector3.ClampMagnitude(rB.velocity, maxSpeed);
-		// acceleration = defaultAcceleration - friction;
 	}
 
 	public void SetDrag(float friction) {

@@ -9,6 +9,6 @@ public class ResumeButtonController : MonoBehaviour
     public void ResumeGame() {
 		Time.timeScale = 1;
         canvasGameObject.GetComponent<Canvas>().enabled = false;
-        gameStateObject.GetComponent<GameState>().paused = false;
+        gameStateObject.GetComponent<GameState>().gamePaused = false;
 	}
 }

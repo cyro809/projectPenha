@@ -11,7 +11,7 @@ public class GameState : MonoBehaviour {
 	public bool gameOver = false;
 	public bool gameStart = false;
 	public bool gameWin = false;
-	public bool paused;
+	public bool gamePaused;
 
 	public GameObject restartButton;
 	public GameObject titleButton;
@@ -30,7 +30,7 @@ public class GameState : MonoBehaviour {
 	void Start () {
 		Application.targetFrameRate = 40;
 		gameOver = false;
-		paused = false;
+		gamePaused = false;
 		pauseCanvas = pauseCanvasObject.GetComponent<Canvas>();
 		if(gameWinCanvasObject != null) {
 			gameWinCanvas = gameWinCanvasObject.GetComponent<Canvas>();
@@ -111,16 +111,27 @@ public class GameState : MonoBehaviour {
 	void TogglePause() {
 		if(gameStart) {
 			if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) {
-				paused = !paused;
-				if(paused) {
+				gamePaused = !gamePaused;
+				if(gamePaused) {
 					Time.timeScale = 0;
 
-				} else if(!paused) {
+				} else if(!gamePaused) {
 					Time.timeScale = 1;
 				}
-				pauseCanvas.enabled = paused;
+				pauseCanvas.enabled = gamePaused;
 			}
 		}
 
+	}
+
+	public bool IsGameRunning() {
+		return gameStart && !gamePaused && !gameOver;
+	}
+	public bool IsGamePaused() {
+		return gameStart && gamePaused && !gameOver;
+	}
+
+	public bool IsGameOver() {
+		return !gameStart && gameOver;
 	}
 }

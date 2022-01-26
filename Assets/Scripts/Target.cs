@@ -22,6 +22,6 @@ public class Target : MonoBehaviour
 
     bool isGameStopped() {
         GameState gs = gameState.GetComponent<GameState>();
-        return (gs.gameOver || gs.gameWin || gs.paused);
+        return (gs.gameOver || gs.gameWin || gs.gamePaused);
     }
 }

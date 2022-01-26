@@ -166,6 +166,6 @@ public class GunController : MonoBehaviour {
 	}
 
 	protected bool IsGameStarted() {
-		return gameState.gameStart && !gameState.paused;
+		return gameState.gameStart && !gameState.gamePaused;
 	}
 }

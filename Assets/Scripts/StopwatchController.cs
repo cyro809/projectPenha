@@ -27,7 +27,7 @@ public class StopwatchController : MonoBehaviour
             stopWatch.Start();
             started = true;
         }
-        if(started && gameState.gameOver || gameState.paused) {
+        if(started && gameState.gameOver || gameState.gamePaused) {
             stopWatch.Stop();
             started = false;
         }

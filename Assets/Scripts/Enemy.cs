@@ -57,7 +57,7 @@ public class Enemy : MovingObject {
 			}
 
 		}
-		if (gameState.gameOver) {
+		if (gameState.IsGameOver()) {
 			rB.constraints = RigidbodyConstraints.FreezeAll;
 		}
 	}
@@ -75,7 +75,7 @@ public class Enemy : MovingObject {
 	}
 
 	bool CanMove() {
-		return (gameState.gameStart  && !gameState.paused && IsPlayerAlive());
+		return (gameState.IsGameRunning() && IsPlayerAlive());
 	}
 
 	bool IsPlayerAlive() {
