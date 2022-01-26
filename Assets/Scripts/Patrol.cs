@@ -11,13 +11,14 @@ public class Patrol : MovingObject {
 
     public override void Start () {
         agent = GetComponent<NavMeshAgent>();
+        GetComponent<Rigidbody>().isKinematic = true;
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
         agent.autoBraking = false;
-
         GotoNextPoint();
         base.Start ();
+
     }
 
 
@@ -66,8 +67,10 @@ public class Patrol : MovingObject {
     void OnCollisionEnter(Collision col) {
         if(col.gameObject.CompareTag("Bullet")) {
             agent.enabled = false;
-            StartCoroutine(CooldownCount(1));
-            // getHit(1000, transform.position);
+            GetComponent<Rigidbody>().isKinematic = false;
+            gameObject.GetComponent<Patrol>().enabled = false;
+            StartCoroutine(CooldownCount(2));
+            getHit(1000, transform.position);
         }
         if (col.gameObject.CompareTag("LimitPlane")) {
             Kill();
@@ -84,12 +87,13 @@ public class Patrol : MovingObject {
         int count = seconds;
 
         while (count > 0) {
-            // display something...
             yield return new WaitForSeconds(1);
             count --;
         }
 
         // count down is finished...
+        gameObject.GetComponent<Patrol>().enabled = true;
+        GetComponent<Rigidbody>().isKinematic = true;
         agent.enabled = true;
     }
 }
