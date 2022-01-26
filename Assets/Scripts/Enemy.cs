@@ -62,7 +62,6 @@ public class Enemy : MovingObject {
 		}
 	}
 
-
 	Vector3 GetLookAtDirection(GameObject player) {
 		/*
 		Code reference from: https://answers.unity.com/questions/239614/roll-a-ball-towards-the-player.html
@@ -119,14 +118,8 @@ public class Enemy : MovingObject {
 	}
 
 	protected virtual void OnCollisionEnter (Collision col) {
-
 		if (col.gameObject.CompareTag("Body") || col.gameObject.CompareTag("Player")) {
-			if (IsPlayerAlive()) {
-				Body hitPlayer = player.GetComponent<Body>();
-				Vector3 pos = new Vector3(rB.transform.position.x, player.transform.position.y, rB.transform.position.z);
-				hitPlayer.getHit (pushBackForce, pos);
-			}
-
+			HitPlayerIfAlive();
 		}
 
 		if (col.gameObject.CompareTag("Ground")) {
@@ -147,6 +140,14 @@ public class Enemy : MovingObject {
 
 		if (col.gameObject.CompareTag("LimitPlane")) {
 			Kill();
+		}
+	}
+
+	protected void HitPlayerIfAlive() {
+		if (IsPlayerAlive()) {
+			Body hitPlayer = player.GetComponent<Body>();
+			Vector3 pos = new Vector3(rB.transform.position.x, player.transform.position.y, rB.transform.position.z);
+			hitPlayer.getHit (pushBackForce, pos);
 		}
 	}
 
