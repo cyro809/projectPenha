@@ -5,23 +5,34 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class LeaderBoardController : MonoBehaviour
 {
     // Start is called before the first frame update
+    const string API_HOST = "https://project-penha-api.herokuapp.com/scores/";
+    const int SURVIVAL_MODE = 0;
+    const int ADVENTURE_MODE = 1;
+    int mode = 0;
+    public Text leaderBoardText;
     void Start()
     {
-        StartCoroutine(GetText());
+        leaderBoardText = gameObject.GetComponent<Text>();
+        GetSurvivalScores();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+    public void GetSurvivalScores() {
+        mode = SURVIVAL_MODE;
+        StartCoroutine(GetScore(API_HOST + "survival"));
     }
 
-    IEnumerator GetText() {
-        UnityWebRequest www = UnityWebRequest.Get("https://project-penha-api.herokuapp.com/scores/survival");
+    public void GetAdventureScore(string levelNumber) {
+        mode = ADVENTURE_MODE;
+        StartCoroutine(GetScore(API_HOST + "/level/" + levelNumber));
+    }
+
+    IEnumerator GetScore(string url) {
+        UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
 
         if(www.isNetworkError || www.isHttpError) {
@@ -29,14 +40,21 @@ public class LeaderBoardController : MonoBehaviour
         }
         else {
             string jsonString = www.downloadHandler.text;
-            LeaderBoardScore[] leaders = JsonHelper.FromJson<LeaderBoardScore>(jsonString);
+            SurvivalLeaderBoardScore[] leaders = JsonHelper.FromJson<SurvivalLeaderBoardScore>(jsonString);
             // Show results as text
-            Debug.Log(jsonString);
-            Debug.Log(leaders[0].score);
-            Debug.Log(leaders[0].name);
+            FormatSurvivalLeaderboard(leaders);
 
             // Or retrieve results as binary data
             byte[] results = www.downloadHandler.data;
+        }
+    }
+
+    void FormatSurvivalLeaderboard(SurvivalLeaderBoardScore[] leaders) {
+        leaderBoardText.text = "Pos.\t\t\tName\t\t\tScore\n";
+        for (int i=0; i <leaders.Length; i++) {
+            int position = i+1;
+            leaderBoardText.text += position.ToString() + "  \t\t\t" + leaders[i].name + "  \t\t\t" + leaders[i].score;
+            leaderBoardText.text += "\n";
         }
     }
 }

@@ -6,8 +6,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 
 [Serializable]
-public class LeaderBoardScore
+public class SurvivalLeaderBoardScore
 {
     public string name;
     public int score;
+}
+
+public class AdventureLeaderBoardScore
+{
+    public string name;
+    public float score;
 }
