@@ -12,6 +12,7 @@ public class SurvivalLeaderBoardScore
     public int score;
 }
 
+[Serializable]
 public class AdventureLeaderBoardScore
 {
     public string name;

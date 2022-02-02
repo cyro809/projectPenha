@@ -16,8 +16,8 @@ public class LeaderBoardController : MonoBehaviour
     const int ADVENTURE_MODE = 1;
     void Start()
     {
-
-        GetSurvivalScores();
+        // PostAdventureScore("bar", "level1", 950.20f);
+        GetAdventureScore("1");
     }
 
     public void GetSurvivalScores() {
@@ -37,17 +37,23 @@ public class LeaderBoardController : MonoBehaviour
         }
         else {
             string jsonString = www.downloadHandler.text;
-            SurvivalLeaderBoardScore[] leaders = JsonHelper.FromJson<SurvivalLeaderBoardScore>(jsonString);
-            // Show results as text
-            FormatSurvivalLeaderboard(leaders);
+
+            if(mode == SURVIVAL_MODE) {
+                SurvivalLeaderBoardScore[] leaders = JsonHelper.FromJson<SurvivalLeaderBoardScore>(jsonString);
+                FormatSurvivalLeaderboard(leaders);
+            }
+            else {
+                AdventureLeaderBoardScore[] leaders = JsonHelper.FromJson<AdventureLeaderBoardScore>(jsonString);
+                FormatAdventureLeaderboard(leaders);
+            }
 
             // Or retrieve results as binary data
             byte[] results = www.downloadHandler.data;
         }
     }
 
+    // Code reference: https://stackoverflow.com/a/45476691
     IEnumerator PostScore(string url, string data) {
-        Debug.Log(url);
         UnityWebRequest request = UnityWebRequest.Post(url, data);
         byte[] bodyRaw = Encoding.UTF8.GetBytes(data);
         request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
@@ -77,8 +83,24 @@ public class LeaderBoardController : MonoBehaviour
         }
     }
 
+    void FormatAdventureLeaderboard(AdventureLeaderBoardScore[] leaders) {
+        Text leaderBoardText = gameObject.GetComponent<Text>();
+        leaderBoardText.text = "Pos.\t\t\tName\t\t\tScore\n";
+        for (int i=0; i <leaders.Length; i++) {
+            int position = i+1;
+            leaderBoardText.text += position.ToString() + "  \t\t\t" + leaders[i].name + "  \t\t\t" + leaders[i].score;
+            leaderBoardText.text += "\n";
+        }
+    }
+
     void PostSurvivalScore(string name, int score) {
         string data = "{\"name\": \""+ name + "\", \"score\": "+ score.ToString() + ", \"table\": \"survival_scores\"}";
+        Debug.Log(data);
+        StartCoroutine(PostScore(API_HOST + "add", data));
+    }
+
+    void PostAdventureScore(string name, string level, float score) {
+        string data = "{\"name\": \""+ name + "\", \"score\": "+ score.ToString() + ", \"table\": \""+ level + "_scores\"}";
         Debug.Log(data);
         StartCoroutine(PostScore(API_HOST + "add", data));
     }
