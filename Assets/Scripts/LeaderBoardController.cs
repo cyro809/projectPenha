@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -13,25 +14,21 @@ public class LeaderBoardController : MonoBehaviour
     const string API_HOST = "https://project-penha-api.herokuapp.com/scores/";
     const int SURVIVAL_MODE = 0;
     const int ADVENTURE_MODE = 1;
-    int mode = 0;
-    public Text leaderBoardText;
     void Start()
     {
-        leaderBoardText = gameObject.GetComponent<Text>();
+
         GetSurvivalScores();
     }
 
     public void GetSurvivalScores() {
-        mode = SURVIVAL_MODE;
-        StartCoroutine(GetScore(API_HOST + "survival"));
+        StartCoroutine(GetScore(API_HOST + "survival", SURVIVAL_MODE));
     }
 
     public void GetAdventureScore(string levelNumber) {
-        mode = ADVENTURE_MODE;
-        StartCoroutine(GetScore(API_HOST + "/level/" + levelNumber));
+        StartCoroutine(GetScore(API_HOST + "/level/" + levelNumber, ADVENTURE_MODE));
     }
 
-    IEnumerator GetScore(string url) {
+    IEnumerator GetScore(string url, int mode) {
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
 
@@ -49,13 +46,41 @@ public class LeaderBoardController : MonoBehaviour
         }
     }
 
+    IEnumerator PostScore(string url, string data) {
+        Debug.Log(url);
+        UnityWebRequest request = UnityWebRequest.Post(url, data);
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(data);
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        request.method = "POST";
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+
+        if (request.error != null)
+        {
+            Debug.Log("Erro: " + request.error);
+        }
+        else
+        {
+            Debug.Log("All OK");
+            Debug.Log("Status Code: " + request.responseCode);
+        }
+    }
+
     void FormatSurvivalLeaderboard(SurvivalLeaderBoardScore[] leaders) {
+        Text leaderBoardText = gameObject.GetComponent<Text>();
         leaderBoardText.text = "Pos.\t\t\tName\t\t\tScore\n";
         for (int i=0; i <leaders.Length; i++) {
             int position = i+1;
             leaderBoardText.text += position.ToString() + "  \t\t\t" + leaders[i].name + "  \t\t\t" + leaders[i].score;
             leaderBoardText.text += "\n";
         }
+    }
+
+    void PostSurvivalScore(string name, int score) {
+        string data = "{\"name\": \""+ name + "\", \"score\": "+ score.ToString() + ", \"table\": \"survival_scores\"}";
+        Debug.Log(data);
+        StartCoroutine(PostScore(API_HOST + "add", data));
     }
 }
 
