@@ -124,6 +124,7 @@ public class GunController : MonoBehaviour {
 	void SetGunSpecs() {
 		specialShotBullets = gun.SpecialBulletsNumber;
 		timeBetweenShots = gun.TimeBetweenShots;
+		audioSource.clip = gun.ShotSound;
 	}
 
 	public void SetGrenadeLauncherMode() {

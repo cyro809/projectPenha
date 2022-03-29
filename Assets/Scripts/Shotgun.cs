@@ -9,6 +9,8 @@ public class Shotgun : Gun
     public override float TimeBetweenShots { get { return 1.2f; } }
     public override string GunName { get { return "Shotgun"; } }
     float spreadAngle = 30.0f;
+    public override AudioClip ShotSound { get {return Resources.Load<AudioClip>("SoundEffects/shotgun");} }
+
 
 
     public override void Fire(BulletController bullet, Transform firePoint) {
