@@ -13,6 +13,7 @@ public class BulletController : MonoBehaviour {
 	public float playerPushBackForce = 2000;
 	protected Rigidbody rb;
 	protected AudioSource audioSource;
+	[SerializeField] GameObject particles;
 
 
 	protected virtual void Start() {
@@ -63,7 +64,7 @@ public class BulletController : MonoBehaviour {
 				hitEnemy.getHit (pushForce, transform.position);
 				// audioSource.Play();
 			}
-			Destroy (gameObject);
+			Explode();
 		}
 
 	}
@@ -88,6 +89,11 @@ public class BulletController : MonoBehaviour {
 			Destroy (gameObject);
 		}
 
+	}
+
+	void Explode() {
+		Destroy(gameObject);
+		GameObject explosion = Instantiate(particles, transform.position, transform.rotation);
 	}
 
 }
