@@ -11,11 +11,13 @@ public class Shield : MonoBehaviour
     public bool activate;
     public TextMeshProUGUI shieldText;
     int count;
+    AudioClip ShieldHit  { get {return Resources.Load<AudioClip>("SoundEffects/shield-hit");} }
+    AudioSource audioSource;
 
     Coroutine currentCoroutine = null;
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class Shield : MonoBehaviour
             col.gameObject.CompareTag("HeavyEnemy")) {
 			Enemy hitEnemy = col.gameObject.GetComponent<Enemy>();
 			hitEnemy.getHit (pushBackForce, transform.position);
+            audioSource.PlayOneShot(ShieldHit, 0.7F);
 		}
 	}
 
