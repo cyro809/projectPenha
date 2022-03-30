@@ -14,9 +14,8 @@ public class GrenadeLauncher : Gun
         newGrenade.beFired (BulletSpeed);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+   public override void SetGunColor(Material gunMaterial) {
+        gunMaterial.EnableKeyword("_EMISSION");
+        gunMaterial.SetColor("_EmissionColor", new Color(0.6f, 0.4f, 0.0f, 1.0f));
     }
 }

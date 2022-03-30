@@ -9,9 +9,8 @@ public class MachineGun : Gun
     public override string GunName { get { return "Machine Gun"; } }
     public override AudioClip ShotSound { get {return Resources.Load<AudioClip>("SoundEffects/machinegun");} }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+    public override void SetGunColor(Material gunMaterial) {
+        gunMaterial.EnableKeyword("_EMISSION");
+        gunMaterial.SetColor("_EmissionColor", Color.green);
     }
 }
