@@ -25,9 +25,8 @@ public class Shotgun : Gun
 		}
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+    public override void SetGunColor(Material gunMaterial) {
+        gunMaterial.EnableKeyword("_EMISSION");
+        gunMaterial.SetColor("_EmissionColor", Color.blue);
     }
 }

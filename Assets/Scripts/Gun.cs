@@ -13,8 +13,13 @@ public class Gun : MonoBehaviour
     public virtual string GunName {get; }
     public virtual AudioClip ShotSound { get {return Resources.Load<AudioClip>("SoundEffects/shoot");} }
 
+
     public virtual void Fire(BulletController bullet, Transform firePoint) {
         BulletController newBullet = Instantiate (bullet, firePoint.position, firePoint.rotation) as BulletController;
         newBullet.beFired (BulletSpeed);
+    }
+
+    public virtual void SetGunColor(Material gunMaterial) {
+        gunMaterial.DisableKeyword("_EMISSION");
     }
 }

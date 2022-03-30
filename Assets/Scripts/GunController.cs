@@ -31,6 +31,7 @@ public class GunController : MonoBehaviour {
 	protected virtual Gun gun{get; set;}
 
 
+
 	protected virtual void Start() {
 		shotCounter = 0;
 		audioSource = GetComponent<AudioSource>();
@@ -125,6 +126,13 @@ public class GunController : MonoBehaviour {
 		specialShotBullets = gun.SpecialBulletsNumber;
 		timeBetweenShots = gun.TimeBetweenShots;
 		audioSource.clip = gun.ShotSound;
+		SetGunAppearence();
+	}
+
+	void SetGunAppearence() {
+		GameObject gunCylinder = transform.GetChild(0).gameObject;
+		Material gunMaterial = gunCylinder.GetComponent<Renderer>().material;
+		gun.SetGunColor(gunMaterial);
 	}
 
 	public void SetGrenadeLauncherMode() {
