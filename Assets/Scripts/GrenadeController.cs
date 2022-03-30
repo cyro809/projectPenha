@@ -11,10 +11,12 @@ public class GrenadeController : MonoBehaviour
     Vector3 explosionRadiusStart;
     bool exploding = false;
     Rigidbody rb;
+    AudioSource audioSource;
     void Start()
     {
         bombExplosionTransform = transform.GetChild(0);
         explosionRadiusStart = bombExplosionTransform.localScale;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class GrenadeController : MonoBehaviour
             explosionSpeed += Time.deltaTime;
             if(explosionSpeed >= 1) {
                 exploding = false;
-                StartCoroutine(WaitBeforeDestroyExplosion(0));
+                StartCoroutine(WaitBeforeDestroyExplosion(1));
             }
         }
     }
@@ -43,7 +45,7 @@ public class GrenadeController : MonoBehaviour
             CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
             collider.enabled = false;
             exploding = true;
-
+            audioSource.Play();
         }
     }
 

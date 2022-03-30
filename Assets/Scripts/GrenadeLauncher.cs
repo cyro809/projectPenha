@@ -7,6 +7,7 @@ public class GrenadeLauncher : Gun
     public override int SpecialBulletsNumber { get { return 5; } }
     public override float TimeBetweenShots { get { return 1.5f; } }
     public override string GunName { get { return "Grenade Launcher"; } }
+    public override AudioClip ShotSound { get {return Resources.Load<AudioClip>("SoundEffects/grenade-launcher");} }
 
     public void Fire(GrenadeController grenade, Transform firePoint) {
         GrenadeController newGrenade = Instantiate (grenade, firePoint.position, firePoint.rotation) as GrenadeController;
