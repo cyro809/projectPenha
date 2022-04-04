@@ -176,3 +176,11 @@ Received Import Request.
 Start importing Assets/Fonts/FORCED SQUARE SDF.asset using Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b2061de3e6359f0b47c94ba6d4747d9') in 0.029269 seconds 
   Import took 0.037015 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 208.416701 seconds.
+  path: Assets/Fonts/FORCED SQUARE SDF.asset
+  artifactKey: Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Fonts/FORCED SQUARE SDF.asset using Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc795b7bd8d0617c7f686ac53ef36e53') in 0.051377 seconds 
+  Import took 0.090938 seconds .
+
