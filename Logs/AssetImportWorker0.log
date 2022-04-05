@@ -240,3 +240,243 @@ Received Import Request.
 Start importing Assets/Fonts/FORCED SQUARE SDF.asset using Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a5ef428f0497a6f74daedd9276f36dc') in 0.195294 seconds 
   Import took 0.247806 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 305.740541 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f93595a7eafcd362a810141585b448a0') in 0.111682 seconds 
+  Import took 0.153506 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000393 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c1ccd1fefc8953f9fc38cbc16e50f93') in 0.017506 seconds 
+  Import took 0.024943 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000263 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24d7ad34a29d27e0ef073be79e9fd3b0') in 0.021890 seconds 
+  Import took 0.029106 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.529643 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88b6bf8ecb28b9ea9e3668d27cf92d61') in 0.044839 seconds 
+  Import took 0.057081 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000264 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36550cfdc151ae274765b8de46235bea') in 0.010185 seconds 
+  Import took 0.016560 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000274 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eba0976a522f2623bd67cc1353c0b26c') in 0.012889 seconds 
+  Import took 0.019528 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.443076 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62eaccb78ff6be13d050c1d30d51e4f3') in 0.060661 seconds 
+  Import took 0.069655 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000260 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09fb62bdb67093d665ec9327c6e2b2fa') in 0.011167 seconds 
+  Import took 0.019628 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000300 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d5d9e774ad32e5ffcc40a69e2d7b600') in 0.014612 seconds 
+  Import took 0.021678 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.281138 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef81b534cfcec24bf44c29a1cdd0f1d7') in 0.034808 seconds 
+  Import took 0.042146 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000285 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77ff4a9e6dd2db10027c78329927a1bd') in 0.011071 seconds 
+  Import took 0.017135 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000275 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa7d348ab776cbeb3e3f5264379f9b33') in 0.013698 seconds 
+  Import took 0.020516 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.259576 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '725bcaa6d82b07a4b62dd1cd38380c34') in 0.044156 seconds 
+  Import took 0.052119 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000326 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '986da463c46810a2d99d01aa56f36faa') in 0.011267 seconds 
+  Import took 0.018958 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000285 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7da3fe5a21256e6787a1d02bfd59051b') in 0.010365 seconds 
+  Import took 0.016842 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.631538 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f269e7aeb32d7966618672a0dd3c2bd') in 0.047977 seconds 
+  Import took 0.056738 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000412 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b382d1b78d632c1781181378cf5b9bf') in 0.010413 seconds 
+  Import took 0.016253 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000289 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec2a3b3462091fdf258baa13063a3b1e') in 0.010806 seconds 
+  Import took 0.016242 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.892825 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78ff8383554b5d84759032a4e1a8aebd') in 0.046367 seconds 
+  Import took 0.053789 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000227 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a79508bdfcbb960884dc19190f60a49') in 0.010553 seconds 
+  Import took 0.016117 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000445 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '610334019768c5321c55cfd5ee2bbaf4') in 0.012601 seconds 
+  Import took 0.018872 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.514207 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e629fe410c36ae3bd4ded78b0a4a22a') in 0.045058 seconds 
+  Import took 0.053060 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000238 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b1d62e8b868c6021cc17aa65dd6c32e') in 0.009898 seconds 
+  Import took 0.016096 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000353 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f9ee0061f60f28fbef639d96f74bd41') in 0.011630 seconds 
+  Import took 0.017773 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.025624 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae30bd3d2667be8902e266d78079f8cb') in 0.055658 seconds 
+  Import took 0.066128 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000545 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8df7e97b6efb53e2828f632b21e28844') in 0.011064 seconds 
+  Import took 0.018275 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000272 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5f6940fe5ddd85e5f032dbbbcad03c6') in 0.010818 seconds 
+  Import took 0.016248 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.387630 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2c1b19b6e7aa9ab3a3534a7b3148e0c') in 0.029187 seconds 
+  Import took 0.034808 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000232 seconds.
+  path: Assets/Prefabs/PauseMenu.prefab
+  artifactKey: Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenu.prefab using Guid(16874dfaaca704eaea37b0257d285ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '459c90952d19fdebb5d429a5609238a4') in 0.009530 seconds 
+  Import took 0.014381 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000286 seconds.
+  path: Assets/Prefabs/PauseMenuSurvival.prefab
+  artifactKey: Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/PauseMenuSurvival.prefab using Guid(77e2e15432526464eb5957f44c2cd1bd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5fbe74c42141454cffb7b9b1353ef85') in 0.012281 seconds 
+  Import took 0.016798 seconds .
+
