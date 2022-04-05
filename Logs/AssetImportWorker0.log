@@ -224,3 +224,19 @@ Received Import Request.
 Start importing Assets/Resources/Materials/NormalEnemyMaterial.mat using Guid(3a15e7b0b06ebd949839648edfc19f51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77b693ba31e2cb53f668a94bb82015e2') in 0.015555 seconds 
   Import took 0.020786 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 2027.697572 seconds.
+  path: Assets/Prefabs/AdventureCanvasGameState.prefab
+  artifactKey: Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/AdventureCanvasGameState.prefab using Guid(b34eefd507a9a4db3b8ba9e46c37b267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ec52f914a27c551cbf9ea659e3b3e43') in 0.464427 seconds 
+  Import took 0.512697 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 376.075762 seconds.
+  path: Assets/Fonts/FORCED SQUARE SDF.asset
+  artifactKey: Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Fonts/FORCED SQUARE SDF.asset using Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a5ef428f0497a6f74daedd9276f36dc') in 0.195294 seconds 
+  Import took 0.247806 seconds .
+
