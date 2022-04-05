@@ -256,3 +256,43 @@ Received Import Request.
 Start importing Assets/Fonts/zephyrea SDF.asset using Guid(647c8bbaeaa4a47a8898d4695bdd8644) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c763ebaacbb77f7227ab376a4fdc7e1c') in 0.064829 seconds 
   Import took 0.072943 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 6160.087009 seconds.
+  path: Assets/images/hud_images/Escape from lab 485(1).png
+  artifactKey: Guid(4073fab32bd8b464ab1fc2d89a03aca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/images/hud_images/Escape from lab 485(1).png using Guid(4073fab32bd8b464ab1fc2d89a03aca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fbc6ca0000ccde67cdfbebe98fb5910') in 1.544147 seconds 
+  Import took 1.652952 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001562 seconds.
+  path: Assets/images/hud_images/Escape from lab 485_logo_white.png
+  artifactKey: Guid(a1de0ae73da344a759caa5d1c157489c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/images/hud_images/Escape from lab 485_logo_white.png using Guid(a1de0ae73da344a759caa5d1c157489c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2aad80ce63f4dfcb97881d3a2fdd172') in 0.017688 seconds 
+  Import took 0.024651 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000329 seconds.
+  path: Assets/images/hud_images/Escape from lab 485_logo_black_2.png
+  artifactKey: Guid(03fd9e94ee5b745c39b5c2b208a51f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/images/hud_images/Escape from lab 485_logo_black_2.png using Guid(03fd9e94ee5b745c39b5c2b208a51f82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3b84a874a176bc33a9c1ecee08ed550') in 0.026225 seconds 
+  Import took 0.033038 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000349 seconds.
+  path: Assets/images/hud_images/Escape from lab 485_logo_black.png
+  artifactKey: Guid(22b0fa8f3c40847338858b039398c3f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/images/hud_images/Escape from lab 485_logo_black.png using Guid(22b0fa8f3c40847338858b039398c3f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '175cf73f9bbfe8fa4dcff47fbb5193c4') in 0.036659 seconds 
+  Import took 0.042253 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 168.692639 seconds.
+  path: Assets/Prefabs/Logo.prefab
+  artifactKey: Guid(35403c22b0b8c42519d34596dd83065a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Logo.prefab using Guid(35403c22b0b8c42519d34596dd83065a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df336a782218d658a8aca85d08b58fa9') in 0.445144 seconds 
+  Import took 0.504572 seconds .
+
