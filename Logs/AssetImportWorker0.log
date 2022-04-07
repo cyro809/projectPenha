@@ -537,3 +537,35 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 8473.638215 seconds.
+  path: Assets/images/instructions_scene_images/wasd keys.png
+  artifactKey: Guid(626cd38c3f9144869ab411dbc16b1408) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/images/instructions_scene_images/wasd keys.png using Guid(626cd38c3f9144869ab411dbc16b1408) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '921e701d61c5af429bbaf4024680acf0') in 2.166556 seconds 
+  Import took 2.499496 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 215.377988 seconds.
+  path: Assets/Fonts/FORCED SQUARE SDF.asset
+  artifactKey: Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Fonts/FORCED SQUARE SDF.asset using Guid(12db5def523e04968bd8615b83baf0e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '489612edfd73ce5312c65d78c364ff9f') in 1.249252 seconds 
+  Import took 1.291940 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.222430 seconds.
+  path: Assets/images/instructions_scene_images/pause keys.png
+  artifactKey: Guid(d804d2bb11d8244688952973c1d3586d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/images/instructions_scene_images/pause keys.png using Guid(d804d2bb11d8244688952973c1d3586d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae2d83582d7916d38baed9016f38cd64') in 0.037943 seconds 
+  Import took 0.044665 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 419.494425 seconds.
+  path: Assets/images/instructions_scene_images/spacebar key.png
+  artifactKey: Guid(8c6509345eae8458b96297c78bffc225) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/images/instructions_scene_images/spacebar key.png using Guid(8c6509345eae8458b96297c78bffc225) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f37e1ce3b91f7db09cf4d5748e3368a8') in 0.088235 seconds 
+  Import took 0.126350 seconds .
+
