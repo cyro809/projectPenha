@@ -9,7 +9,11 @@ public class LevelSelect : MonoBehaviour
 
     public void LoadLevel() {
         string levelName = gameObject.name;
-        SceneManager.LoadScene(levelName);
+        if(levelName == "level1") {
+            SceneManager.LoadScene("story");
+        } else {
+            SceneManager.LoadScene(levelName);
+        }
     }
 
     public void LoadLevelSelectScreen() {
