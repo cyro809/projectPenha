@@ -138,7 +138,7 @@ public class Body : MovingObject {
 			StartCoroutine(showText("Shield"));
 		}
 
-		if(col.gameObject.layer == LayerMask.NameToLayer("PowerUp")) {
+		if(col.gameObject.layer == LayerMask.NameToLayer("PowerUp") && !col.gameObject.CompareTag("ShieldPowerUp")) {
 			GunController gunController = gun.GetComponent<GunController>();
 			gunController.SetGunMode(col.gameObject.tag);
 			StartCoroutine(showText(gunController.GetGunName()));
