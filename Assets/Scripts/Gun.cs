@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     public virtual int SpecialBulletsNumber { get { return 0; } }
     protected virtual float BulletSpeed { get { return 2000.0f; } }
     public virtual int BulletsPerShot { get { return 1; } }
-    public virtual float TimeBetweenShots { get { return 1.0f; } }
+    public virtual float TimeBetweenShots { get { return 0.7f; } }
     public virtual string GunName {get; }
     public virtual AudioClip ShotSound { get {return Resources.Load<AudioClip>("SoundEffects/shoot");} }
 

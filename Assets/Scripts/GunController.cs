@@ -23,7 +23,7 @@ public class GunController : MonoBehaviour {
 	public float timeBetweenShots;
 	protected float shotCounter;
 	int gunMode = 0;
-	public int specialShotBullets = 0;
+	public int specialShotBullets = 1;
 	public Transform firePoint;
 	protected AudioSource audioSource;
 
@@ -66,7 +66,7 @@ public class GunController : MonoBehaviour {
 				resetShotCounter();
 			}
 		}
-		if (specialShotBullets <= 0) {
+		if (specialShotBullets <= 0 && !IsNormalGun()) {
 			ResetGunMode();
 		}
 		showShotCounterText();
@@ -136,6 +136,7 @@ public class GunController : MonoBehaviour {
 	}
 
 	public void SetGrenadeLauncherMode() {
+
 		gunMode = GRENADE_LAUNCHER_MODE;
 		gun = gameObject.AddComponent<GrenadeLauncher>();
 	}
