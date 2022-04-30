@@ -420,3 +420,51 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 420.839175 seconds.
+  path: Assets/Prefabs/Enemies/ShootingEnemy.prefab
+  artifactKey: Guid(5adba83331a8dbb438d76a3d3d288694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/ShootingEnemy.prefab using Guid(5adba83331a8dbb438d76a3d3d288694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '479f63eb94d8360df0bf40086daf0b7b') in 0.293236 seconds 
+  Import took 0.304544 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001348 seconds.
+  path: Assets/Prefabs/Enemies/ShootingEnemyBoss Variant.prefab
+  artifactKey: Guid(079a90a95e1c849098a60d3ad7f42a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/ShootingEnemyBoss Variant.prefab using Guid(079a90a95e1c849098a60d3ad7f42a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e558b5beb8c0798e58f54e19908e1e4f') in 0.035664 seconds 
+  Import took 0.044155 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.954253 seconds.
+  path: Assets/Prefabs/Enemies/ShootingEnemy.prefab
+  artifactKey: Guid(5adba83331a8dbb438d76a3d3d288694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/ShootingEnemy.prefab using Guid(5adba83331a8dbb438d76a3d3d288694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34ccb7eba2baf87cd03f268490a6fde4') in 0.016543 seconds 
+  Import took 0.027434 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000743 seconds.
+  path: Assets/Prefabs/Enemies/ShootingEnemyBoss Variant.prefab
+  artifactKey: Guid(079a90a95e1c849098a60d3ad7f42a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/ShootingEnemyBoss Variant.prefab using Guid(079a90a95e1c849098a60d3ad7f42a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23e602e9811d2d61b10b25fe6f633440') in 0.033560 seconds 
+  Import took 0.044454 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.923588 seconds.
+  path: Assets/Prefabs/Enemies/ShootingEnemy.prefab
+  artifactKey: Guid(5adba83331a8dbb438d76a3d3d288694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/ShootingEnemy.prefab using Guid(5adba83331a8dbb438d76a3d3d288694) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2edeb8ea27778156ab01fc17601e77b8') in 0.020617 seconds 
+  Import took 0.028527 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000831 seconds.
+  path: Assets/Prefabs/Enemies/ShootingEnemyBoss Variant.prefab
+  artifactKey: Guid(079a90a95e1c849098a60d3ad7f42a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Enemies/ShootingEnemyBoss Variant.prefab using Guid(079a90a95e1c849098a60d3ad7f42a3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60c0cad1dced7a7b82f8e27b7144aee7') in 0.025873 seconds 
+  Import took 0.037600 seconds .
+
