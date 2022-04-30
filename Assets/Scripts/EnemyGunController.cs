@@ -9,6 +9,7 @@ public class EnemyGunController : GunController
 		base.Start();
 		Destroy(gameObject.GetComponent<Gun>());
 		gun = gameObject.AddComponent<EnemyGun>();
+		audioSource.clip = gun.ShotSound;
 	}
     // Update is called once per frame
     protected override void Update () {
@@ -18,7 +19,7 @@ public class EnemyGunController : GunController
 			if (shotCounter <= 0) {
 				shotCounter = gun.TimeBetweenShots;
 				gun.Fire(bullet, firePoint);
-
+				audioSource.Play();
 				resetShotCounter();
 			}
 		}

@@ -22,7 +22,9 @@ public class Body : MovingObject {
 	GameObject gameOverText;
 	GameState gameState;
 	AudioSource audioSource;
+	AudioClip BulletHit  { get {return Resources.Load<AudioClip>("SoundEffects/player-bullet-hit");} }
 	public TextMeshProUGUI powerUpText;
+
 
 
 	Vector3 movement;
@@ -128,6 +130,9 @@ public class Body : MovingObject {
 		}
 		if (col.gameObject.CompareTag("Enemy")) {
 			audioSource.Play();
+		}
+		if (col.gameObject.CompareTag("EnemyBullet")) {
+			audioSource.PlayOneShot(BulletHit, 0.7F);
 		}
 		if (col.gameObject.CompareTag("Goal")) {
 			ChangeToWinState();

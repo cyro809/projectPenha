@@ -84,7 +84,6 @@ public class BulletController : MonoBehaviour {
 			if(player) {
 				Vector3 pos = new Vector3(rb.transform.position.x, player.transform.position.y, rb.transform.position.z);
 				player.getHit (pushForce, pos);
-				audioSource.Play();
 			}
 			Destroy (gameObject);
 		}
