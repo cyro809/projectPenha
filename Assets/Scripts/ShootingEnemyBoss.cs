@@ -1,26 +1,51 @@
-﻿using UnityEngine;
-using UnityEngine.AI;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-
-public class Patrol : MovingObject {
-
+public class ShootingEnemyBoss : ShootingEnemy
+{
     public Transform[] points;
     private int destPoint = 0;
-    private NavMeshAgent agent;
-
-    public override void Start () {
-        agent = GetComponent<NavMeshAgent>();
+    private UnityEngine.AI.NavMeshAgent agent;
+    Transform headTransform;
+    // Start is called before the first frame update
+    public override void Start()
+    {
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        headTransform = enemyGun.transform.Find("ShootingEnemyBossHead");
+        Debug.Log(headTransform);
         // GetComponent<Rigidbody>().isKinematic = true;
+        // GetComponent<Rigidbody>().useGravity = false;
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
         agent.autoBraking = false;
         GotoNextPoint();
         base.Start ();
-
     }
 
+    protected override void OnMove()
+    {
+        if(agent.enabled) {
+            Vector3 direction = GetLookAtDirection(agent.destination);
+            if (!agent.pathPending && agent.remainingDistance < 0.5f) {
+                GotoNextPoint();
+
+            } else if (agent.remainingDistance >= 0.5f){
+                // rB.AddForce (points[destPoint].position * 2);
+            }
+            rB.AddForce (direction * 5);
+        }
+        else {
+            base.OnMove();
+        }
+        headTransform.position = new Vector3 (transform.position.x, headTransform.position.y, transform.position.z);
+
+        enemyGun.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+        enemyGun.transform.LookAt(player.transform.position);
+
+
+    }
 
     void GotoNextPoint() {
         // Returns if no points have been set up
@@ -37,19 +62,6 @@ public class Patrol : MovingObject {
         System.Random rand = new System.Random();
         while (previousPoint == destPoint) {
             destPoint = rand.Next(0, points.Length);
-        }
-    }
-
-    protected override void OnMove() {
-        if(agent.enabled) {
-            Vector3 direction = GetLookAtDirection(agent.destination);
-            if (!agent.pathPending && agent.remainingDistance < 0.5f) {
-                GotoNextPoint();
-
-            } else if (agent.remainingDistance >= 0.5f){
-                // rB.AddForce (points[destPoint].position * 2);
-            }
-            rB.AddForce (direction * 5);
         }
     }
 
@@ -71,8 +83,7 @@ public class Patrol : MovingObject {
             // GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<Rigidbody>().useGravity = true;
 
-            gameObject.GetComponent<Patrol>().enabled = false;
-            StartCoroutine(CooldownCount(2));
+            StartCoroutine(CooldownCount(1));
             getHit(1000, transform.position);
         }
         if (col.gameObject.CompareTag("LimitPlane")) {
@@ -95,7 +106,6 @@ public class Patrol : MovingObject {
         }
 
         // count down is finished...
-        gameObject.GetComponent<Patrol>().enabled = true;
         // GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
         agent.enabled = true;

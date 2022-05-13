@@ -71,7 +71,7 @@ public class BulletController : MonoBehaviour {
 
 	void HitBoss(float pushForce, Collision col) {
 		if(gameObject.CompareTag("Bullet")) {
-			Patrol hitEnemy = col.gameObject.GetComponent<Patrol>();
+			ShootingEnemyBoss hitEnemy = col.gameObject.GetComponent<ShootingEnemyBoss>();
 			hitEnemy.getHit (pushForce, transform.position);
 			Destroy (gameObject);
 		}
