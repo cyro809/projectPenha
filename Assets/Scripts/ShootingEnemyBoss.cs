@@ -13,9 +13,6 @@ public class ShootingEnemyBoss : ShootingEnemy
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         headTransform = enemyGun.transform.Find("ShootingEnemyBossHead");
-        Debug.Log(headTransform);
-        // GetComponent<Rigidbody>().isKinematic = true;
-        // GetComponent<Rigidbody>().useGravity = false;
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
@@ -31,8 +28,6 @@ public class ShootingEnemyBoss : ShootingEnemy
             if (!agent.pathPending && agent.remainingDistance < 0.5f) {
                 GotoNextPoint();
 
-            } else if (agent.remainingDistance >= 0.5f){
-                // rB.AddForce (points[destPoint].position * 2);
             }
             rB.AddForce (direction * 5);
         }
@@ -43,8 +38,6 @@ public class ShootingEnemyBoss : ShootingEnemy
 
         enemyGun.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
         enemyGun.transform.LookAt(player.transform.position);
-
-
     }
 
     void GotoNextPoint() {
@@ -76,11 +69,9 @@ public class ShootingEnemyBoss : ShootingEnemy
 		return (nextPoint - myPosition).normalized;
 	}
 
-    void OnCollisionEnter(Collision col) {
+    protected override void OnCollisionEnter(Collision col) {
         if(col.gameObject.CompareTag("Bullet")) {
             agent.enabled = false;
-            // GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            // GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<Rigidbody>().useGravity = true;
 
             StartCoroutine(CooldownCount(1));
@@ -106,7 +97,6 @@ public class ShootingEnemyBoss : ShootingEnemy
         }
 
         // count down is finished...
-        // GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Rigidbody>().useGravity = false;
         agent.enabled = true;
     }
