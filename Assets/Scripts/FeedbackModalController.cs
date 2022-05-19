@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class FeedbackModalController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void OpenFeedbackModal() {
+        Canvas feedbackModalCanvas = GameObject.Find("FeedbackModal").GetComponent<Canvas>();
+        feedbackModalCanvas.enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void CloseFeedbackModal() {
+        Canvas feedbackModalCanvas = GameObject.Find("FeedbackModal").GetComponent<Canvas>();
+        feedbackModalCanvas.enabled = false;
     }
 }
