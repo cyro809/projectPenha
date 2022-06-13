@@ -2,22 +2,29 @@ All Resources Links:
 
 
 Sound Effects:
--------------------------------------------------------------------------------------
-* Shotgun: https://freesound.org/people/SuperPhat/sounds/531861/
-* Machine Gun: https://freesound.org/people/Julien%20Matthey/sounds/470932/
-* Shield: https://freesound.org/people/mensageirocs/sounds/232678/
-* Cannonball Fire: https://freesound.org/people/Isaac200000/sounds/184650/
-* Shooting Enemy Fire: https://freesound.org/people/SamsterBirdies/sounds/542579/
-* Player Hit by Bullet: https://freesound.org/people/abstraktgeneriert/sounds/233631/
-=====================================================================================
+------------------------------------------------------------------------------------------
+* Shotgun:                  https://freesound.org/people/SuperPhat/sounds/531861/
+* Machine Gun:              https://freesound.org/people/Julien%20Matthey/sounds/470932/
+* Shield:                   https://freesound.org/people/mensageirocs/sounds/232678/
+* Shield Hit:               https://freesound.org/people/FiveBrosStopMosYT/sounds/558972/
+* Cannonball Fire:          https://freesound.org/people/Isaac200000/sounds/184650/
+* Shooting Enemy Fire:      https://freesound.org/people/SamsterBirdies/sounds/542579/
+* Player Hit by Bullet:     https://freesound.org/people/abstraktgeneriert/sounds/233631/
+* Player Hit by Enemy:      https://freesound.org/people/CGEffex/sounds/97792/
+* Player Gun Fire:          https://freesound.org/people/MATRIXXX_/sounds/414888/
+* Enemy Hit by Bullet:      https://freesound.org/people/rodrigocswm/sounds/449434/
+* Grenade Launcher:         https://freesound.org/people/xFromarge1/sounds/520044/
+* Grenade Explosion:
+==========================================================================================
+
 
 
 Music:
-----------------------------------------------------
-
-
-=======================================
-
+------------------------------------------------------------------------------------------
+* Title Screen Menu:    https://freesound.org/people/TimPalumbo/sounds/126048/
+* Game Over Music:      https://freesound.org/people/TheZero/sounds/368367/
+* In Game Music:
+==========================================================================================
 
 
 
