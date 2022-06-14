@@ -23,7 +23,8 @@ Music:
 ------------------------------------------------------------------------------------------
 * Title Screen Menu:    https://freesound.org/people/TimPalumbo/sounds/126048/
 * Game Over Music:      https://freesound.org/people/TheZero/sounds/368367/
-* In Game Music:
+* In Game Music 1:      https://freesound.org/people/bipwave/sounds/505985/
+* In Game Music 2:      https://freesound.org/people/szegvari/sounds/611305/
 ==========================================================================================
 
 
