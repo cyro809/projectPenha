@@ -45,6 +45,7 @@ public class GunController : MonoBehaviour {
 
 		if (isFiring && IsGameStarted()) {
 			if (shotCounter <= 0) {
+				audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 				shotCounter = gun.TimeBetweenShots;
 				if(IsGrenadeLauncherGun()) {
 					((GrenadeLauncher)gun).Fire(grenade, firePoint);

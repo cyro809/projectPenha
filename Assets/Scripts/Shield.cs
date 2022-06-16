@@ -27,6 +27,7 @@ public class Shield : MonoBehaviour
         col.a -= Time.deltaTime * fadeSpeed;
         GetComponent<MeshRenderer>().material.color = col;
         gameObject.SetActive (activate);
+        audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
     }
 
     void OnCollisionEnter (Collision col) {

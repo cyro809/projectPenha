@@ -129,6 +129,7 @@ public class Body : MovingObject {
 			KillPlayer();
 		}
 		if (col.gameObject.CompareTag("Enemy")) {
+			audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 			audioSource.Play();
 		}
 		if (col.gameObject.CompareTag("EnemyBullet")) {

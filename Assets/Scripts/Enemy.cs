@@ -158,6 +158,7 @@ public class Enemy : MovingObject {
 	}
 
 	protected virtual void PlayBulletHitSound() {
+		audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
         audioSource.Play();
 	}
 

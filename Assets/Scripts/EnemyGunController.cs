@@ -17,6 +17,7 @@ public class EnemyGunController : GunController
 
 		if (isFiring && IsGameStarted() && CanFireGun()) {
 			if (shotCounter <= 0) {
+				audioSource.volume = PlayerPrefs.GetFloat("soudEffectsVolume");
 				shotCounter = gun.TimeBetweenShots;
 				gun.Fire(bullet, firePoint);
 				audioSource.Play();
