@@ -17,6 +17,8 @@ public class Target : MonoBehaviour
     {
         if (isGameStopped()) {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        } else {
+            Cursor.SetCursor(cursorTarget, new Vector2(16, 6), CursorMode.ForceSoftware);
         }
     }
 
